@@ -77,7 +77,7 @@ The format of the primary table will be:
   <tr>
     <td>CID</td>
     <td>String</td>
-    <td>Foreign Key to the County table representing a County ID (format is [State FIPS] + '_' + [County Fips], e.g. '01_001')</td>
+    <td>Foreign Key to the County table representing a County ID (format is [FIPS State] + '_' + [FIPS County], e.g. '01_001')</td>
   </tr>
   <tr>
     <td>Notes</td>
@@ -92,7 +92,8 @@ COVID-19 Cases By Date and Location (Full) - this is the full view without hidde
 
 <h2>Primary Key: 'LID'</h2>
 
-The LID is of the format <pre>'YYYY-MM-DD_[State FIPS]_[County FIPS]_[Source ID]'</pre> (e.g. '2020-01-01_27_005_1')
+The LID is of the format: <pre>'YYYY-MM-DD_[FIPS State]_[FIPS County]_[Source ID]'</pre> 
+For example, a LID might look like '2020-01-01_27_005_1' which Becker County, Minnesota for Source ID #1 on 1/1/2020.
 This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.
 This integrity is by design.
 
