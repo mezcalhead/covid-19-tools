@@ -92,8 +92,8 @@ COVID-19 Cases By Date and Location (Full) - this is the full view without hidde
 
 <h2>Primary Key: 'LID'</h2>
 
-The LID is of the format: <pre>'YYYY-MM-DD_[FIPS State]_[FIPS County]_[Source ID]'</pre> 
-For example, a LID might look like '2020-01-01_27_005_1' which Becker County, Minnesota for Source ID #1 on 1/1/2020.
+The LID is of the format: 'YYYY-MM-DD&#95;[FIPS State]&#95;[FIPS County]&#95;[Source ID]'<br>
+For example, a LID might look like '2020-01-01_27_005_1' which is Becker County, Minnesota for Source ID #1 on 1/1/2020.
 This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.
 This integrity is by design.
 
