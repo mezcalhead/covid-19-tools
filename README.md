@@ -12,14 +12,7 @@ Developers are welcome to add publishing and visualization scripts.  The primary
 
 <h2>Lead Collaborators (by State)</h2>
 
-<table>
-  <tr>
-    <th>State FIPS</th>
-    <th>State</th>
-    <th>Collaborator GitHub Handle</th>
-    <th>Collaborator Email</th>
-  </tr>
-</table>
+<iframe class="airtable-embed" src="https://airtable.com/embed/shr1zaxlZ0U2RlO6n?backgroundColor=blue&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 <h2>Primary Table: 'Log'</h2>
 
