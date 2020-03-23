@@ -92,7 +92,7 @@ COVID-19 Cases By Date and Location (Full) - this is the full view without hidde
 
 <h2>Primary Key: 'LID'</h2>
 
-The LID is of the format <pre>'YYYY-MM-DD_[State FIPS]_[County FIPS]_[Source ID]'</pre> (e.g. '2020-01-01_27_005_1')<br>
-This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.<br>
+The LID is of the format <pre>'YYYY-MM-DD_[State FIPS]_[County FIPS]_[Source ID]'</pre> (e.g. '2020-01-01_27_005_1')
+This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.
 This integrity is by design.
 
