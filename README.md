@@ -32,7 +32,7 @@ The format of the primary table will be:
   <tr>
     <td>Date</td>
     <td>Date</td>
-    <td>m/d/YYYY format representing the date of the statistic (e.g. '1/1/2020')</td>
+    <td>m/d/YYYY format representing the date of the statistics (e.g. '1/1/2020')</td>
   </tr>
   <tr>
     <td>State</td>
