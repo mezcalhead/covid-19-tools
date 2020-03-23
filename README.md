@@ -81,12 +81,12 @@ The format of the primary table will be:
 </table>
 
 2 AirTable views are:
-COVID-19 Cases By Date and Location - public URL - note it has hidden fields that can be unhidden by the public.
-COVID-19 Cases By Date and Location (Full) - this is the full view without hidden fields enabled
+COVID-19 Cases By Date and Location - public URL - note it has hidden fields that can be unhidden by the public<br>
+COVID-19 Cases By Date and Location (Full) - this is the full view without hidden fields enabled<br>
 
 <h2>Primary Key: 'LID'</h2>
 
-The LID is of the format 'YYYY-MM-DD_[State Fips]_[County Fips]_[Source ID]' (e.g. '2020-01-01_27_005_1')
-This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.
+The LID is of the format <plaintext>'YYYY-MM-DD_[State Fips]_[County Fips]_[Source ID]'</plaintext> (e.g. '2020-01-01_27_005_1')<br>
+This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.<br>
 This integrity is by design.
 
