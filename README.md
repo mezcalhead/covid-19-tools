@@ -1,5 +1,7 @@
 <h2>COVID-19 Tracker at County Level Project</h2>
 
+<b>THIS PROJECT IS NOT LIVE, BUT LOOKING FOR COLLABORATORS!</b>
+
 The goal of this project is to unify the reporting of the 52 'states' (counting DC and PR) into a structured unified and public view at the county level, as this is sorely needed during this crisis.  At a future time, zip code (ZCTA) could be addressed.<br>
 
 For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airtable.com) repository that has been created and sponsored by <b>Culmen International</b> (www.culmen.com).  Registered developers will inject data into the airtable repo using the AirTable API.  To register, please contact <b>mark.dumas@culmen.com</b> and your assignment can be coordinated and your AirTable API key granted.<br>    
@@ -7,6 +9,17 @@ For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airta
 Public access will be via this link: <b>https://airtable.com/shrdzCswX95pa42qb</b><br>
 
 Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3.<br>
+
+<h2>Lead Collaborators (by State)</h2>
+
+<table>
+  <tr>
+    <th>State FIPS</th>
+    <th>State</th>
+    <th>Collaborator GitHub Handle</th>
+    <th>Collaborator Email</th>
+  </tr>
+</table>
 
 <h2>Primary Table: 'Log'</h2>
 
