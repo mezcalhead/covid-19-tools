@@ -34,7 +34,7 @@ The format of the primary table will be:
   <tr>
     <td>LID</td>
     <td>String</td>
-    <td>Primary Key that is the Log ID (<i>format described below</i>)</td>
+    <td>Primary Key that is the Log ID (<i>format described <a href='https://github.com/mezcalhead/covid-19-tracker/blob/master/README.md#primary-key-lid'>below</a></i>)</td>
   </tr>
   <tr>
     <td>Date</td>
