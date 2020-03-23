@@ -6,13 +6,13 @@ The goal of this project is to unify the reporting of the 52 'states' (counting 
 
 For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airtable.com) repository that has been created and sponsored by <b>Culmen International</b> (www.culmen.com).  Registered developers will inject data into the airtable repo using the AirTable API.  To register, please contact <b>mark.dumas@culmen.com</b> and your assignment can be coordinated and your AirTable API key granted.<br>    
 
-Public access will be via this link: <b>https://airtable.com/shrdzCswX95pa42qb</b><br>
+Public access will be via this link: <b><a href="https://airtable.com/shrdzCswX95pa42qb" target='_blank'>https://airtable.com/shrdzCswX95pa42qb</a></b><br>
 
 Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3.<br>
 
 <h2>Lead Collaborators (by State)</h2>
 
-View this link: <b>https://airtable.com/shr1zaxlZ0U2RlO6n</b><br>
+View here: <b><a href="https://airtable.com/shr1zaxlZ0U2RlO6n" target='_blank'>https://airtable.com/shr1zaxlZ0U2RlO6n</a></b><br>
 
 <h2>Primary Table: 'Log'</h2>
 
