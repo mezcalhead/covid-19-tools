@@ -12,7 +12,7 @@ Developers are welcome to add publishing and visualization scripts.  The primary
 
 <h2>Lead Collaborators (by State)</h2>
 
-<iframe class="airtable-embed" src="https://airtable.com/embed/shr1zaxlZ0U2RlO6n?backgroundColor=blue&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+View this link: <b>https://airtable.com/shr1zaxlZ0U2RlO6n</b><br>
 
 <h2>Primary Table: 'Log'</h2>
 
