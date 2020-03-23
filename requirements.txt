@@ -1,1 +1,1 @@
-
+gtalarico/airtable-python-wrapper==0.14.0
