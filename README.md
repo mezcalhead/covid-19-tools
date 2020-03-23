@@ -1,12 +1,12 @@
 <h2>COVID-19 Tracker at County Level Project</h2>
 
-The goal of this project is to unify the reporting of the 52 'states' (counting DC and PR) into a structured unified and public view at the county level, as this is sorely needed during this crisis.  At a future time, zip code (ZCTA) could be addressed.
+The goal of this project is to unify the reporting of the 52 'states' (counting DC and PR) into a structured unified and public view at the county level, as this is sorely needed during this crisis.  At a future time, zip code (ZCTA) could be addressed.<br>
 
-For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airtable.com) repository that has been created and sponsored by <b>Culmen International</b> (www.culmen.com).  Registered developers will inject data into the airtable repo using the AirTable API.  To register, please contact <b>mark.dumas@culmen.com</b> and your assignment can be coordinated and your AirTable API key granted.    
+For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airtable.com) repository that has been created and sponsored by <b>Culmen International</b> (www.culmen.com).  Registered developers will inject data into the airtable repo using the AirTable API.  To register, please contact <b>mark.dumas@culmen.com</b> and your assignment can be coordinated and your AirTable API key granted.<br>    
 
-Public access will be via this link: <b>https://airtable.com/shrdzCswX95pa42qb</b>
+Public access will be via this link: <b>https://airtable.com/shrdzCswX95pa42qb</b><br>
 
-Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3.
+Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3.<br>
 
 <h2>Primary Table: 'Log'</h2>
 
@@ -80,13 +80,13 @@ The format of the primary table will be:
   </tr>
 </table>
 
-2 AirTable views are:
+2 AirTable views are:<br>
 COVID-19 Cases By Date and Location - public URL - note it has hidden fields that can be unhidden by the public<br>
 COVID-19 Cases By Date and Location (Full) - this is the full view without hidden fields enabled<br>
 
 <h2>Primary Key: 'LID'</h2>
 
-The LID is of the format <plaintext>'YYYY-MM-DD_[State Fips]_[County Fips]_[Source ID]'</plaintext> (e.g. '2020-01-01_27_005_1')<br>
+The LID is of the format <pre>'YYYY-MM-DD_[State FIPS]_[County FIPS]_[Source ID]'</pre> (e.g. '2020-01-01_27_005_1')<br>
 This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.<br>
 This integrity is by design.
 
