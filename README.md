@@ -72,12 +72,12 @@ The format of the primary table will be:
   <tr>
     <td>SID</td>
     <td>Integer</td>
-    <td>Foreign Key to the Sources table representing a Source ID</td>
+    <td>Foreign Key to the <a href="https://airtable.com/shrkvnnwl7OQ0alzi" target="_blank">Source</a> table representing a Source ID</td>
   </tr>
   <tr>
     <td>CID</td>
     <td>String</td>
-    <td>Foreign Key to the County table representing a County ID (format is [FIPS State] + '_' + [FIPS County], e.g. '01_001')</td>
+    <td>Foreign Key to the <a href="https://airtable.com/shrTbAUWCcqP3bAmL" target="_blank">County</a> table representing a County ID (format is [FIPS State] + '_' + [FIPS County], e.g. '01_001')</td>
   </tr>
   <tr>
     <td>Notes</td>
@@ -96,4 +96,34 @@ The LID is of the format: 'YYYY-MM-DD&#95;[FIPS State]&#95;[FIPS County]&#95;[So
 For example, a LID might look like '2020-01-01_27_005_1' which is Becker County, Minnesota for Source ID #1 on 1/1/2020.
 This means that there can be multiple sources for any given day, but only one entry for any given day for state/county/source.
 This integrity is by design.
+
+<h2>Public Table Links</h2>
+
+<table>
+  <tr>
+    <th>Table Name</th>
+    <th>Description</th>
+    <th>Table URL</th>
+  </tr>
+  <tr>
+    <td>Log</td>
+    <td>The core data and daily log file by county and source.</td>
+    <td><a href="https://airtable.com/shrdzCswX95pa42qb" target="_blank">https://airtable.com/shrdzCswX95pa42qb</a></td>
+  </tr>
+  <tr>
+    <td>County</td>
+    <td>The county reference data for FIPS codes.</td>
+    <td><a href="https://airtable.com/shrTbAUWCcqP3bAmL" target="_blank">https://airtable.com/shrTbAUWCcqP3bAmL</a></td>
+  </tr>
+  <tr>
+    <td>State</td>
+    <td>The state reference data for indicating the lead collaborator.</td>
+    <td><a href="https://airtable.com/shr1zaxlZ0U2RlO6n" target="_blank">https://airtable.com/shr1zaxlZ0U2RlO6n</a></td>
+  </tr>
+  <tr>
+    <td>Source</td>
+    <td>The source data for the log information.</td>
+    <td><a href="https://airtable.com/shrkvnnwl7OQ0alzi" target="_blank">https://airtable.com/shrkvnnwl7OQ0alzi</a></td>
+  </tr>
+</table>
 
