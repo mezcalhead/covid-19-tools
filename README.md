@@ -8,7 +8,7 @@ For speed and simplicity, the project will utilize an <b>AirTable</b> (www.airta
 
 Public access will be via this link: <b><a href="https://airtable.com/shrdzCswX95pa42qb" target="_blank">https://airtable.com/shrdzCswX95pa42qb</a></b><br>
 
-Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3.<br>
+Developers are welcome to add publishing and visualization scripts.  The primary language is requested to be Python v3, and the standard AirTable API access library is requested to be <a href="https://github.com/gtalarico/airtable-python-wrapper">gtalarico/airtable-python-wrapper</a><br>
 
 <h2>Lead Collaborators (by State)</h2>
 
