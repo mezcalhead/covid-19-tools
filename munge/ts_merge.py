@@ -79,8 +79,9 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 		else:
 			label = label + ", " + adm1
 	n_obs += 1
-	fileout.write(str(n_obs) + '|' + fips + '|' + adm3 + '|' + adm2 + '|' + adm1 + '|' + str(datetime_object) + '|' + str(lat) + '|' + str(lon) + \
-		'|' + str(confirmed) + '|' + str(deaths) + '|' + str(recovered) + '|' + str(active) + '|' + label + '\n')
+	fileout.write(str(n_obs) + '|' + fips.strip() + '|' + adm3.strip() + '|' + adm2.strip() + '|' + adm1.strip() + '|' + \
+		str(datetime_object) + '|' + str(lat).strip() + '|' + str(lon).strip() + '|' + str(confirmed) + '|' + str(deaths) + \
+		'|' + str(recovered) + '|' + str(active) + '|' + label.strip() + '\n')
 
 # iterate the files, reading them
 n_files = 1 # number of files
