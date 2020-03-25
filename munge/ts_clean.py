@@ -10,6 +10,7 @@ from os.path import isfile, join
 import glob
 import csv
 from csv import reader
+import sys
 
 start = timer()
 now = datetime.now()
@@ -101,16 +102,16 @@ print()
 # LABEL|LAT|LON|COMMENT
 geo_corrections = {}
 try:
-	geo_corrections_datafile = path.abspath(path.join(basepath, '..', 'data', 'geo_corrections_datafile.txt'))
-	ln = 0 # line number
-	with open(geo_corrections_datafile, 'r') as geo_corrections_csvfile:
-		for line in csv.DictReader(geo_corrections_csvfile, dialect='piper'):
-			ln += 1
-			if (ln > 1):
-				geo_corrections[line[0]] = [line[1], line[2]]
+	geo_corrections_datafile = path.abspath(path.join(basepath, '..', 'data', 'geo_corrections.txt'))
+	with open(geo_corrections_datafile, 'r') as geo_corrections_fileptr:
+		for line in csv.DictReader(geo_corrections_fileptr, dialect='piper'):
+			#print(line)
+			geo_corrections[line['LABEL'].strip()] = [line['LAT'].strip(), line['LON'].strip()]
 	print('	Loaded ' + str(len(geo_corrections)) + ' geo_corrections...')
-except:
+except FileNotFoundError:
 	print('	No geo_corrections file...')
+except:
+	print("Unexpected error:", sys.exc_info()[0])
 print()
 
 # 2nd pass
@@ -136,6 +137,7 @@ for i, (key, v) in enumerate(hash.items()):
 				v['LON'] = temp[1]
 				geo_fixed_by_correction_file += 1
 			else:
+				print('	WARNING: can\'t fix geo: ' + v['LABEL'])
 				geo_cannot_fix += 1
 print('	# geo_fixed: ' + str(geo_fixed))
 print('	# geo_fixed_by_correction_file: ' + str(geo_fixed_by_correction_file))
@@ -143,7 +145,7 @@ print('	# geo_cannot_fix: ' + str(geo_cannot_fix))
 print('	# TOTAL: ' + str(geo_fixed + geo_cannot_fix))
 print()
 
-# 3rd pass - WRITE OUT THOSE THAT NEED FIXED
+# 3rd pass - WRITE OUT THOSE THAT NEED FIXED, UNSORTED
 flag = {} # only want to write once per unique key
 fileout = path.abspath(path.join(basepath, '..', 'data', 'geo_issues.txt'))
 fileout = open(fileout,'w')

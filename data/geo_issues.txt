@@ -1,45 +1,14 @@
 LABEL|LAT|LON
-Australia|0.0|0.0
-Chicago, US|0.0|0.0
-Ivory Coast|0.0|0.0
-Bavaria, Germany|0.0|0.0
-Cruise Ship, Others|0.0|0.0
-Ashland, NE, US|0.0|0.0
-Travis, CA, US|0.0|0.0
-Lackland, TX, US|0.0|0.0
-From Diamond Princess, Israel|0.0|0.0
-None, Lebanon|0.0|0.0
-None, Iraq|0.0|0.0
-None, Austria|0.0|0.0
-North Ireland|0.0|0.0
-Out of MI,Michigan,US|0.0|0.0
-Out of TN,Tennessee,US|0.0|0.0
-Out of UT,Utah,US|0.0|0.0
-Unassigned, Arkansas, US|0.0|0.0
-Unassigned, Colorado, US|0.0|0.0
-Unassigned, Florida, US|0.0|0.0
-Unassigned, Georgia, US|0.0|0.0
-Unassigned, Illinois, US|0.0|0.0
-Unassigned, Indiana, US|0.0|0.0
-Unassigned, Kentucky, US|0.0|0.0
-Unassigned, Louisiana, US|0.0|0.0
-Unassigned, Maine, US|0.0|0.0
-Unassigned, Massachusetts, US|0.0|0.0
-Unassigned, Minnesota, US|0.0|0.0
-Unassigned, Missouri, US|0.0|0.0
-Unassigned, Montana, US|0.0|0.0
-Unassigned, Nevada, US|0.0|0.0
-Unassigned, New Hampshire, US|0.0|0.0
-Unassigned, New Jersey, US|0.0|0.0
-Unassigned, New York, US|0.0|0.0
-Unassigned, Rhode Island, US|0.0|0.0
-Unassigned, Tennessee, US|0.0|0.0
-Unassigned, Vermont, US|0.0|0.0
-Unassigned, Washington, US|0.0|0.0
-Unassigned, Wuhan Evacuee, US|0.0|0.0
-Diamond Princess, Canada|0.0|0.0
-Unassigned, Arizona, US|0.0|0.0
-Unassigned, Hawaii, US|0.0|0.0
-Unassigned, Iowa, US|0.0|0.0
-Recovered, Canada|0.0|0.0
-Recovered, US|0.0|0.0
+Ivory Coast|0|0
+Cruise Ship, Others|0|0
+Travis, CA, US|0|0
+Lackland, TX, US|0|0
+From Diamond Princess, Israel|0|0
+None, Lebanon|0|0
+None, Iraq|0|0
+None, Austria|0|0
+North Ireland|0|0
+Unassigned, Wuhan Evacuee, US|0|0
+Diamond Princess, Canada|0|0
+Recovered, Canada|0|0
+Recovered, US|0|0

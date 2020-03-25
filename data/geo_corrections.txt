@@ -1,8 +1,8 @@
 LABEL|LAT|LON|COMMENT
-Ashland, NE, US                                |0|0|
+Ashland, NE, US                                |41.040556|-96.3725|
 Australia                                      |-32|115.9|
-Bavaria, Germany                               |0|0|
-Chicago, US                                    |0|0|
+Bavaria, Germany                               |48.7775|11.431111|
+Chicago, US                                    |41.881944|-87.627778|
 Cruise Ship, Others                            |0|0|
 Diamond Princess, Canada                       |0|0|
 From Diamond Princess, Israel                  |0|0|

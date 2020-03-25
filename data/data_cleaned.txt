@@ -37,7 +37,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 36|34|2020-01-22 17:00:00|Yunnan, Mainland China|N/A|N/A|Yunnan|Mainland China|24.974|101.487|1|0|0|-1|N
 37|35|2020-01-22 17:00:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|10|0|0|-1|N
 38|39|2020-01-23 17:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|9|0|0|-1|N
-39|81|2020-01-23 17:00:00|Australia|N/A|N/A|N/A|Australia|0.0|0.0|0|0|0|-1|N
+39|81|2020-01-23 17:00:00|Australia|N/A|N/A|N/A|Australia|-32|115.9|0|0|0|-1|N
 40|40|2020-01-23 17:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|22|0|0|-1|N
 41|83|2020-01-23 17:00:00|Brazil|N/A|N/A|N/A|Brazil|-14.235|-51.9253|0|0|0|-1|N
 42|41|2020-01-23 17:00:00|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|9|0|0|-1|N
@@ -84,7 +84,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 83|73|2020-01-23 17:00:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|27|0|0|-1|N
 84|96|2020-01-24 17:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|15|0|0|-1|N
 85|88|2020-01-24 17:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|36|0|1|-1|N
-86|119|2020-01-24 17:00:00|Chicago, US|N/A|N/A|Chicago|US|0.0|0.0|1|0|0|-1|N
+86|119|2020-01-24 17:00:00|Chicago, US|N/A|N/A|Chicago|US|41.881944|-87.627778|1|0|0|-1|N
 87|89|2020-01-24 17:00:00|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|27|0|0|-1|N
 88|125|2020-01-24 17:00:00|France|N/A|N/A|N/A|France|46.2276|2.2137|2|0|0|-1|N
 89|97|2020-01-24 17:00:00|Fujian, Mainland China|N/A|N/A|Fujian|Mainland China|26.0789|117.9874|10|0|0|-1|N
@@ -124,7 +124,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 123|102|2020-01-24 17:00:00|Yunnan, Mainland China|N/A|N/A|Yunnan|Mainland China|24.974|101.487|5|0|0|-1|N
 124|87|2020-01-24 17:00:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|43|0|1|-1|N
 125|132|2020-01-25 17:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|39|0|0|-1|N
-126|167|2020-01-25 17:00:00|Australia|N/A|N/A|N/A|Australia|0.0|0.0|4|0|0|-1|N
+126|167|2020-01-25 17:00:00|Australia|N/A|N/A|N/A|Australia|-32|115.9|4|0|0|-1|N
 127|131|2020-01-25 17:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|41|0|2|-1|N
 128|129|2020-01-25 17:00:00|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|57|0|0|-1|N
 129|166|2020-01-25 17:00:00|France|N/A|N/A|N/A|France|46.2276|2.2137|3|0|0|-1|N
@@ -169,7 +169,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 168|128|2020-01-25 17:00:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|62|0|1|-1|N
 169|177|2020-01-26 16:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|60|0|0|-1|N
 170|206|2020-01-26 16:00:00|Arizona, US|N/A|N/A|Arizona|US|33.7298|-111.4312|1|0|0|-1|N
-171|213|2020-01-26 16:00:00|Australia|N/A|N/A|N/A|Australia|0.0|0.0|4|0|0|-1|N
+171|213|2020-01-26 16:00:00|Australia|N/A|N/A|N/A|Australia|-32|115.9|4|0|0|-1|N
 172|176|2020-01-26 16:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|68|0|2|-1|N
 173|205|2020-01-26 16:00:00|California, US|N/A|N/A|California|US|36.1162|-119.6816|2|0|0|-1|N
 174|174|2020-01-26 16:00:00|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|75|0|0|-1|N
@@ -235,7 +235,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 234|222|2020-01-27 23:59:00|Hunan, Mainland China|N/A|N/A|Hunan|Mainland China|27.6104|111.7088|100|0|0|-1|N
 235|251|2020-01-27 23:59:00|Illinois, US|N/A|N/A|Illinois|US|40.3495|-88.9861|1|0|0|-1|N
 236|241|2020-01-27 23:59:00|Inner Mongolia, Mainland China|N/A|N/A|Inner Mongolia|Mainland China|44.0935|113.9448|11|0|0|-1|N
-237|265|2020-01-27 23:59:00|Ivory Coast|N/A|N/A|N/A|Ivory Coast|0.0|0.0|1|0|0|-1|N
+237|265|2020-01-27 23:59:00|Ivory Coast|N/A|N/A|N/A|Ivory Coast|0|0|1|0|0|-1|N
 238|254|2020-01-27 23:59:00|Japan|N/A|N/A|N/A|Japan|36.204824|138.252924|4|0|1|-1|N
 239|230|2020-01-27 23:59:00|Jiangsu, Mainland China|N/A|N/A|Jiangsu|Mainland China|32.9711|119.455|47|0|1|-1|N
 240|225|2020-01-27 23:59:00|Jiangxi, Mainland China|N/A|N/A|Jiangxi|Mainland China|27.614|115.7221|72|0|2|-1|N
@@ -267,7 +267,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 266|219|2020-01-27 23:59:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|128|0|1|-1|N
 267|275|2020-01-28 23:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|106|0|0|-1|N
 268|304|2020-01-28 23:00:00|Arizona, US|N/A|N/A|Arizona|US|33.7298|-111.4312|1|0|0|-1|N
-269|319|2020-01-28 23:00:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|0.0|0.0|4|0|0|-1|N
+269|319|2020-01-28 23:00:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|48.7775|11.431111|4|0|0|-1|N
 270|277|2020-01-28 23:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|91|1|4|-1|N
 271|314|2020-01-28 23:00:00|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|1|0|0|-1|N
 272|303|2020-01-28 23:00:00|California, US|N/A|N/A|California|US|36.1162|-119.6816|2|0|0|-1|N
@@ -319,7 +319,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 318|270|2020-01-28 23:00:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|173|0|3|-1|N
 319|325|2020-01-29 19:30:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|152|0|2|-1|N
 320|356|2020-01-29 19:30:00|Arizona, US|N/A|N/A|Arizona|US|33.7298|-111.4312|1|0|0|-1|N
-321|371|2020-01-29 19:30:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|0.0|0.0|4|0|0|-1|N
+321|371|2020-01-29 19:30:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|48.7775|11.431111|4|0|0|-1|N
 322|328|2020-01-29 19:30:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|111|1|4|-1|N
 323|366|2020-01-29 19:30:00|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|1|0|0|-1|N
 324|355|2020-01-29 19:30:00|California, US|N/A|N/A|California|US|36.1162|-119.6816|2|0|0|-1|N
@@ -373,7 +373,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 372|321|2020-01-29 19:30:00|Zhejiang, Mainland China|N/A|N/A|Zhejiang|Mainland China|29.1832|120.0934|296|0|3|-1|N
 373|379|2020-01-30 16:00:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|200|0|2|-1|N
 374|411|2020-01-30 16:00:00|Arizona, US|N/A|N/A|Arizona|US|33.7298|-111.4312|1|0|0|-1|N
-375|427|2020-01-30 16:00:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|0.0|0.0|4|0|0|-1|N
+375|427|2020-01-30 16:00:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|48.7775|11.431111|4|0|0|-1|N
 376|385|2020-01-30 16:00:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|114|1|4|-1|N
 377|421|2020-01-30 16:00:00|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|1|0|0|-1|N
 378|410|2020-01-30 16:00:00|California, US|N/A|N/A|California|US|36.1162|-119.6816|2|0|0|-1|N
@@ -452,7 +452,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 451|1249|2020-01-31 16:13:45|Russia|N/A|N/A|N/A|Russia|61.52401|105.318756|2|0|0|-1|N
 452|438|2020-01-31 23:59:00|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|237|0|3|-1|N
 453|485|2020-01-31 23:59:00|Arizona, US|N/A|N/A|Arizona|US|33.7298|-111.4312|1|0|0|-1|N
-454|472|2020-01-31 23:59:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|0.0|0.0|5|0|0|-1|N
+454|472|2020-01-31 23:59:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|48.7775|11.431111|5|0|0|-1|N
 455|443|2020-01-31 23:59:00|Beijing, Mainland China|N/A|N/A|Beijing|Mainland China|40.1824|116.4142|139|1|5|-1|N
 456|487|2020-01-31 23:59:00|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|1|0|0|-1|N
 457|477|2020-01-31 23:59:00|California, US|N/A|N/A|California|US|36.1162|-119.6816|2|0|0|-1|N
@@ -805,7 +805,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 804|911|2020-02-07 14:03:12|Henan, Mainland China|N/A|N/A|Henan|Mainland China|33.882|113.614|914|3|86|-1|N
 805|916|2020-02-07 14:03:12|Jiangsu, Mainland China|N/A|N/A|Jiangsu|Mainland China|32.9711|119.455|408|0|43|-1|N
 806|929|2020-02-07 15:33:03|Liaoning, Mainland China|N/A|N/A|Liaoning|Mainland China|41.2956|122.6085|99|0|7|-1|N
-807|1006|2020-02-07 16:33:03|Cruise Ship, Others|N/A|N/A|Cruise Ship|Others|0.0|0.0|61|0|0|-1|N
+807|1006|2020-02-07 16:33:03|Cruise Ship, Others|N/A|N/A|Cruise Ship|Others|0|0|61|0|0|-1|N
 808|1018|2020-02-07 16:33:03|Germany|N/A|N/A|N/A|Germany|51.165691|10.451526|13|0|0|-1|N
 809|1246|2020-02-07 16:43:04|Philippines|N/A|N/A|N/A|Philippines|12.879721|121.774017|3|1|0|-1|N
 810|1917|2020-02-07 17:53:02|Italy|N/A|N/A|N/A|Italy|41.87194|12.56738|3|0|0|-1|N
@@ -1356,8 +1356,8 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1355|1973|2020-02-21 13:43:02|Xinjiang, Mainland China|N/A|N/A|Xinjiang|Mainland China|41.1129|85.2401|76|1|24|-1|N
 1356|2054|2020-02-21 15:13:07|Gansu, Mainland China|N/A|N/A|Gansu|Mainland China|36.0611|103.8343|91|2|76|-1|N
 1357|1947|2020-02-21 15:13:07|Hunan, Mainland China|N/A|N/A|Hunan|Mainland China|27.6104|111.7088|1011|4|661|-1|N
-1358|2012|2020-02-21 15:33:03|From Diamond Princess, Israel|N/A|N/A|From Diamond Princess|Israel|0.0|0.0|1|0|0|-1|N
-1359|2013|2020-02-21 15:33:03|None, Lebanon|N/A|N/A|None|Lebanon|0.0|0.0|1|0|0|-1|N
+1358|2012|2020-02-21 15:33:03|From Diamond Princess, Israel|N/A|N/A|From Diamond Princess|Israel|0|0|1|0|0|-1|N
+1359|2013|2020-02-21 15:33:03|None, Lebanon|N/A|N/A|None|Lebanon|0|0|1|0|0|-1|N
 1360|2564|2020-02-21 18:53:02|Egypt|N/A|N/A|N/A|Egypt|26.820553|30.802498|1|0|0|-1|N
 1361|1981|2020-02-21 18:53:02|Iran|N/A|N/A|N/A|Iran|32.427908|53.688046|18|4|0|-1|N
 1362|2062|2020-02-21 18:53:02|Thailand|N/A|N/A|N/A|Thailand|15.870032|100.992541|35|0|17|-1|N
@@ -1366,9 +1366,9 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1365|2237|2020-02-21 23:03:13|Germany|N/A|N/A|N/A|Germany|51.165691|10.451526|16|0|14|-1|N
 1366|1953|2020-02-21 23:13:14|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|572|6|316|-1|N
 1367|2474|2020-02-21 23:13:16|Sacramento, California, US|06067|Sacramento|California|US|38.451068|-121.342537|1|0|0|-1|N
-1368|1986|2020-02-21 23:23:06|Ashland, NE, US|N/A|N/A|Ashland, NE|US|0.0|0.0|11|0|0|-1|N
-1369|2003|2020-02-21 23:23:06|Lackland, TX, US|N/A|N/A|Lackland, TX|US|0.0|0.0|2|0|0|-1|N
-1370|1992|2020-02-21 23:23:06|Travis, CA, US|N/A|N/A|Travis, CA|US|0.0|0.0|5|0|0|-1|N
+1368|1986|2020-02-21 23:23:06|Ashland, NE, US|N/A|N/A|Ashland, NE|US|41.040556|-96.3725|11|0|0|-1|N
+1369|2003|2020-02-21 23:23:06|Lackland, TX, US|N/A|N/A|Lackland, TX|US|0|0|2|0|0|-1|N
+1370|1992|2020-02-21 23:23:06|Travis, CA, US|N/A|N/A|Travis, CA|US|0|0|5|0|0|-1|N
 1371|1980|2020-02-21 23:33:06|Italy|N/A|N/A|N/A|Italy|41.87194|12.56738|20|1|0|-1|N
 1372|1966|2020-02-21 23:33:06|Shanxi, Mainland China|N/A|N/A|Shanxi|Mainland China|37.5777|112.2922|132|0|78|-1|N
 1373|2049|2020-02-22 01:03:10|Guizhou, Mainland China|N/A|N/A|Guizhou|Mainland China|26.8154|106.8748|146|2|90|-1|N
@@ -1402,7 +1402,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1401|2430|2020-02-22 17:03:05|From Diamond Princess, Australia|N/A|N/A|From Diamond Princess|Australia|35.4437|139.638|7|0|0|-1|N
 1402|2171|2020-02-22 17:13:24|Lackland, TX (From Diamond Princess), US|N/A|N/A|Lackland, TX (From Diamond Princess)|US|29.3829|-98.6134|2|0|0|-1|N
 1403|2161|2020-02-22 17:13:24|Travis, CA (From Diamond Princess), US|N/A|N/A|Travis, CA (From Diamond Princess)|US|38.2721|-121.9399|5|0|0|-1|N
-1404|2361|2020-02-22 20:53:02|From Diamond Princess, Israel|N/A|N/A|From Diamond Princess|Israel|0.0|0.0|1|0|0|-1|N
+1404|2361|2020-02-22 20:53:02|From Diamond Princess, Israel|N/A|N/A|From Diamond Princess|Israel|0|0|1|0|0|-1|N
 1405|2362|2020-02-22 20:53:02|Lebanon|N/A|N/A|N/A|Lebanon|33.8547|35.8623|1|0|0|-1|N
 1406|2155|2020-02-22 23:03:09|Omaha, NE (From Diamond Princess), US|N/A|N/A|Omaha, NE (From Diamond Princess)|US|41.2545|-95.9758|11|0|0|-1|N
 1407|2037|2020-02-22 23:23:05|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|573|6|328|-1|N
@@ -1443,7 +1443,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1442|2233|2020-02-23 15:03:05|Thailand|N/A|N/A|N/A|Thailand|15.870032|100.992541|35|0|21|-1|N
 1443|2146|2020-02-23 15:13:15|Iran|N/A|N/A|N/A|Iran|32.427908|53.688046|43|8|0|-1|N
 1444|2226|2020-02-23 15:13:15|Singapore|N/A|N/A|N/A|Singapore|1.2833|103.8333|89|0|51|-1|N
-1445|2195|2020-02-23 18:23:06|None, Iraq|N/A|N/A|None|Iraq|0.0|0.0|0|0|0|-1|N
+1445|2195|2020-02-23 18:23:06|None, Iraq|N/A|N/A|None|Iraq|0|0|0|0|0|-1|N
 1446|2295|2020-02-23 22:33:03|Diamond Princess cruise ship, Others|N/A|N/A|Diamond Princess cruise ship|Others|35.4437|139.638|691|3|0|-1|N
 1447|2137|2020-02-23 23:03:08|Shanxi, Mainland China|N/A|N/A|Shanxi|Mainland China|37.5777|112.2922|132|0|88|-1|N
 1448|2122|2020-02-23 23:13:05|Chongqing, Mainland China|N/A|N/A|Chongqing|Mainland China|30.0572|107.874|575|6|335|-1|N
@@ -1534,7 +1534,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1533|2325|2020-02-25 18:55:32|Bahrain|N/A|N/A|N/A|Bahrain|26.0275|50.55|23|0|0|-1|N
 1534|2357|2020-02-25 18:55:32|Croatia|N/A|N/A|N/A|Croatia|45.1|15.2|1|0|0|-1|N
 1535|2302|2020-02-25 18:55:32|Italy|N/A|N/A|N/A|Italy|41.87194|12.56738|322|10|1|-1|N
-1536|2345|2020-02-25 18:55:32|None, Austria|N/A|N/A|None|Austria|0.0|0.0|2|0|0|-1|N
+1536|2345|2020-02-25 18:55:32|None, Austria|N/A|N/A|None|Austria|0|0|2|0|0|-1|N
 1537|2317|2020-02-25 18:55:32|Singapore|N/A|N/A|N/A|Singapore|1.2833|103.8333|91|0|53|-1|N
 1538|2468|2020-02-25 19:13:21|Switzerland|N/A|N/A|N/A|Switzerland|46.8182|8.2275|1|0|0|-1|N
 1539|2330|2020-02-25 21:23:03|France|N/A|N/A|N/A|France|46.2276|2.2137|14|1|11|-1|N
@@ -1676,7 +1676,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 1675|2603|2020-02-28 04:53:03|Shanghai, Mainland China|N/A|N/A|Shanghai|Mainland China|31.202|121.4491|337|3|279|-1|N
 1676|2609|2020-02-28 05:03:09|Yunnan, Mainland China|N/A|N/A|Yunnan|Mainland China|24.974|101.487|174|2|156|-1|N
 1677|3356|2020-02-28 05:23:07|Montreal, QC, Canada|N/A|N/A|Montreal, QC|Canada|45.5017|-73.5673|1|0|0|-1|N
-1678|2685|2020-02-28 05:43:02|North Ireland|N/A|N/A|N/A|North Ireland|0.0|0.0|1|0|0|-1|N
+1678|2685|2020-02-28 05:43:02|North Ireland|N/A|N/A|N/A|North Ireland|0|0|1|0|0|-1|N
 1679|2628|2020-02-28 07:13:08|Taiwan, Taiwan|N/A|N/A|Taiwan|Taiwan|23.7|121.0|34|1|6|-1|N
 1680|2620|2020-02-28 07:23:03|Inner Mongolia, Mainland China|N/A|N/A|Inner Mongolia|Mainland China|44.0935|113.9448|75|0|45|-1|N
 1681|2619|2020-02-28 07:43:02|Xinjiang, Mainland China|N/A|N/A|Xinjiang|Mainland China|41.1129|85.2401|76|3|52|-1|N
@@ -7601,9 +7601,9 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 7600|10102|2020-03-23 23:19:34|Ouachita, Arkansas, US|05103|Ouachita|Arkansas|US|33.588398|-92.87796|0|0|0|0|N
 7601|10103|2020-03-23 23:19:34|Ouachita, Louisiana, US|22073|Ouachita|Louisiana|US|32.476456|-92.157042|9|1|0|0|N
 7602|10104|2020-03-23 23:19:34|Ouray, Colorado, US|08091|Ouray|Colorado|US|38.147175|-107.767514|0|0|0|0|N
-7603|10105|2020-03-23 23:19:34|Out of MI,Michigan,US|N/A|Out of MI|Michigan|US|0.0|0.0|4|0|0|0|N
-7604|10106|2020-03-23 23:19:34|Out of TN,Tennessee,US|N/A|Out of TN|Tennessee|US|0.0|0.0|89|0|0|0|N
-7605|10107|2020-03-23 23:19:34|Out of UT,Utah,US|N/A|Out of UT|Utah|US|0.0|0.0|13|0|0|0|N
+7603|10105|2020-03-23 23:19:34|Out of MI,Michigan,US|N/A|Out of MI|Michigan|US|43.3|-84.5|4|0|0|0|N
+7604|10106|2020-03-23 23:19:34|Out of TN,Tennessee,US|N/A|Out of TN|Tennessee|US|35.7|-86.7|89|0|0|0|N
+7605|10107|2020-03-23 23:19:34|Out of UT,Utah,US|N/A|Out of UT|Utah|US|40.1|-111.9|13|0|0|0|N
 7606|10108|2020-03-23 23:19:34|Outagamie, Wisconsin, US|55087|Outagamie|Wisconsin|US|44.415789|-88.46565|2|0|0|0|N
 7607|10109|2020-03-23 23:19:34|Overton, Tennessee, US|47133|Overton|Tennessee|US|36.341178|-85.289895|0|0|0|0|N
 7608|10110|2020-03-23 23:19:34|Owen, Indiana, US|18119|Owen|Indiana|US|39.311456|-86.839007|1|0|0|0|N
@@ -8280,28 +8280,28 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 8279|10780|2020-03-23 23:19:34|Uintah, Utah, US|49047|Uintah|Utah|US|40.124915|-109.517442|0|0|0|0|N
 8280|10781|2020-03-23 23:19:34|Ulster, New York, US|36111|Ulster|New York|US|41.890279|-74.262521|18|0|0|0|N
 8281|10782|2020-03-23 23:19:34|Umatilla, Oregon, US|41059|Umatilla|Oregon|US|45.590731|-118.735383|2|0|0|0|N
-8282|10783|2020-03-23 23:19:34|Unassigned, Arkansas, US|N/A|Unassigned|Arkansas|US|0.0|0.0|3|0|0|0|N
-8283|10784|2020-03-23 23:19:34|Unassigned, Colorado, US|N/A|Unassigned|Colorado|US|0.0|0.0|1|0|0|0|N
-8284|10785|2020-03-23 23:19:34|Unassigned, Florida, US|N/A|Unassigned|Florida|US|0.0|0.0|0|1|0|0|N
-8285|10786|2020-03-23 23:19:34|Unassigned, Georgia, US|N/A|Unassigned|Georgia|US|0.0|0.0|45|10|0|0|N
-8286|10787|2020-03-23 23:19:34|Unassigned, Illinois, US|N/A|Unassigned|Illinois|US|0.0|0.0|63|0|0|0|N
-8287|10788|2020-03-23 23:19:34|Unassigned, Indiana, US|N/A|Unassigned|Indiana|US|0.0|0.0|56|0|0|0|N
-8288|10789|2020-03-23 23:19:34|Unassigned, Kentucky, US|N/A|Unassigned|Kentucky|US|0.0|0.0|15|0|0|0|N
-8289|10790|2020-03-23 23:19:34|Unassigned, Louisiana, US|N/A|Unassigned|Louisiana|US|0.0|0.0|11|0|0|0|N
-8290|10791|2020-03-23 23:19:34|Unassigned, Maine, US|N/A|Unassigned|Maine|US|0.0|0.0|5|0|0|0|N
-8291|10792|2020-03-23 23:19:34|Unassigned, Massachusetts, US|N/A|Unassigned|Massachusetts|US|0.0|0.0|53|7|0|0|N
-8292|10793|2020-03-23 23:19:34|Unassigned, Minnesota, US|N/A|Unassigned|Minnesota|US|0.0|0.0|1|0|0|0|N
-8293|10794|2020-03-23 23:19:34|Unassigned, Missouri, US|N/A|Unassigned|Missouri|US|0.0|0.0|4|0|0|0|N
-8294|10795|2020-03-23 23:19:34|Unassigned, Montana, US|N/A|Unassigned|Montana|US|0.0|0.0|1|0|0|0|N
-8295|10796|2020-03-23 23:19:34|Unassigned, Nevada, US|N/A|Unassigned|Nevada|US|0.0|0.0|89|0|0|0|N
-8296|10797|2020-03-23 23:19:34|Unassigned, New Hampshire, US|N/A|Unassigned|New Hampshire|US|0.0|0.0|23|0|0|0|N
-8297|10798|2020-03-23 23:19:34|Unassigned, New Jersey, US|N/A|Unassigned|New Jersey|US|0.0|0.0|419|9|0|0|N
-8298|10799|2020-03-23 23:19:34|Unassigned, New York, US|N/A|Unassigned|New York|US|0.0|0.0|107|36|0|0|N
-8299|10800|2020-03-23 23:19:34|Unassigned, Rhode Island, US|N/A|Unassigned|Rhode Island|US|0.0|0.0|5|0|0|0|N
-8300|10801|2020-03-23 23:19:34|Unassigned, Tennessee, US|N/A|Unassigned|Tennessee|US|0.0|0.0|54|0|0|0|N
-8301|10802|2020-03-23 23:19:34|Unassigned, Vermont, US|N/A|Unassigned|Vermont|US|0.0|0.0|0|3|0|0|N
-8302|10803|2020-03-23 23:19:34|Unassigned, Washington, US|N/A|Unassigned|Washington|US|0.0|0.0|145|0|0|0|N
-8303|10804|2020-03-23 23:19:34|Unassigned, Wuhan Evacuee, US|N/A|Unassigned|Wuhan Evacuee|US|0.0|0.0|4|0|0|0|N
+8282|10783|2020-03-23 23:19:34|Unassigned, Arkansas, US|N/A|Unassigned|Arkansas|US|35|-92.4|3|0|0|0|N
+8283|10784|2020-03-23 23:19:34|Unassigned, Colorado, US|N/A|Unassigned|Colorado|US|39.1|-105.3|1|0|0|0|N
+8284|10785|2020-03-23 23:19:34|Unassigned, Florida, US|N/A|Unassigned|Florida|US|27.8|-81.7|0|1|0|0|N
+8285|10786|2020-03-23 23:19:34|Unassigned, Georgia, US|N/A|Unassigned|Georgia|US|33|-83.6|45|10|0|0|N
+8286|10787|2020-03-23 23:19:34|Unassigned, Illinois, US|N/A|Unassigned|Illinois|US|40.3|-89|63|0|0|0|N
+8287|10788|2020-03-23 23:19:34|Unassigned, Indiana, US|N/A|Unassigned|Indiana|US|39.8|-86.3|56|0|0|0|N
+8288|10789|2020-03-23 23:19:34|Unassigned, Kentucky, US|N/A|Unassigned|Kentucky|US|37.7|-84.7|15|0|0|0|N
+8289|10790|2020-03-23 23:19:34|Unassigned, Louisiana, US|N/A|Unassigned|Louisiana|US|31.2|-91.9|11|0|0|0|N
+8290|10791|2020-03-23 23:19:34|Unassigned, Maine, US|N/A|Unassigned|Maine|US|44.7|-69.4|5|0|0|0|N
+8291|10792|2020-03-23 23:19:34|Unassigned, Massachusetts, US|N/A|Unassigned|Massachusetts|US|42.2|-71.5|53|7|0|0|N
+8292|10793|2020-03-23 23:19:34|Unassigned, Minnesota, US|N/A|Unassigned|Minnesota|US|45.7|-93.9|1|0|0|0|N
+8293|10794|2020-03-23 23:19:34|Unassigned, Missouri, US|N/A|Unassigned|Missouri|US|38.5|-92.3|4|0|0|0|N
+8294|10795|2020-03-23 23:19:34|Unassigned, Montana, US|N/A|Unassigned|Montana|US|46.9|-110.5|1|0|0|0|N
+8295|10796|2020-03-23 23:19:34|Unassigned, Nevada, US|N/A|Unassigned|Nevada|US|38.3|-117.1|89|0|0|0|N
+8296|10797|2020-03-23 23:19:34|Unassigned, New Hampshire, US|N/A|Unassigned|New Hampshire|US|43.5|-71.6|23|0|0|0|N
+8297|10798|2020-03-23 23:19:34|Unassigned, New Jersey, US|N/A|Unassigned|New Jersey|US|40.3|-74.5|419|9|0|0|N
+8298|10799|2020-03-23 23:19:34|Unassigned, New York, US|N/A|Unassigned|New York|US|42.2|-74.9|107|36|0|0|N
+8299|10800|2020-03-23 23:19:34|Unassigned, Rhode Island, US|N/A|Unassigned|Rhode Island|US|41.7|-71.5|5|0|0|0|N
+8300|10801|2020-03-23 23:19:34|Unassigned, Tennessee, US|N/A|Unassigned|Tennessee|US|35.7|-86.7|54|0|0|0|N
+8301|10802|2020-03-23 23:19:34|Unassigned, Vermont, US|N/A|Unassigned|Vermont|US|44|-72.7|0|3|0|0|N
+8302|10803|2020-03-23 23:19:34|Unassigned, Washington, US|N/A|Unassigned|Washington|US|47.4|-121.5|145|0|0|0|N
+8303|10804|2020-03-23 23:19:34|Unassigned, Wuhan Evacuee, US|N/A|Unassigned|Wuhan Evacuee|US|0|0|4|0|0|0|N
 8304|10805|2020-03-23 23:19:34|Unicoi, Tennessee, US|47171|Unicoi|Tennessee|US|36.108909|-82.437096|0|0|0|0|N
 8305|10806|2020-03-23 23:19:34|Union, Arkansas, US|05139|Union|Arkansas|US|33.168871|-92.59747|1|0|0|0|N
 8306|10807|2020-03-23 23:19:34|Union, Florida, US|12125|Union|Florida|US|30.04413|-82.374974|0|0|0|0|N
@@ -8598,7 +8598,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 8597|11098|2020-03-23 23:19:34|Ziebach, South Dakota, US|46137|Ziebach|South Dakota|US|44.978819|-101.665462|0|0|0|0|N
 8598|11099|2020-03-23 23:23:10|Alberta, Canada|N/A|N/A|Alberta|Canada|53.9333|-116.5765|301|1|0|0|N
 8599|11106|2020-03-23 23:23:10|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|472|13|0|0|N
-8600|11111|2020-03-23 23:23:10|Diamond Princess, Canada|N/A|N/A|Diamond Princess|Canada|0.0|0.0|0|1|0|0|N
+8600|11111|2020-03-23 23:23:10|Diamond Princess, Canada|N/A|N/A|Diamond Princess|Canada|0|0|0|1|0|0|N
 8601|11120|2020-03-23 23:23:10|Grand Princess, Canada|N/A|N/A|Grand Princess|Canada|37.6489|-122.6655|13|0|0|0|N
 8602|11142|2020-03-23 23:23:10|Manitoba, Canada|N/A|N/A|Manitoba|Canada|53.7609|-98.8139|20|0|0|0|N
 8603|11146|2020-03-23 23:23:10|New Brunswick, Canada|N/A|N/A|New Brunswick|Canada|46.5653|-66.4619|17|0|0|0|N
@@ -11000,9 +11000,9 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 10999|13517|2020-03-24 23:37:31|Ouachita, Arkansas, US|05103|Ouachita|Arkansas|US|33.588398|-92.87796|0|0|0|0|N
 11000|13518|2020-03-24 23:37:31|Ouachita, Louisiana, US|22073|Ouachita|Louisiana|US|32.476456|-92.157042|7|1|0|0|N
 11001|13519|2020-03-24 23:37:31|Ouray, Colorado, US|08091|Ouray|Colorado|US|38.147175|-107.767514|0|0|0|0|N
-11002|13520|2020-03-24 23:37:31|Out of MI,Michigan,US|N/A|Out of MI|Michigan|US|0.0|0.0|6|0|0|0|N
-11003|13521|2020-03-24 23:37:31|Out of TN,Tennessee,US|N/A|Out of TN|Tennessee|US|0.0|0.0|95|0|0|0|N
-11004|13522|2020-03-24 23:37:31|Out of UT,Utah,US|N/A|Out of UT|Utah|US|0.0|0.0|13|0|0|0|N
+11002|13520|2020-03-24 23:37:31|Out of MI,Michigan,US|N/A|Out of MI|Michigan|US|43.3|-84.5|6|0|0|0|N
+11003|13521|2020-03-24 23:37:31|Out of TN,Tennessee,US|N/A|Out of TN|Tennessee|US|35.7|-86.7|95|0|0|0|N
+11004|13522|2020-03-24 23:37:31|Out of UT,Utah,US|N/A|Out of UT|Utah|US|40.1|-111.9|13|0|0|0|N
 11005|13523|2020-03-24 23:37:31|Outagamie, Wisconsin, US|55087|Outagamie|Wisconsin|US|44.415789|-88.46565|2|0|0|0|N
 11006|13524|2020-03-24 23:37:31|Overton, Tennessee, US|47133|Overton|Tennessee|US|36.341178|-85.289895|1|0|0|0|N
 11007|13525|2020-03-24 23:37:31|Owen, Indiana, US|18119|Owen|Indiana|US|39.311456|-86.839007|2|0|0|0|N
@@ -11225,7 +11225,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 11224|13741|2020-03-24 23:37:31|Ray, Missouri, US|29177|Ray|Missouri|US|39.353747|-93.989057|0|0|0|0|N
 11225|13742|2020-03-24 23:37:31|Reagan, Texas, US|48383|Reagan|Texas|US|31.36607|-101.523266|0|0|0|0|N
 11226|13743|2020-03-24 23:37:31|Real, Texas, US|48385|Real|Texas|US|29.833215|-99.820181|0|0|0|0|N
-11227|14573|2020-03-24 23:37:31|Recovered, US|N/A|N/A|Recovered|US|0.0|0.0|0|0|348|0|N
+11227|14573|2020-03-24 23:37:31|Recovered, US|N/A|N/A|Recovered|US|0|0|0|0|348|0|N
 11228|13744|2020-03-24 23:37:31|Red Lake, Minnesota, US|27125|Red Lake|Minnesota|US|47.871975|-96.095611|0|0|0|0|N
 11229|13745|2020-03-24 23:37:31|Red River, Louisiana, US|22081|Red River|Louisiana|US|32.0953|-93.342133|0|0|0|0|N
 11230|13746|2020-03-24 23:37:31|Red River, Texas, US|48387|Red River|Texas|US|33.618867|-95.048418|0|0|0|0|N
@@ -11680,27 +11680,27 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 11679|14195|2020-03-24 23:37:31|Uintah, Utah, US|49047|Uintah|Utah|US|40.124915|-109.517442|0|0|0|0|N
 11680|14196|2020-03-24 23:37:31|Ulster, New York, US|36111|Ulster|New York|US|41.890279|-74.262521|35|0|0|0|N
 11681|14197|2020-03-24 23:37:31|Umatilla, Oregon, US|41059|Umatilla|Oregon|US|45.590731|-118.735383|2|0|0|0|N
-11682|14198|2020-03-24 23:37:31|Unassigned, Arizona, US|N/A|Unassigned|Arizona|US|0.0|0.0|0|2|0|0|N
-11683|14199|2020-03-24 23:37:31|Unassigned, Arkansas, US|N/A|Unassigned|Arkansas|US|0.0|0.0|13|1|0|0|N
-11684|14200|2020-03-24 23:37:31|Unassigned, Colorado, US|N/A|Unassigned|Colorado|US|0.0|0.0|5|0|0|0|N
-11685|14201|2020-03-24 23:37:31|Unassigned, Florida, US|N/A|Unassigned|Florida|US|0.0|0.0|0|1|0|0|N
-11686|14202|2020-03-24 23:37:31|Unassigned, Georgia, US|N/A|Unassigned|Georgia|US|0.0|0.0|81|17|0|0|N
-11687|14203|2020-03-24 23:37:31|Unassigned, Hawaii, US|N/A|Unassigned|Hawaii|US|0.0|0.0|20|0|0|0|N
-11688|14204|2020-03-24 23:37:31|Unassigned, Illinois, US|N/A|Unassigned|Illinois|US|0.0|0.0|0|4|0|0|N
-11689|14205|2020-03-24 23:37:31|Unassigned, Iowa, US|N/A|Unassigned|Iowa|US|0.0|0.0|2|0|0|0|N
-11690|14206|2020-03-24 23:37:31|Unassigned, Kentucky, US|N/A|Unassigned|Kentucky|US|0.0|0.0|46|0|0|0|N
-11691|14207|2020-03-24 23:37:31|Unassigned, Louisiana, US|N/A|Unassigned|Louisiana|US|0.0|0.0|12|1|0|0|N
-11692|14208|2020-03-24 23:37:31|Unassigned, Massachusetts, US|N/A|Unassigned|Massachusetts|US|0.0|0.0|85|9|0|0|N
-11693|14209|2020-03-24 23:37:31|Unassigned, Missouri, US|N/A|Unassigned|Missouri|US|0.0|0.0|6|0|0|0|N
-11694|14210|2020-03-24 23:37:31|Unassigned, Montana, US|N/A|Unassigned|Montana|US|0.0|0.0|6|0|0|0|N
-11695|14211|2020-03-24 23:37:31|Unassigned, Nevada, US|N/A|Unassigned|Nevada|US|0.0|0.0|15|0|0|0|N
-11696|14212|2020-03-24 23:37:31|Unassigned, New Jersey, US|N/A|Unassigned|New Jersey|US|0.0|0.0|645|26|0|0|N
-11697|14213|2020-03-24 23:37:31|Unassigned, New York, US|N/A|Unassigned|New York|US|0.0|0.0|0|39|0|0|N
-11698|14214|2020-03-24 23:37:31|Unassigned, Rhode Island, US|N/A|Unassigned|Rhode Island|US|0.0|0.0|23|0|0|0|N
-11699|14215|2020-03-24 23:37:31|Unassigned, Tennessee, US|N/A|Unassigned|Tennessee|US|0.0|0.0|38|0|0|0|N
-11700|14216|2020-03-24 23:37:31|Unassigned, Vermont, US|N/A|Unassigned|Vermont|US|0.0|0.0|0|2|0|0|N
-11701|14217|2020-03-24 23:37:31|Unassigned, Washington, US|N/A|Unassigned|Washington|US|0.0|0.0|112|0|0|0|N
-11702|14218|2020-03-24 23:37:31|Unassigned, Wuhan Evacuee, US|N/A|Unassigned|Wuhan Evacuee|US|0.0|0.0|4|0|0|0|N
+11682|14198|2020-03-24 23:37:31|Unassigned, Arizona, US|N/A|Unassigned|Arizona|US|33.7|-111.4|0|2|0|0|N
+11683|14199|2020-03-24 23:37:31|Unassigned, Arkansas, US|N/A|Unassigned|Arkansas|US|35|-92.4|13|1|0|0|N
+11684|14200|2020-03-24 23:37:31|Unassigned, Colorado, US|N/A|Unassigned|Colorado|US|39.1|-105.3|5|0|0|0|N
+11685|14201|2020-03-24 23:37:31|Unassigned, Florida, US|N/A|Unassigned|Florida|US|27.8|-81.7|0|1|0|0|N
+11686|14202|2020-03-24 23:37:31|Unassigned, Georgia, US|N/A|Unassigned|Georgia|US|33|-83.6|81|17|0|0|N
+11687|14203|2020-03-24 23:37:31|Unassigned, Hawaii, US|N/A|Unassigned|Hawaii|US|21.1|-157.5|20|0|0|0|N
+11688|14204|2020-03-24 23:37:31|Unassigned, Illinois, US|N/A|Unassigned|Illinois|US|40.3|-89|0|4|0|0|N
+11689|14205|2020-03-24 23:37:31|Unassigned, Iowa, US|N/A|Unassigned|Iowa|US|42|-93.2|2|0|0|0|N
+11690|14206|2020-03-24 23:37:31|Unassigned, Kentucky, US|N/A|Unassigned|Kentucky|US|37.7|-84.7|46|0|0|0|N
+11691|14207|2020-03-24 23:37:31|Unassigned, Louisiana, US|N/A|Unassigned|Louisiana|US|31.2|-91.9|12|1|0|0|N
+11692|14208|2020-03-24 23:37:31|Unassigned, Massachusetts, US|N/A|Unassigned|Massachusetts|US|42.2|-71.5|85|9|0|0|N
+11693|14209|2020-03-24 23:37:31|Unassigned, Missouri, US|N/A|Unassigned|Missouri|US|38.5|-92.3|6|0|0|0|N
+11694|14210|2020-03-24 23:37:31|Unassigned, Montana, US|N/A|Unassigned|Montana|US|46.9|-110.5|6|0|0|0|N
+11695|14211|2020-03-24 23:37:31|Unassigned, Nevada, US|N/A|Unassigned|Nevada|US|38.3|-117.1|15|0|0|0|N
+11696|14212|2020-03-24 23:37:31|Unassigned, New Jersey, US|N/A|Unassigned|New Jersey|US|40.3|-74.5|645|26|0|0|N
+11697|14213|2020-03-24 23:37:31|Unassigned, New York, US|N/A|Unassigned|New York|US|42.2|-74.9|0|39|0|0|N
+11698|14214|2020-03-24 23:37:31|Unassigned, Rhode Island, US|N/A|Unassigned|Rhode Island|US|41.7|-71.5|23|0|0|0|N
+11699|14215|2020-03-24 23:37:31|Unassigned, Tennessee, US|N/A|Unassigned|Tennessee|US|35.7|-86.7|38|0|0|0|N
+11700|14216|2020-03-24 23:37:31|Unassigned, Vermont, US|N/A|Unassigned|Vermont|US|44|-72.7|0|2|0|0|N
+11701|14217|2020-03-24 23:37:31|Unassigned, Washington, US|N/A|Unassigned|Washington|US|47.4|-121.5|112|0|0|0|N
+11702|14218|2020-03-24 23:37:31|Unassigned, Wuhan Evacuee, US|N/A|Unassigned|Wuhan Evacuee|US|0|0|4|0|0|0|N
 11703|14219|2020-03-24 23:37:31|Unicoi, Tennessee, US|47171|Unicoi|Tennessee|US|36.108909|-82.437096|0|0|0|0|N
 11704|14220|2020-03-24 23:37:31|Union, Arkansas, US|05139|Union|Arkansas|US|33.168871|-92.59747|1|0|0|0|N
 11705|14221|2020-03-24 23:37:31|Union, Florida, US|12125|Union|Florida|US|30.04413|-82.374974|0|0|0|0|N
@@ -11997,7 +11997,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 11996|14511|2020-03-24 23:37:31|Ziebach, South Dakota, US|46137|Ziebach|South Dakota|US|44.978819|-101.665462|0|0|0|0|N
 11997|14512|2020-03-24 23:41:36|Alberta, Canada|N/A|N/A|Alberta|Canada|53.9333|-116.5765|359|1|0|0|N
 11998|14519|2020-03-24 23:41:36|British Columbia, Canada|N/A|N/A|British Columbia|Canada|53.7267|-127.6476|617|13|0|0|N
-11999|14524|2020-03-24 23:41:36|Diamond Princess, Canada|N/A|N/A|Diamond Princess|Canada|0.0|0.0|0|1|0|0|N
+11999|14524|2020-03-24 23:41:36|Diamond Princess, Canada|N/A|N/A|Diamond Princess|Canada|0|0|0|1|0|0|N
 12000|14532|2020-03-24 23:41:36|Grand Princess, Canada|N/A|N/A|Grand Princess|Canada|37.6489|-122.6655|13|0|0|0|N
 12001|14554|2020-03-24 23:41:36|Manitoba, Canada|N/A|N/A|Manitoba|Canada|53.7609|-98.8139|21|0|0|0|N
 12002|14558|2020-03-24 23:41:36|New Brunswick, Canada|N/A|N/A|New Brunswick|Canada|46.5653|-66.4619|18|0|0|0|N
@@ -12006,7 +12006,7 @@ OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERE
 12005|14566|2020-03-24 23:41:36|Ontario, Canada|N/A|N/A|Ontario|Canada|51.2538|-85.3232|588|7|0|0|N
 12006|14567|2020-03-24 23:41:36|Prince Edward Island, Canada|N/A|N/A|Prince Edward Island|Canada|46.5107|-63.4168|3|0|0|0|N
 12007|14570|2020-03-24 23:41:36|Quebec, Canada|N/A|N/A|Quebec|Canada|52.9399|-73.5491|1013|4|0|0|N
-12008|14572|2020-03-24 23:41:36|Recovered, Canada|N/A|N/A|Recovered|Canada|0.0|0.0|0|0|110|0|N
+12008|14572|2020-03-24 23:41:36|Recovered, Canada|N/A|N/A|Recovered|Canada|0|0|0|0|110|0|N
 12009|14576|2020-03-24 23:41:36|Saskatchewan, Canada|N/A|N/A|Saskatchewan|Canada|52.9399|-106.4509|72|0|0|0|N
 12010|14516|2020-03-24 23:41:50|Australian Capital Territory, Australia|N/A|N/A|Australian Capital Territory|Australia|-35.4735|149.0124|39|0|0|39|N
 12011|14560|2020-03-24 23:41:50|New South Wales, Australia|N/A|N/A|New South Wales|Australia|-33.8688|151.2093|818|7|4|807|N
