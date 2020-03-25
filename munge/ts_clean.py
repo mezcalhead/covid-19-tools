@@ -24,6 +24,7 @@ n_obs = 0 # observations
 #1|N/A|N/A|Anhui|Mainland China|2020-01-22 17:00:00|0.0|0.0|1|0|0|-1|Anhui, Mainland China
 #2|N/A|N/A|Beijing|Mainland China|2020-01-22 17:00:00|0.0|0.0|14|0|0|-1|Beijing, Mainland China
 
+# 1st pass = study data and hash locations
 # load state abbreviations reference
 state2abbr = {}
 abbr2state = {}
@@ -95,9 +96,27 @@ print("# geo_inconsistent: " + str(geo_inconsistent))
 print("# geo_fix: " + str(geo_fix))
 print()
 
+# LOAD DATA FROM geo_corrections.txt and apply them to whatever remains
+# LABEL|LAT|LON|COMMENT
+geo_corrections = {}
+try:
+	geo_corrections_datafile = path.abspath(path.join(basepath, '..', 'data', 'geo_corrections_datafile.txt'))
+	ln = 0 # line number
+	with open(geo_corrections_datafile, "r") as geo_corrections_csvfile:
+		for line in csv.DictReader(geo_corrections_csvfile, dialect='piper'):
+			ln += 1
+			if (ln > 1):
+				geo_corrections[line[0]] = [line[1], line[2]]
+	print('Loaded ' + str(len(geo_corrections)) + ' geo_corrections...')
+except:
+	print('No geo_corrections file...')
+print()
+
+# 2nd pass
 # fix lat/lons if we find entries in the geohash -> EASY
 # we'll assume the more recent keys are more accurate, since they are the latest updates
 geo_fixed = 0
+geo_fixed_by_correction_file = 0
 geo_cannot_fix = 0
 for i, (key, v) in enumerate(hash.items()):
 	#print(key.split('_')[1], v['LAT'], v['LON'])
@@ -108,26 +127,32 @@ for i, (key, v) in enumerate(hash.items()):
 			v['LON'] = temp[1]
 			geo_fixed += 1
 		else:
-			geo_cannot_fix += 1
+			# lets see if we can fix from the "geo_corrections" hash
+			temp = geo_corrections.get(key.split('_')[1])
+			if (temp != None):
+				v['LAT'] = temp[0]
+				v['LON'] = temp[1]
+				geo_fixed_by_correction_file += 1
+			else:
+				geo_cannot_fix += 1
 print("# geo_fixed: " + str(geo_fixed))
+print("# geo_fixed_by_correction_file: " + str(geo_fixed_by_correction_file))
 print("# geo_cannot_fix: " + str(geo_cannot_fix))
 print("# TOTAL: " + str(geo_fixed + geo_cannot_fix))
 print()
 
-# 2nd pass - WRITE OUT THOSE THAT NEED FIXED
+# 3rd pass - WRITE OUT THOSE THAT NEED FIXED
 flag = {} # only want to write once per unique key
 fileout = path.abspath(path.join(basepath, '..', 'data', 'geo_issues.txt'))
 fileout = open(fileout,'w')
-fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE\n')
+fileout.write('LABEL|LAT|LON\n')
 for i, (key, v) in enumerate(hash.items()):
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
 		temp = geohash.get(key.split('_')[1])
 		if (temp == None and flag.get(key.split('_')[1]) == None):
 			v.get(key)
 			flag[key.split('_')[1]] = True
-			line = v['OBS'] + '|' + v['LASTUPDATED'] + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
-			v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
-			v['ACTIVE']
+			line = v['LABEL'] + '|' + v['LAT'] + '|' + v['LON']
 			#print(line)
 			fileout.write(line + '\n')
 fileout.close()
