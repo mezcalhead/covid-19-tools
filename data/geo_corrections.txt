@@ -1,0 +1,45 @@
+LABEL|LAT|LON|COMMENT
+Ashland, NE, US                                |0|0|
+Australia                                      |-32|115.9|
+Bavaria, Germany                               |0|0|
+Chicago, US                                    |0|0|
+Cruise Ship, Others                            |0|0|
+Diamond Princess, Canada                       |0|0|
+From Diamond Princess, Israel                  |0|0|
+Ivory Coast                                    |0|0|
+Lackland, TX, US                               |0|0|
+None, Austria                                  |0|0|
+None, Iraq                                     |0|0|
+None, Lebanon                                  |0|0|
+North Ireland                                  |0|0|
+Out of MI,Michigan,US                          |43.3|-84.5|
+Out of TN,Tennessee,US                         |35.7|-86.7|
+Out of UT,Utah,US                              |40.1|-111.9|
+Recovered, Canada                              |0|0|
+Recovered, US                                  |0|0|
+Travis, CA, US                                 |0|0|
+Unassigned, Arizona, US                        |33.7|-111.4|
+Unassigned, Arkansas, US                       |35|-92.4|
+Unassigned, Colorado, US                       |39.1|-105.3|
+Unassigned, Florida, US                        |27.8|-81.7|
+Unassigned, Georgia, US                        |33|-83.6|
+Unassigned, Hawaii, US                         |21.1|-157.5|
+Unassigned, Illinois, US                       |40.3|-89|
+Unassigned, Indiana, US                        |39.8|-86.3|
+Unassigned, Iowa, US                           |42|-93.2|
+Unassigned, Kentucky, US                       |37.7|-84.7|
+Unassigned, Louisiana, US                      |31.2|-91.9|
+Unassigned, Maine, US                          |44.7|-69.4|
+Unassigned, Massachusetts, US                  |42.2|-71.5|
+Unassigned, Minnesota, US                      |45.7|-93.9|
+Unassigned, Missouri, US                       |38.5|-92.3|
+Unassigned, Montana, US                        |46.9|-110.5|
+Unassigned, Nevada, US                         |38.3|-117.1|
+Unassigned, New Hampshire, US                  |43.5|-71.6|
+Unassigned, New Jersey, US                     |40.3|-74.5|
+Unassigned, New York, US                       |42.2|-74.9|
+Unassigned, Rhode Island, US                   |41.7|-71.5|
+Unassigned, Tennessee, US                      |35.7|-86.7|
+Unassigned, Vermont, US                        |44|-72.7|
+Unassigned, Washington, US                     |47.4|-121.5|
+Unassigned, Wuhan Evacuee, US                  |0|0|

@@ -1,0 +1,285 @@
+Province/State,Country/Region,Lat,Long
+                            ,Afghanistan                     ,33,65
+                            ,Albania                         ,41.2,20.2
+                            ,Algeria                         ,28,1.7
+                            ,Andorra                         ,42.5,1.5
+                            ,Antigua and Barbuda             ,17.1,-61.8
+                            ,Argentina                       ,-38.4,-63.6
+                            ,Armenia                         ,40.1,45
+                            ,Aruba                           ,12.5,-70
+Australian Capital Territory,Australia                       ,-35.5,149
+From Diamond Princess       ,Australia                       ,35.4,139.6
+New South Wales             ,Australia                       ,-33.9,151.2
+Northern Territory          ,Australia                       ,-12.5,130.8
+Queensland                  ,Australia                       ,-28,153.4
+South Australia             ,Australia                       ,-34.9,138.6
+Tasmania                    ,Australia                       ,-41.5,146
+Victoria                    ,Australia                       ,-37.8,145
+Western Australia           ,Australia                       ,-32,115.9
+                            ,Austria                         ,47.5,14.6
+                            ,Azerbaijan                      ,40.1,47.6
+                            ,Bahrain                         ,26,50.5
+                            ,Bangladesh                      ,23.7,90.4
+                            ,Barbados                        ,13.2,-59.5
+                            ,Belarus                         ,53.7,28
+                            ,Belgium                         ,50.8,4
+                            ,Benin                           ,9.3,2.3
+                            ,Bhutan                          ,27.5,90.4
+                            ,Bolivia                         ,-16.3,-63.6
+                            ,Bosnia and Herzegovina          ,43.9,17.7
+                            ,Brazil                          ,-14.2,-51.9
+                            ,Brunei                          ,4.5,114.7
+                            ,Bulgaria                        ,42.7,25.5
+                            ,Burkina Faso                    ,12.2,-1.6
+                            ,Cambodia                        ,11.6,104.9
+                            ,Cameroon                        ,3.8,11.5
+Alberta                     ,Canada                          ,53.9,-116.6
+British Columbia            ,Canada                          ,49.3,-123.1
+Grand Princess              ,Canada                          ,37.6,-122.7
+Manitoba                    ,Canada                          ,53.8,-98.8
+New Brunswick               ,Canada                          ,46.6,-66.5
+Newfoundland and Labrador   ,Canada                          ,53.1,-57.7
+Nova Scotia                 ,Canada                          ,44.7,-63.7
+Ontario                     ,Canada                          ,51.3,-85.3
+Prince Edward Island        ,Canada                          ,46.5,-63.4
+Quebec                      ,Canada                          ,52.9,-73.5
+Saskatchewan                ,Canada                          ,52.9,-106.5
+                            ,Central African Republic        ,6.6,20.9
+                            ,Chile                           ,-35.7,-71.5
+Anhui                       ,China                           ,31.8,117.2
+Beijing                     ,China                           ,40.2,116.4
+Chongqing                   ,China                           ,30.1,107.9
+Fujian                      ,China                           ,26.1,118
+Gansu                       ,China                           ,37.8,101.1
+Guangdong                   ,China                           ,23.3,113.4
+Guangxi                     ,China                           ,23.8,108.8
+Guizhou                     ,China                           ,26.8,106.9
+Hainan                      ,China                           ,19.2,109.7
+Hebei                       ,China                           ,39.5,116.1
+Heilongjiang                ,China                           ,47.9,127.8
+Henan                       ,China                           ,33.9,113.6
+Hong Kong                   ,China                           ,22.3,114.2
+Hubei                       ,China                           ,31,112.3
+Hunan                       ,China                           ,27.6,111.7
+Inner Mongolia              ,China                           ,44.1,113.9
+Jiangsu                     ,China                           ,33,119.5
+Jiangxi                     ,China                           ,27.6,115.7
+Jilin                       ,China                           ,43.7,126.2
+Liaoning                    ,China                           ,41.3,122.6
+Macau                       ,China                           ,22.2,113.5
+Ningxia                     ,China                           ,37.3,106.2
+Qinghai                     ,China                           ,35.7,96
+Shaanxi                     ,China                           ,35.2,108.9
+Shandong                    ,China                           ,36.3,118.1
+Shanghai                    ,China                           ,31.2,121.4
+Shanxi                      ,China                           ,37.6,112.3
+Sichuan                     ,China                           ,30.6,102.7
+Tianjin                     ,China                           ,39.3,117.3
+Tibet                       ,China                           ,31.7,88.1
+Xinjiang                    ,China                           ,41.1,85.2
+Yunnan                      ,China                           ,25,101.5
+Zhejiang                    ,China                           ,29.2,120.1
+                            ,Colombia                        ,4.6,-74.3
+                            ,Congo (Brazzaville)             ,-4,21.8
+                            ,Congo (Kinshasa)                ,-4,21.8
+                            ,Costa Rica                      ,9.7,-83.8
+                            ,Cote d'Ivoire                   ,7.5,-5.5
+                            ,Croatia                         ,45.1,15.2
+Diamond Princess            ,Cruise Ship                     ,35.4,139.6
+                            ,Cuba                            ,22,-80
+                            ,Cyprus                          ,35.1,33.4
+                            ,Czechia                         ,49.8,15.5
+Denmark                     ,Denmark                         ,56.3,9.5
+Faroe Islands               ,Denmark                         ,61.9,-6.9
+                            ,Djibouti                        ,11.8,42.6
+                            ,Dominican Republic              ,18.7,-70.2
+                            ,Ecuador                         ,-1.8,-78.2
+                            ,Egypt                           ,26,30
+                            ,Equatorial Guinea               ,1.5,10
+                            ,Estonia                         ,58.6,25
+                            ,Eswatini                        ,-26.5,31.5
+                            ,Ethiopia                        ,9.1,40.5
+                            ,Finland                         ,64,26
+France                      ,France                          ,46.2,2.2
+French Guiana               ,France                          ,3.9,-53.1
+French Polynesia            ,France                          ,-17.7,149.4
+Guadeloupe                  ,France                          ,16.2,-61.6
+Mayotte                     ,France                          ,-12.8,45.2
+Reunion                     ,France                          ,-21.1,55.2
+Saint Barthelemy            ,France                          ,17.9,-62.8
+St Martin                   ,France                          ,18.1,-63.1
+                            ,French Guiana                   ,3.9,-53.1
+                            ,Gabon                           ,-0.8,11.6
+                            ,"Gambia, The                     ",13.4,-15.3
+                            ,Georgia                         ,42.3,43.4
+                            ,Germany                         ,51,9
+                            ,Ghana                           ,7.9,-1
+                            ,Greece                          ,39.1,21.8
+                            ,Greenland                       ,71.7,-42.6
+                            ,Guadeloupe                      ,16.3,-61.6
+                            ,Guam                            ,13.4,144.8
+                            ,Guatemala                       ,15.8,-90.2
+                            ,Guernsey                        ,49.5,-2.6
+                            ,Guinea                          ,9.9,-9.7
+                            ,Guyana                          ,5,-58.8
+                            ,Holy See                        ,41.9,12.5
+                            ,Honduras                        ,15.2,-86.2
+                            ,Hungary                         ,47.2,19.5
+                            ,Iceland                         ,65,-19
+                            ,India                           ,21,78
+                            ,Indonesia                       ,-0.8,113.9
+                            ,Iran                            ,32,53
+                            ,Iraq                            ,33,44
+                            ,Ireland                         ,53.1,-7.7
+                            ,Israel                          ,31,35
+                            ,Italy                           ,43,12
+                            ,Jamaica                         ,18.1,-77.3
+                            ,Japan                           ,36,138
+                            ,Jersey                          ,49.2,-2.1
+                            ,Jordan                          ,31.2,36.5
+                            ,Kazakhstan                      ,48,66.9
+                            ,Kenya                           ,-0,37.9
+                            ,"Korea, South                    ",36,128
+                            ,Kosovo                          ,42.6,20.9
+                            ,Kuwait                          ,29.5,47.8
+                            ,Kyrgyzstan                      ,41.2,74.8
+                            ,Latvia                          ,56.9,24.6
+                            ,Lebanon                         ,33.9,35.9
+                            ,Liberia                         ,6.4,-9.4
+                            ,Liechtenstein                   ,47.1,9.6
+                            ,Lithuania                       ,55.2,23.9
+                            ,Luxembourg                      ,49.8,6.1
+                            ,Malaysia                        ,2.5,112.5
+                            ,Maldives                        ,3.2,73.2
+                            ,Malta                           ,35.9,14.4
+                            ,Martinique                      ,14.6,-61
+                            ,Mauritania                      ,21,10.9
+                            ,Mauritius                       ,-20.2,57.5
+                            ,Mayotte                         ,-12.8,45.2
+                            ,Mexico                          ,23.6,-102.6
+                            ,Moldova                         ,47.4,28.4
+                            ,Monaco                          ,43.7,7.4
+                            ,Mongolia                        ,46.9,103.8
+                            ,Montenegro                      ,42.5,19.3
+                            ,Morocco                         ,31.8,-7.1
+                            ,Namibia                         ,-23,18.5
+                            ,Nepal                           ,28.2,84.2
+Aruba                       ,Netherlands                     ,12.5,-70
+Curacao                     ,Netherlands                     ,12.2,-69
+Netherlands                 ,Netherlands                     ,52.1,5.3
+                            ,New Zealand                     ,-40.9,174.9
+                            ,Nigeria                         ,9.1,8.7
+                            ,North Macedonia                 ,41.6,21.7
+                            ,Norway                          ,60.5,8.5
+                            ,Oman                            ,21,57
+                            ,Pakistan                        ,30.4,69.3
+                            ,Panama                          ,8.5,-80.8
+                            ,Paraguay                        ,-23.4,-58.4
+                            ,Peru                            ,-9.2,-75
+                            ,Philippines                     ,13,122
+                            ,Poland                          ,51.9,19.1
+                            ,Portugal                        ,39.4,-8.2
+                            ,Puerto Rico                     ,18.2,-66.5
+                            ,Qatar                           ,25.4,51.2
+                            ,Republic of the Congo           ,-1.4,15.6
+                            ,Reunion                         ,-21.1,55.5
+                            ,Romania                         ,45.9,25
+                            ,Russia                          ,60,90
+                            ,Rwanda                          ,-1.9,29.9
+                            ,Saint Lucia                     ,13.9,-61
+                            ,Saint Vincent and the Grenadines,13,-61.3
+                            ,San Marino                      ,43.9,12.5
+                            ,Saudi Arabia                    ,24,45
+                            ,Senegal                         ,14.5,-14.5
+                            ,Serbia                          ,44,21
+                            ,Seychelles                      ,-4.7,55.5
+                            ,Singapore                       ,1.3,103.8
+                            ,Slovakia                        ,48.7,19.7
+                            ,Slovenia                        ,46.2,15
+                            ,Somalia                         ,5.2,46.2
+                            ,South Africa                    ,-30.6,22.9
+                            ,Spain                           ,40,-4
+                            ,Sri Lanka                       ,7,81
+                            ,Sudan                           ,12.9,30.2
+                            ,Suriname                        ,3.9,-56
+                            ,Sweden                          ,63,16
+                            ,Switzerland                     ,46.8,8.2
+                            ,Taiwan*                         ,23.7,121
+                            ,Tanzania                        ,-6.4,34.9
+                            ,Thailand                        ,15,101
+                            ,The Bahamas                     ,24.2,-76
+                            ,The Gambia                      ,13.5,-16.6
+                            ,Togo                            ,8.6,0.8
+                            ,Trinidad and Tobago             ,10.7,-61.2
+                            ,Tunisia                         ,34,9
+                            ,Turkey                          ,39,35.2
+                            ,Ukraine                         ,48.4,31.2
+                            ,United Arab Emirates            ,24,54
+Cayman Islands              ,United Kingdom                  ,19.3,-81.3
+Channel Islands             ,United Kingdom                  ,49.4,-2.4
+Gibraltar                   ,United Kingdom                  ,36.1,-5.4
+Montserrat                  ,United Kingdom                  ,16.7,-62.2
+United Kingdom              ,United Kingdom                  ,55.4,-3.4
+                            ,Uruguay                         ,-32.5,-55.8
+Alabama                     ,US                              ,32.3,-86.9
+Alaska                      ,US                              ,61.4,-152.4
+Arizona                     ,US                              ,33.7,-111.4
+Arkansas                    ,US                              ,35,-92.4
+California                  ,US                              ,36.1,-119.7
+Colorado                    ,US                              ,39.1,-105.3
+Connecticut                 ,US                              ,41.6,-72.8
+Delaware                    ,US                              ,39.3,-75.5
+Diamond Princess            ,US                              ,35.4,139.6
+District of Columbia        ,US                              ,38.9,-77
+Florida                     ,US                              ,27.8,-81.7
+Georgia                     ,US                              ,33,-83.6
+Grand Princess              ,US                              ,37.6,-122.7
+Guam                        ,US                              ,13.4,144.8
+Hawaii                      ,US                              ,21.1,-157.5
+Idaho                       ,US                              ,44.2,-114.5
+Illinois                    ,US                              ,40.3,-89
+Indiana                     ,US                              ,39.8,-86.3
+Iowa                        ,US                              ,42,-93.2
+Kansas                      ,US                              ,38.5,-96.7
+Kentucky                    ,US                              ,37.7,-84.7
+Louisiana                   ,US                              ,31.2,-91.9
+Maine                       ,US                              ,44.7,-69.4
+Maryland                    ,US                              ,39.1,-76.8
+Massachusetts               ,US                              ,42.2,-71.5
+Michigan                    ,US                              ,43.3,-84.5
+Minnesota                   ,US                              ,45.7,-93.9
+Mississippi                 ,US                              ,32.7,-89.7
+Missouri                    ,US                              ,38.5,-92.3
+Montana                     ,US                              ,46.9,-110.5
+Nebraska                    ,US                              ,41.1,-98.3
+Nevada                      ,US                              ,38.3,-117.1
+New Hampshire               ,US                              ,43.5,-71.6
+New Jersey                  ,US                              ,40.3,-74.5
+New Mexico                  ,US                              ,34.8,-106.2
+New York                    ,US                              ,42.2,-74.9
+North Carolina              ,US                              ,35.6,-79.8
+North Dakota                ,US                              ,47.5,-99.8
+Ohio                        ,US                              ,40.4,-82.8
+Oklahoma                    ,US                              ,35.6,-96.9
+Oregon                      ,US                              ,44.6,-122.1
+Pennsylvania                ,US                              ,40.6,-77.2
+Puerto Rico                 ,US                              ,18.2,-66.6
+Rhode Island                ,US                              ,41.7,-71.5
+South Carolina              ,US                              ,33.9,-80.9
+South Dakota                ,US                              ,44.3,-99.4
+Tennessee                   ,US                              ,35.7,-86.7
+Texas                       ,US                              ,31.1,-97.6
+United States Virgin Islands,US                              ,18.4,-64.9
+US                          ,US                              ,37.1,-95.7
+Utah                        ,US                              ,40.1,-111.9
+Vermont                     ,US                              ,44,-72.7
+Virgin Islands              ,US                              ,18.3,-64.9
+Virginia                    ,US                              ,37.8,-78.2
+Washington                  ,US                              ,47.4,-121.5
+West Virginia               ,US                              ,38.5,-81
+Wisconsin                   ,US                              ,44.3,-89.6
+Wyoming                     ,US                              ,42.8,-107.3
+                            ,Uzbekistan                      ,41.4,64.6
+                            ,Venezuela                       ,6.4,-66.6
+                            ,Vietnam                         ,16,108
+                            ,Zambia                          ,-15.4,28.3

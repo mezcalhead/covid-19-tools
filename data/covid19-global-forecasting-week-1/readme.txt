@@ -1,0 +1,1 @@
+Data is from https://www.kaggle.com/c/covid19-global-forecasting-week-1/data
