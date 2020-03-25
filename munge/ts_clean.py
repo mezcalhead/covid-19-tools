@@ -196,7 +196,17 @@ for i, (key, v) in enumerate(hash.items()):
 			num_fixed += 1
 print('	# FIPs Fixed: ' + str(num_fixed))
 
-# last pass - interpolation
+# 6th pass - data check - missing geos
+num_missing = 0
+for i, (key, v) in enumerate(hash.items()):
+	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
+		num_missing += 1
+print('\nStep 6...\n	Missing Geo: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / len(hash)), 1)) + '%)')
+
+
+
+
+
 # TODO
 for key in sorted(hash.keys()):
 	v = hash.get(key)
