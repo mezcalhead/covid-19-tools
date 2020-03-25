@@ -22,7 +22,7 @@ print('Using datafile_dir: ' + datafile_dir)
 datafile_list = glob.glob(datafile_dir + '/*.csv')
 
 n_obs = 0 # observations
-fileout = path.abspath(path.join(basepath, '..', 'data', 'data_merged.csv'))
+fileout = path.abspath(path.join(basepath, '..', 'data', 'data_merged.txt'))
 fileout = open(fileout,'w')
 fileout.write('OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LABEL\n')
 

@@ -16,7 +16,7 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 print('Starting... (' + dt_string + ' Z)')
 
 basepath = path.dirname(__file__)
-datafile = path.abspath(path.join(basepath, '..', 'data', 'data_merged.csv'))
+datafile = path.abspath(path.join(basepath, '..', 'data', 'data_merged.txt'))
 n_obs = 0 # observations
 
 ln = 0 # line number
@@ -38,7 +38,7 @@ print("# obs before: " + str(n_obs))
 
 print("# obs after: " + str(n_obs))
 
-fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.csv'))
+fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.txt'))
 fileout = open(fileout,'w')
 fileout.write('OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LABEL|INTER\n')
 # do something
