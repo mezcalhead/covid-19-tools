@@ -10,22 +10,12 @@ from os.path import isfile, join
 import glob
 from csv import reader
 
-# each file looks like this posted each day in the folder: COVID-19\csse_covid_19_data\csse_covid_19_daily_reports
-#
-#FIPS,Admin2,Province_State,Country_Region,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active,Combined_Key
-#45001,Abbeville,South Carolina,US,2020-03-23 23:19:34,34.22333378,-82.46170658,1,0,0,0,"Abbeville, South Carolina, US"
-#22001,Acadia,Louisiana,US,2020-03-23 23:19:34,30.295064899999996,-92.41419698,1,0,0,0,"Acadia, Louisiana, US"
-#51001,Accomack,Virginia,US,2020-03-23 23:19:34,37.76707161,-75.63234615,1,0,0,0,"Accomack, Virginia, US"
-#...
-#,,Chongqing,China,2020-03-23 23:34:38,30.0572,107.874,578,6,570,2,"Chongqing, China"
-#,,Curacao,Netherlands,2020-03-24 23:37:15,12.1696,-68.99,6,1,0,5,"Curacao, Netherlands"
-
 start = timer()
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 print('Starting... (' + dt_string + ' Z)')
 
-# get list of files - assumes JHU is cloned to same parent directory
+# get list of files - assumes JHU repo is cloned to same parent directory
 basepath = path.dirname(__file__)
 datafile_dir = path.abspath(path.join(basepath, '..', '../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports'))
 print('Using datafile_dir: ' + datafile_dir)
