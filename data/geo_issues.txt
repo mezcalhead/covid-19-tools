@@ -1,45 +1,45 @@
-OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE
-81|2020-01-23 17:00:00|Australia|N/A|N/A|N/A|Australia|0.0|0.0|0|0|0|-1
-119|2020-01-24 17:00:00|Chicago, US|N/A|N/A|Chicago|US|0.0|0.0|1|0|0|-1
-265|2020-01-27 23:59:00|Ivory Coast|N/A|N/A|N/A|Ivory Coast|0.0|0.0|1|0|0|-1
-319|2020-01-28 23:00:00|Bavaria, Germany|N/A|N/A|Bavaria|Germany|0.0|0.0|4|0|0|-1
-1006|2020-02-07 16:33:03|Cruise Ship, Others|N/A|N/A|Cruise Ship|Others|0.0|0.0|61|0|0|-1
-1986|2020-02-21 23:23:06|Ashland, NE, US|N/A|N/A|Ashland, NE|US|0.0|0.0|11|0|0|-1
-1992|2020-02-21 23:23:06|Travis, CA, US|N/A|N/A|Travis, CA|US|0.0|0.0|5|0|0|-1
-2003|2020-02-21 23:23:06|Lackland, TX, US|N/A|N/A|Lackland, TX|US|0.0|0.0|2|0|0|-1
-2012|2020-02-21 15:33:03|From Diamond Princess, Israel|N/A|N/A|From Diamond Princess|Israel|0.0|0.0|1|0|0|-1
-2013|2020-02-21 15:33:03|None, Lebanon|N/A|N/A|None|Lebanon|0.0|0.0|1|0|0|-1
-2195|2020-02-23 18:23:06|None, Iraq|N/A|N/A|None|Iraq|0.0|0.0|0|0|0|-1
-2345|2020-02-25 18:55:32|None, Austria|N/A|N/A|None|Austria|0.0|0.0|2|0|0|-1
-2685|2020-02-28 05:43:02|North Ireland|N/A|N/A|N/A|North Ireland|0.0|0.0|1|0|0|-1
-10105|2020-03-23 23:19:34|Out of MI,Michigan,US|N/A|Out of MI|Michigan|US|0.0|0.0|4|0|0|0
-10106|2020-03-23 23:19:34|Out of TN,Tennessee,US|N/A|Out of TN|Tennessee|US|0.0|0.0|89|0|0|0
-10107|2020-03-23 23:19:34|Out of UT,Utah,US|N/A|Out of UT|Utah|US|0.0|0.0|13|0|0|0
-10783|2020-03-23 23:19:34|Unassigned, Arkansas, US|N/A|Unassigned|Arkansas|US|0.0|0.0|3|0|0|0
-10784|2020-03-23 23:19:34|Unassigned, Colorado, US|N/A|Unassigned|Colorado|US|0.0|0.0|1|0|0|0
-10785|2020-03-23 23:19:34|Unassigned, Florida, US|N/A|Unassigned|Florida|US|0.0|0.0|0|1|0|0
-10786|2020-03-23 23:19:34|Unassigned, Georgia, US|N/A|Unassigned|Georgia|US|0.0|0.0|45|10|0|0
-10787|2020-03-23 23:19:34|Unassigned, Illinois, US|N/A|Unassigned|Illinois|US|0.0|0.0|63|0|0|0
-10788|2020-03-23 23:19:34|Unassigned, Indiana, US|N/A|Unassigned|Indiana|US|0.0|0.0|56|0|0|0
-10789|2020-03-23 23:19:34|Unassigned, Kentucky, US|N/A|Unassigned|Kentucky|US|0.0|0.0|15|0|0|0
-10790|2020-03-23 23:19:34|Unassigned, Louisiana, US|N/A|Unassigned|Louisiana|US|0.0|0.0|11|0|0|0
-10791|2020-03-23 23:19:34|Unassigned, Maine, US|N/A|Unassigned|Maine|US|0.0|0.0|5|0|0|0
-10792|2020-03-23 23:19:34|Unassigned, Massachusetts, US|N/A|Unassigned|Massachusetts|US|0.0|0.0|53|7|0|0
-10793|2020-03-23 23:19:34|Unassigned, Minnesota, US|N/A|Unassigned|Minnesota|US|0.0|0.0|1|0|0|0
-10794|2020-03-23 23:19:34|Unassigned, Missouri, US|N/A|Unassigned|Missouri|US|0.0|0.0|4|0|0|0
-10795|2020-03-23 23:19:34|Unassigned, Montana, US|N/A|Unassigned|Montana|US|0.0|0.0|1|0|0|0
-10796|2020-03-23 23:19:34|Unassigned, Nevada, US|N/A|Unassigned|Nevada|US|0.0|0.0|89|0|0|0
-10797|2020-03-23 23:19:34|Unassigned, New Hampshire, US|N/A|Unassigned|New Hampshire|US|0.0|0.0|23|0|0|0
-10798|2020-03-23 23:19:34|Unassigned, New Jersey, US|N/A|Unassigned|New Jersey|US|0.0|0.0|419|9|0|0
-10799|2020-03-23 23:19:34|Unassigned, New York, US|N/A|Unassigned|New York|US|0.0|0.0|107|36|0|0
-10800|2020-03-23 23:19:34|Unassigned, Rhode Island, US|N/A|Unassigned|Rhode Island|US|0.0|0.0|5|0|0|0
-10801|2020-03-23 23:19:34|Unassigned, Tennessee, US|N/A|Unassigned|Tennessee|US|0.0|0.0|54|0|0|0
-10802|2020-03-23 23:19:34|Unassigned, Vermont, US|N/A|Unassigned|Vermont|US|0.0|0.0|0|3|0|0
-10803|2020-03-23 23:19:34|Unassigned, Washington, US|N/A|Unassigned|Washington|US|0.0|0.0|145|0|0|0
-10804|2020-03-23 23:19:34|Unassigned, Wuhan Evacuee, US|N/A|Unassigned|Wuhan Evacuee|US|0.0|0.0|4|0|0|0
-11111|2020-03-23 23:23:10|Diamond Princess, Canada|N/A|N/A|Diamond Princess|Canada|0.0|0.0|0|1|0|0
-14198|2020-03-24 23:37:31|Unassigned, Arizona, US|N/A|Unassigned|Arizona|US|0.0|0.0|0|2|0|0
-14203|2020-03-24 23:37:31|Unassigned, Hawaii, US|N/A|Unassigned|Hawaii|US|0.0|0.0|20|0|0|0
-14205|2020-03-24 23:37:31|Unassigned, Iowa, US|N/A|Unassigned|Iowa|US|0.0|0.0|2|0|0|0
-14572|2020-03-24 23:41:36|Recovered, Canada|N/A|N/A|Recovered|Canada|0.0|0.0|0|0|110|0
-14573|2020-03-24 23:37:31|Recovered, US|N/A|N/A|Recovered|US|0.0|0.0|0|0|348|0
+LABEL|LAT|LON
+Australia|0.0|0.0
+Chicago, US|0.0|0.0
+Ivory Coast|0.0|0.0
+Bavaria, Germany|0.0|0.0
+Cruise Ship, Others|0.0|0.0
+Ashland, NE, US|0.0|0.0
+Travis, CA, US|0.0|0.0
+Lackland, TX, US|0.0|0.0
+From Diamond Princess, Israel|0.0|0.0
+None, Lebanon|0.0|0.0
+None, Iraq|0.0|0.0
+None, Austria|0.0|0.0
+North Ireland|0.0|0.0
+Out of MI,Michigan,US|0.0|0.0
+Out of TN,Tennessee,US|0.0|0.0
+Out of UT,Utah,US|0.0|0.0
+Unassigned, Arkansas, US|0.0|0.0
+Unassigned, Colorado, US|0.0|0.0
+Unassigned, Florida, US|0.0|0.0
+Unassigned, Georgia, US|0.0|0.0
+Unassigned, Illinois, US|0.0|0.0
+Unassigned, Indiana, US|0.0|0.0
+Unassigned, Kentucky, US|0.0|0.0
+Unassigned, Louisiana, US|0.0|0.0
+Unassigned, Maine, US|0.0|0.0
+Unassigned, Massachusetts, US|0.0|0.0
+Unassigned, Minnesota, US|0.0|0.0
+Unassigned, Missouri, US|0.0|0.0
+Unassigned, Montana, US|0.0|0.0
+Unassigned, Nevada, US|0.0|0.0
+Unassigned, New Hampshire, US|0.0|0.0
+Unassigned, New Jersey, US|0.0|0.0
+Unassigned, New York, US|0.0|0.0
+Unassigned, Rhode Island, US|0.0|0.0
+Unassigned, Tennessee, US|0.0|0.0
+Unassigned, Vermont, US|0.0|0.0
+Unassigned, Washington, US|0.0|0.0
+Unassigned, Wuhan Evacuee, US|0.0|0.0
+Diamond Princess, Canada|0.0|0.0
+Unassigned, Arizona, US|0.0|0.0
+Unassigned, Hawaii, US|0.0|0.0
+Unassigned, Iowa, US|0.0|0.0
+Recovered, Canada|0.0|0.0
+Recovered, US|0.0|0.0

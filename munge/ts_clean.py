@@ -13,7 +13,7 @@ from csv import reader
 
 start = timer()
 now = datetime.now()
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+dt_string = now.strftime('%d/%m/%Y %H:%M:%S')
 print('Starting... (' + dt_string + ' Z)')
 
 basepath = path.dirname(__file__)
@@ -40,7 +40,8 @@ geo_inconsistent = 0 # curious if for same lables, geopoint changes
 geo_fix = 0 # number of zero lat/lons that need fixing
 csv.register_dialect('piper', delimiter='|', quoting=csv.QUOTE_NONE)
 ln = 0 # line number
-with open(datafile, "r") as csvfile:
+print('Step 1...')
+with open(datafile, 'r') as csvfile:
 	for line in csv.DictReader(csvfile, dialect='piper'):
 		ln += 1
 		if (ln > 1):
@@ -65,8 +66,8 @@ with open(datafile, "r") as csvfile:
 			keyterm = line['LASTUPDATED'] + '_' + key
 			#if (hash.get(keyterm) != None):
 			#	print(keyterm)
-			#	print("  B: " + str(hash.get(keyterm)))
-			#	print("  A: " + str(line))
+			#	print('  B: ' + str(hash.get(keyterm)))
+			#	print('  A: ' + str(line))
 			if (float(line['LAT']) != 0 and float(line['LON']) != 0):
 				if (geohash.get(key) == None):
 					geohash[key] = [line['LAT'], line['LON']]
@@ -86,14 +87,14 @@ with open(datafile, "r") as csvfile:
 			hash[keyterm] = line
 			n_obs += 1
 
-print("# obs before: " + str(n_obs))
-print("# obs intermediate: " + str(len(hash)))
-print("# dupes removed: " + str(n_obs-len(hash)))
+print('	# obs before: ' + str(n_obs))
+print('	# obs intermediate: ' + str(len(hash)))
+print('	# dupes removed: ' + str(n_obs-len(hash)))
 print()
-print("# geohash's: " + str(len(geohash)))
-print("# geo_consistent: " + str(geo_consistent))
-print("# geo_inconsistent: " + str(geo_inconsistent))
-print("# geo_fix: " + str(geo_fix))
+print('	# geohash\'s: ' + str(len(geohash)))
+print('	# geo_consistent: ' + str(geo_consistent))
+print('	# geo_inconsistent: ' + str(geo_inconsistent))
+print('	# geo_fix: ' + str(geo_fix))
 print()
 
 # LOAD DATA FROM geo_corrections.txt and apply them to whatever remains
@@ -102,14 +103,14 @@ geo_corrections = {}
 try:
 	geo_corrections_datafile = path.abspath(path.join(basepath, '..', 'data', 'geo_corrections_datafile.txt'))
 	ln = 0 # line number
-	with open(geo_corrections_datafile, "r") as geo_corrections_csvfile:
+	with open(geo_corrections_datafile, 'r') as geo_corrections_csvfile:
 		for line in csv.DictReader(geo_corrections_csvfile, dialect='piper'):
 			ln += 1
 			if (ln > 1):
 				geo_corrections[line[0]] = [line[1], line[2]]
-	print('Loaded ' + str(len(geo_corrections)) + ' geo_corrections...')
+	print('	Loaded ' + str(len(geo_corrections)) + ' geo_corrections...')
 except:
-	print('No geo_corrections file...')
+	print('	No geo_corrections file...')
 print()
 
 # 2nd pass
@@ -118,6 +119,7 @@ print()
 geo_fixed = 0
 geo_fixed_by_correction_file = 0
 geo_cannot_fix = 0
+print('Step 2...')
 for i, (key, v) in enumerate(hash.items()):
 	#print(key.split('_')[1], v['LAT'], v['LON'])
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
@@ -127,7 +129,7 @@ for i, (key, v) in enumerate(hash.items()):
 			v['LON'] = temp[1]
 			geo_fixed += 1
 		else:
-			# lets see if we can fix from the "geo_corrections" hash
+			# lets see if we can fix from the 'geo_corrections' hash
 			temp = geo_corrections.get(key.split('_')[1])
 			if (temp != None):
 				v['LAT'] = temp[0]
@@ -135,10 +137,10 @@ for i, (key, v) in enumerate(hash.items()):
 				geo_fixed_by_correction_file += 1
 			else:
 				geo_cannot_fix += 1
-print("# geo_fixed: " + str(geo_fixed))
-print("# geo_fixed_by_correction_file: " + str(geo_fixed_by_correction_file))
-print("# geo_cannot_fix: " + str(geo_cannot_fix))
-print("# TOTAL: " + str(geo_fixed + geo_cannot_fix))
+print('	# geo_fixed: ' + str(geo_fixed))
+print('	# geo_fixed_by_correction_file: ' + str(geo_fixed_by_correction_file))
+print('	# geo_cannot_fix: ' + str(geo_cannot_fix))
+print('	# TOTAL: ' + str(geo_fixed + geo_cannot_fix))
 print()
 
 # 3rd pass - WRITE OUT THOSE THAT NEED FIXED
@@ -146,6 +148,7 @@ flag = {} # only want to write once per unique key
 fileout = path.abspath(path.join(basepath, '..', 'data', 'geo_issues.txt'))
 fileout = open(fileout,'w')
 fileout.write('LABEL|LAT|LON\n')
+num_to_fix = 0
 for i, (key, v) in enumerate(hash.items()):
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
 		temp = geohash.get(key.split('_')[1])
@@ -154,20 +157,51 @@ for i, (key, v) in enumerate(hash.items()):
 			flag[key.split('_')[1]] = True
 			line = v['LABEL'] + '|' + v['LAT'] + '|' + v['LON']
 			#print(line)
+			num_to_fix += 1
 			fileout.write(line + '\n')
 fileout.close()
+print('Step 3...\n	Generated geolocation fix file (# entries: ' + str(num_to_fix) + ')\n')
 
-# 1st pass - fix county references
-#for i, (key, v) in enumerate(hash.items()):
-#	print(v)
+# 4th pass - fix legacy county references
+num_fixed = 0
+for i, (key, v) in enumerate(hash.items()):
+	if (v['ADM1'] == 'US' and v['LABEL'].find('County') > 0 and v['ADM3'] == 'N/A' and (len(v['ADM2']) - v['ADM2'].find(', ') == 4)):
+		# print(v)
+		v['ADM3'] = v['ADM2'][:v['ADM2'].find(' County')]
+		state = v['ADM2'][v['ADM2'].find(', ') + 2:]
+		v['ADM2'] = abbr2state.get(state)
+		# v['LABEL'] = v['ADM3'] + ', ' + v['ADM2'] + ', US'
+		num_fixed += 1
+		# print(v)
+print('Step 4...\n	# Legacy County References Fixed: ' + str(num_fixed) + '\n')
 
-# 2nd pass - interpolation
+# 5th pass - assign county FIPs if N/A
+num_fixed = 0
+fipslookup_hash = {}
+for i, (key, v) in enumerate(hash.items()):
+	if (v['FIPS'] != 'N/A'):
+		fipslookup_hash[v['LABEL']] = v['FIPS']
+print('Step 5...\n	Hashed FIPs: ' + str(len(fipslookup_hash)))
+for i, (key, v) in enumerate(hash.items()):
+	if (v['ADM1'] == 'US' and v['LABEL'].find('County') > 0 and v['FIPS'] == 'N/A'):
+		# print(v)
+		fips_key = v['ADM3'] + ', ' + v['ADM2'] + ', US'
+		# print(str(v) + ' >>> ' + fips_key)
+		temp = fipslookup_hash.get(fips_key)
+		if (temp != None):
+			v['LABEL'] = v['ADM3'] + ', ' + v['ADM2'] + ', US'
+			v['FIPS'] = temp
+			num_fixed += 1
+print('	# FIPs Fixed: ' + str(num_fixed))
+
+# last pass - interpolation
 # TODO
 for key in sorted(hash.keys()):
 	v = hash.get(key)
 	v['INTER'] = 'N'
 
-print("# obs after: " + str(len(hash)))
+print()
+print('# obs after: ' + str(len(hash)))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.txt'))
 fileout = open(fileout,'w')
