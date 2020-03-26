@@ -1,14 +1,27 @@
 LABEL|LAT|LON
 Ivory Coast|0|0
 Cruise Ship, Others|0|0
-Travis, CA, US|0|0
-Lackland, TX, US|0|0
 From Diamond Princess, Israel|0|0
 None, Lebanon|0|0
 None, Iraq|0|0
 None, Austria|0|0
 North Ireland|0|0
+Brockton, Massachusetts, US|0.0|0.0
+Out-of-state, Tennessee, US|0.0|0.0
+Unknown, Tennessee, US|0.0|0.0
+LeSeur, Minnesota, US|0.0|0.0
+Nashua, New Hampshire, US|0.0|0.0
+Soldotna, Alaska, US|0.0|0.0
+Sterling, Alaska, US|0.0|0.0
 Unassigned, Wuhan Evacuee, US|0|0
 Diamond Princess, Canada|0|0
+External territories, Australia|0.0|0.0
+Jervis Bay Territory, Australia|0.0|0.0
+Out of MI, Michigan, US|0.0|0.0
+Out of TN, Tennessee, US|0.0|0.0
+Out of UT, Utah, US|0.0|0.0
 Recovered, Canada|0|0
 Recovered, US|0|0
+Unassigned, Alaska, US|0.0|0.0
+Unassigned, North Carolina, US|0.0|0.0
+Diamond Princess|0.0|0.0

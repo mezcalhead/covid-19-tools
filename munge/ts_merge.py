@@ -35,12 +35,18 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 		adm3 = 'N/A'
 	if (adm2 == None or adm2 == ''):
 		adm2 = 'N/A'
+	# specific clean ups for legacy consistency
+	# taiwan
+	if (adm1 == 'Taipei and environs' or adm1 == 'Taiwan'):
+		adm1 = 'Taiwan*'
+		adm2 = 'N/A'
 	# timestamps change differently than the header_types, so far here are the types detected
 	# '1/22/2020 17:00' (mostly header_type = 1)
 	# '1/23/20 18:00' (some header_type = 1)
 	# '2020-02-21T06:53:03' (some header_type = 1)
 	# '2020-02-21T06:53:03' (mostly header_type = 2)
 	# '2020-03-24 23:37:31' (mostly header_type = 3)
+	# '3/22/20 23:45'
 	if (header_type == 1):
 		ts = ts.replace('/20 ','/2020 ') # some occurences
 		try:
@@ -50,13 +56,22 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 	elif (header_type == 2):
 		datetime_object = datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
 	elif (header_type == 3):
-		datetime_object = datetime.strptime(ts, '%Y-%m-%d %H:%M:%S')
-	if (lat == None):
+		ts = ts.replace('/20 ','/2020 ') # some occurences
+		try:
+			datetime_object = datetime.strptime(ts, '%Y-%m-%d %H:%M:%S')
+		except ValueError:
+			datetime_object = datetime.strptime(ts, '%m/%d/%Y %H:%M')
+	if (lat == None or lat == ''):
 		lat = 0
-	if (lon == None):
+	if (lon == None or lon == ''):
 		lon = 0
-	lat = round(float(lat), 6)
-	lon = round(float(lon), 6)
+	try:
+		lat = round(float(lat), 6)
+		lon = round(float(lon), 6)
+	except ValueError:
+		print('WARNING: lat/lon Error', lat, lon)
+		lat = 0
+		lon = 0
 	if (confirmed == ''):
 		confirmed = 0
 	if (deaths == ''):
@@ -80,8 +95,8 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 			label = label + ", " + adm1
 	n_obs += 1
 	fileout.write(str(n_obs) + '|' + fips.strip() + '|' + adm3.strip() + '|' + adm2.strip() + '|' + adm1.strip() + '|' + \
-		str(datetime_object) + '|' + str(lat).strip() + '|' + str(lon).strip() + '|' + str(confirmed) + '|' + str(deaths) + \
-		'|' + str(recovered) + '|' + str(active) + '|' + label.strip() + '\n')
+		datetime_object.strftime('%m/%d/%Y') + '|' + str(lat).strip() + '|' + str(lon).strip() + '|' + str(confirmed) + '|' + \
+		str(deaths) + '|' + str(recovered) + '|' + str(active) + '|' + label.strip() + '\n')
 
 # iterate the files, reading them
 n_files = 1 # number of files
