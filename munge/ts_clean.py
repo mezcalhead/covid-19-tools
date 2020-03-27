@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# Purpose: cleans the output from ts_merge.py by fixing historical US county entries and interpolating missing data
+# Purpose: cleans the output from ts_merge.py by fixing historical US county entries; primarily normalizes
 #
 from datetime import datetime
 from datetime import timedelta
@@ -77,7 +77,18 @@ with open(datafile, 'r') as csvfile:
 			tok = line['ADM2'].split(',')
 			key = tok[0].replace('County', '').strip() + ', ' + abbr2state[tok[1].strip()] + ', US'
 		if (key == None):
-			# TODO: decide on approach
+			key = line['LABEL']
+		# diamond princess conditions
+		if (line['LABEL'].find('From Diamond Princess') >= 0 or line['LABEL'].find('Diamond Princess cruise ship') >= 0 or \
+			line['LABEL'].find('Diamond Princess, US') >= 0 or line['LABEL'].find('Diamond Princess, Canada') >= 0):
+			continue
+		if (line['ADM1'] == 'Cruise Ship'):
+			line['ADM1'] = 'Diamond Princess'
+			line['LABEL'] = 'Diamond Princess, Cruise Ship'
+			line['ADM2'] = 'N/A'
+			key = line['LABEL']
+		elif (line['LABEL'] == 'Diamond Princess'):
+			line['LABEL'] = 'Diamond Princess, Cruise Ship'
 			key = line['LABEL']
 		# check state isn't abbreviated as there are some holes in tests above
 		tok2 = line['LABEL'].split(',')
@@ -278,8 +289,8 @@ for i, (key, v) in enumerate(hash.items()):
 print('	Fixed FIPS: ' + str(num_fixed))
 print('	Unresolvable FIPS: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / num_possible), 1)) + '%)')
 
-# temporal study
-print('\nStep ' + str(step_counter) + ' (Temporal Study)...')
+# temporal sort
+print('\nStep ' + str(step_counter) + ' (Temporal Sort)...')
 step_counter += 1
 #print(sorted(hash.keys())[0])
 #print(sorted(hash.keys())[len(hash.keys())-1])
@@ -294,51 +305,72 @@ print('	date range: ' + str(date_start_obj) + '-' + str(date_stop_obj))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal.txt'))
 fileout = open(fileout,'w')
-flag = {} # flag hash if key is seen 
+fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FILL|DAYN\n')
+obs = 1
+flag1 = {} # flag hash if key is seen (flag)
 for key in sorted(hash.keys()):
 	v = hash.get(key)
 	#print(key, str(v)[len('OrderedDict('):len('OrderedDict(')+20])
 	date = key[0:10]
 	date_obj = datetime.strptime(date, '%m/%d/%Y')
 	label = key[11:]
+	if (flag1.get(label) != None):
+		continue
 	#print(date,label,str(v))
 	if (date != v['LASTUPDATED']):
 		print('WARNING: ' + date + ',' + v['LASTUPDATED'])
 	if (label != v['LABEL']):
 		print('WARNING: [' + label + '=' + v['LABEL'] + ']')
 	date_on = date_start_obj
-	n = 1
+	# roll dates forward
+	line = None
+	bv = None
 	while (date_on <= date_stop_obj):
 		keygen = date_on.strftime('%m/%d/%Y') + '_' + label
 		v = hash.get(keygen)
+		flg_write = 0
 		if (v != None):
-			fileout.write(str(n) + '|' + date_on.strftime('%m/%d/%Y') + '|' + keygen + '|' + v['CONFIRMED'] + '\n')
-			if (flag.get(label) == None):
-				flag[label] = date_on
+			# fileout.write(str(n) + '|' + date_on.strftime('%m/%d/%Y') + '|' + keygen + '|' + v['CONFIRMED'] + '\n')
+			if (flag1.get(label) == None):
+				flag1[label] = date_on
+				bv = v
+				n_days = 1
+				line = str(obs) + '|' + v['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
+				v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+				v['ACTIVE'] + '|' + 'N|1'
+			else:
+				n_days += 1
+				line = str(obs) + '|' + v['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
+				v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+				v['ACTIVE'] + '|' + 'N|' + str(n_days)
 		else:
-			if (flag.get(label) != None and flag.get(label) < date_on):
-				fileout.write(str(n) + '|' + date_on.strftime('%m/%d/%Y') + '|' + keygen + '|' + 'MISSING!\n')
-		n += 1
+			if (flag1.get(label) != None and flag1.get(label) < date_on):
+				n_days += 1
+				line = str(obs) + '|' + bv['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + bv['LABEL'] + '|' + bv['FIPS'] + '|' + bv['ADM3'] + '|' + \
+				bv['ADM2'] + '|' + bv['ADM1'] + '|' + bv['LAT'] + '|' + bv['LON'] + '|' + '-1' + '|' + '-1' + '|' + '-1' + '|' + \
+				'-1' + '|' + 'Y|' + str(n_days)
 		date_on = date_on + timedelta(days=1)
+		if (line != None): # write record
+			#print(line)
+			fileout.write(line + '\n')
+			line = None
+			obs += 1
 fileout.close()
 
-# TODO
-for key in sorted(hash.keys()):
-	v = hash.get(key)
-	v['INTER'] = 'N'
-
 print()
-print('# obs after: ' + str(len(hash)))
+print('# data_merged # obs (before): ' + str(n_obs))
+print('# data_temporal # obs: ' + str(obs))
+print('# data_cleaned # obs: ' + str(len(hash)))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.txt'))
 fileout = open(fileout,'w')
-fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|INTER\n')
+fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE\n')
 obs = 1
 for key in sorted(hash.keys()):
 	v = hash.get(key)
 	line = str(obs) + '|' + v['OBS'] + '|' + v['LASTUPDATED'] + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
 	v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
-	v['ACTIVE'] + '|' + v['INTER']
+	v['ACTIVE']
 	#print(line)
 	fileout.write(line + '\n')
 	obs += 1
