@@ -22,3 +22,8 @@ Recovered, Canada|0|0
 Recovered, US|0|0
 Unassigned, Alaska, US|0.0|0.0
 Unassigned, North Carolina, US|0.0|0.0
+Unassigned, California, US|0.0|0.0
+Unassigned, Delaware, US|0.0|0.0
+Unassigned, Maryland, US|0.0|0.0
+Unassigned, Nebraska, US|0.0|0.0
+Unassigned, Wisconsin, US|0.0|0.0
