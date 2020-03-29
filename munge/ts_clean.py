@@ -297,7 +297,7 @@ print('	date range: ' + date_start_obj.strftime('%m/%d/%Y') + '-' + date_stop_ob
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal.txt'))
 fileout = open(fileout,'w')
-fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FILL|DAYN\n')
+fileout.write('OBS|POBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FILL|DAYN\n')
 obs = 1
 flag1 = {} # flag hash if key is seen (flag)
 for key in sorted(hash.keys()):
@@ -356,7 +356,7 @@ print('# data_cleaned # obs: ' + str(len(hash)))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.txt'))
 fileout = open(fileout,'w')
-fileout.write('OBS|POBS|LASTUPDATED|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE\n')
+fileout.write('OBS|POBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE\n')
 obs = 1
 for key in sorted(hash.keys()):
 	v = hash.get(key)
