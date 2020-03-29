@@ -90,30 +90,52 @@ with open(datafile, 'r') as csvfile:
 		elif (line['LABEL'] == 'Diamond Princess'):
 			line['LABEL'] = 'Diamond Princess, Cruise Ship'
 			key = line['LABEL']
-		# check state isn't abbreviated as there are some holes in tests above
-		tok2 = line['LABEL'].split(',')
-		if (len(tok2) == 3):
-			if (tok2[2].strip() == 'US'):
-				if (len(tok2[1].strip()) == 2):
-					line['ADM2'] = abbr2state[tok2[1].strip()]
-					if (line['ADM3'] != 'N/A'):
-						line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-					else:
-						line['LABEL'] = line['ADM2'] + ', US'
-					key = line['LABEL']
+		# DC, Washington DC.
+		if (line['LABEL'].find('D.C.') != -1 or line['LABEL'].find('District of Columbia') != -1):
+			# print(line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+			line['ADM3'] = 'District of Columbia'
+			line['ADM2'] = 'District of Columbia'
+			line['ADM1'] = 'US' # should be
+			line['LABEL'] = 'District of Columbia, District of Columbia, US'
+			key = line['LABEL']
+			# print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+		else:
+			# check state isn't abbreviated as there are some holes in tests above
+			tok2 = line['LABEL'].split(',')
+			if (len(tok2) == 3):
+				if (tok2[2].strip() == 'US'):
+					if (len(tok2[1].strip()) == 2):
+						line['ADM2'] = abbr2state[tok2[1].strip()]
+						if (line['ADM3'] != 'N/A'):
+							line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
+						else:
+							line['LABEL'] = line['ADM2'] + ', US'
+						key = line['LABEL']
 		# mispellings/case fixes
 		if (line['ADM3'] == 'Desoto'):
 			line['ADM3'] = 'DeSoto'
 			line['LABEL'] = line['LABEL'].replace('Desoto','DeSoto')
 			key = key.replace('Desoto','DeSoto')
+		if (line['LABEL'].find('occupied Palestinian') != -1):
+			line['LABEL'] = 'Occupied Palestinian Territory, Israel'
+			line['ADM1'] = 'Israel'
+			line['ADM2'] = 'Occupied Palestinian Territory'
+			key = line['LABEL']
 		# comma spacing
 		line['LABEL'] = line['LABEL'].replace(', ', ',')
 		line['LABEL'] = line['LABEL'].replace(',', ', ')
 		key = key.replace(', ', ',')
 		key = key.replace(',', ', ')
+		# starting commas
+		if (line['LABEL'].startswith(', , ') == True):
+			line['LABEL'] = line['LABEL'][4:]
+			key = line['LABEL']
+		if (line['LABEL'].startswith(', ') == True):
+			line['LABEL'] = line['LABEL'][2:]
+			key = line['LABEL']
 		# set hash
 		# print(key)
-		keyterm = line['LASTUPDATED'] + '_' + key
+		keyterm = key + '_' + line['LASTUPDATED']
 		#if (hash.get(keyterm) != None):
 		#	print(keyterm)
 		#	print('  B: ' + str(hash.get(keyterm)))
@@ -134,9 +156,12 @@ with open(datafile, 'r') as csvfile:
 					geohash[key] = [line['LAT'], line['LON']]
 		else:
 			geo_fix += 1
-		#
+		# store data in HASH
 		hash[keyterm] = line
 		n_obs += 1
+
+#if (True):
+#	sys.exit('')
 
 print('	# obs before: ' + str(n_obs))
 print('	# obs intermediate: ' + str(len(hash)))
@@ -174,14 +199,14 @@ step_counter += 1
 for i, (key, v) in enumerate(hash.items()):
 	#print(key.split('_')[1], v['LAT'], v['LON'])
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
-		temp = geohash.get(key.split('_')[1])
+		temp = geohash.get(key.split('_')[0]) # the key term (the label piece not the date)
 		if (temp != None):
 			v['LAT'] = temp[0]
 			v['LON'] = temp[1]
 			geo_fixed += 1
 		else:
 			# lets see if we can fix from the 'geo_corrections' hash
-			temp = geo_corrections.get(key.split('_')[1])
+			temp = geo_corrections.get(key.split('_')[0])
 			if (temp != None):
 				v['LAT'] = temp[0]
 				v['LON'] = temp[1]
@@ -203,10 +228,10 @@ fileout.write('LABEL|LAT|LON\n')
 num_to_fix = 0
 for i, (key, v) in enumerate(hash.items()):
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
-		temp = geohash.get(key.split('_')[1])
-		if (temp == None and flag.get(key.split('_')[1]) == None):
+		temp = geohash.get(key.split('_')[0])
+		if (temp == None and flag.get(key.split('_')[0]) == None):
 			v.get(key)
-			flag[key.split('_')[1]] = True
+			flag[key.split('_')[0]] = True
 			line = v['LABEL'] + '|' + v['LAT'] + '|' + v['LON']
 			#print(line)
 			num_to_fix += 1
@@ -215,42 +240,9 @@ fileout.close()
 print('Step ' + str(step_counter) + ' (Geo Issues File)...\n	Generated geolocation fix file (# entries: ' + str(num_to_fix) + ')\n')
 step_counter += 1
 
-# # fix legacy county references
-# num_fixed = 0
-# for i, (key, v) in enumerate(hash.items()):
-	# if (v['ADM1'] == 'US' and v['LABEL'].find('County') > 0 and v['ADM3'] == 'N/A' and (len(v['ADM2']) - v['ADM2'].find(', ') == 4)):
-		# # print(v)
-		# v['ADM3'] = v['ADM2'][:v['ADM2'].find(' County')]
-		# state = v['ADM2'][v['ADM2'].find(', ') + 2:]
-		# v['ADM2'] = abbr2state.get(state)
-		# # v['LABEL'] = v['ADM3'] + ', ' + v['ADM2'] + ', US'
-		# num_fixed += 1
-		# # print(v)
-# print('Step ' + str(step_counter) + '...\n	# Legacy County References Fixed: ' + str(num_fixed) + '\n')
-# step_counter += 1
-
 # assign county FIPs if N/A
 print('Step ' + str(step_counter) + ' (County Labels)...')
 step_counter += 1
-# num_fixed = 0
-# fipslookup_hash = {}
-# for i, (key, v) in enumerate(hash.items()):
-	# if (v['FIPS'] != 'N/A'):
-		# fipslookup_hash[v['LABEL']] = v['FIPS']
-# print('Hashed FIPs: ' + str(len(fipslookup_hash)))
-# for i, (key, v) in enumerate(hash.items()):
-	# if (v['ADM1'] == 'US' and v['LABEL'].find('County') > 0 and v['FIPS'] == 'N/A'):
-		# # print(v)
-		# if (len(v['ADM2']) == 2):
-			# v['ADM2'] = abbr2state[v['ADM2']]
-		# fips_key = v['ADM3'] + ', ' + v['ADM2'] + ', US'
-		# # print(str(v) + ' >>> ' + fips_key)
-		# temp = fipslookup_hash.get(fips_key)
-		# if (temp != None):
-			# v['LABEL'] = v['ADM3'] + ', ' + v['ADM2'] + ', US'
-			# v['FIPS'] = temp
-			# num_fixed += 1
-# print('	# FIPs Fixed: ' + str(num_fixed))
 
 # fix remaining county labels
 num_fixed = 0
@@ -292,16 +284,16 @@ print('	Unresolvable FIPS: ' + str(num_missing) + ' (' + str(round(((num_missing
 # temporal sort
 print('\nStep ' + str(step_counter) + ' (Temporal Sort)...')
 step_counter += 1
-#print(sorted(hash.keys())[0])
-#print(sorted(hash.keys())[len(hash.keys())-1])
-temp = sorted(hash.keys())[0]
-date_start = temp[0:10]
-temp = sorted(hash.keys())[len(hash.keys())-1]
-date_stop = temp[0:10]
-print('	date range: ' + date_start + '-' + date_stop)
-date_start_obj = datetime.strptime(date_start, '%m/%d/%Y')
-date_stop_obj = datetime.strptime(date_stop, '%m/%d/%Y')
-print('	date range: ' + str(date_start_obj) + '-' + str(date_stop_obj))
+date_start_obj = datetime.strptime('1/1/2100', '%m/%d/%Y')
+date_stop_obj = datetime.strptime('1/1/1900', '%m/%d/%Y')
+for k in hash.keys():
+	date_temp = k.split('_')[1] # date part
+	date_temp_obj = datetime.strptime(date_temp, '%m/%d/%Y')
+	if (date_temp_obj > date_stop_obj):
+		date_stop_obj = date_temp_obj
+	if (date_temp_obj < date_start_obj):
+		date_start_obj = date_temp_obj
+print('	date range: ' + date_start_obj.strftime('%m/%d/%Y') + '-' + date_stop_obj.strftime('%m/%d/%Y'))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal.txt'))
 fileout = open(fileout,'w')
@@ -311,9 +303,9 @@ flag1 = {} # flag hash if key is seen (flag)
 for key in sorted(hash.keys()):
 	v = hash.get(key)
 	#print(key, str(v)[len('OrderedDict('):len('OrderedDict(')+20])
-	date = key[0:10]
+	date = key.split('_')[1]
 	date_obj = datetime.strptime(date, '%m/%d/%Y')
-	label = key[11:]
+	label = key.split('_')[0]
 	if (flag1.get(label) != None):
 		continue
 	#print(date,label,str(v))
@@ -326,7 +318,7 @@ for key in sorted(hash.keys()):
 	line = None
 	bv = None
 	while (date_on <= date_stop_obj):
-		keygen = date_on.strftime('%m/%d/%Y') + '_' + label
+		keygen = label + '_' + date_on.strftime('%m/%d/%Y')
 		v = hash.get(keygen)
 		flg_write = 0
 		if (v != None):
