@@ -4,4 +4,6 @@ This site is public to assist with data analysis tools and scripts on the JHU SS
 
 The <b>munge</b> directory has python scripts to do data munging and preparations.<br>
 
-The <b>data</b> directory is where munge-related output files are placed.<br>
+The <b>viz</b> directory is where visualization and plotting files are placed.<br>
+
+The <b>data</b> directory is where munge-related output files are placed, as well as reference files.<br>
