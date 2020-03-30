@@ -27,3 +27,6 @@ Unassigned, Delaware, US|0.0|0.0
 Unassigned, Maryland, US|0.0|0.0
 Unassigned, Nebraska, US|0.0|0.0
 Unassigned, Wisconsin, US|0.0|0.0
+Unassigned, Michigan, US|0.0|0.0
+MS Zaandam|0.0|0.0
+Unassigned, Virginia, US|0.0|0.0

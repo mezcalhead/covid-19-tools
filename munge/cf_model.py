@@ -66,7 +66,7 @@ def fit(x_data, y_data, model_type = 'EXP'):
 		results = smf.ols(formula='y ~ model(x)', data=x_data).fit()
 		return weights, model, results
 
-def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False):
+def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False, yavg_data = None, yavg_label = 'Average'):
 	# d_data: list of dates in datetime format, sorted
 	# y_data: list of numbers (e.g. covid cases) of same length for each date
 	# n_forecast: number of days to forecast
@@ -85,12 +85,12 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		raise Error('d_data and y_data have unequal lengths.')
 	size = len(d_data)
 	x_data = np.array([i for i in range(size)]) # date integer data (days since)
-
+	
 	# print('y_data:')
 	# print(y_data)
 	# print('d_data:')
 	# print(d_data)
-
+	
 	# generate derivative clone without missing values
 	xd_data = np.copy(x_data)
 	yd_data = np.copy(y_data)
@@ -100,30 +100,46 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 	xd_data = np.delete(xd_data, removal_list)
 	yd_data = np.delete(yd_data, removal_list)
 	
+	si = -1 # starting index where yd_data >= 1
+	for i in range(len(yd_data)):
+		if (yd_data[i] >= 1.0): 
+			si = i
+			break
+	if (si == -1):
+		sys.exit('zero value y_data', y_data)
+	
 	# curve fit
 	try:
 		if (model_type == 'EXP' or model_type == 'SIGMOID'):
-			popt, pcov, perr, rsqd = fit(xd_data, yd_data, model_type)
+			popt, pcov, perr, rsqd = fit(xd_data[si:], yd_data[si:] / yd_data[si], model_type)
 		else: # POLY3
-			weights, model, results = fit(xd_data, yd_data, model_type)
+			weights, model, results = fit(xd_data[si:], yd_data[si:] / yd_data[si], model_type)
 	except RuntimeError:
 		#print(d_data)
 		#print(xd_data)
 		#print(y_data)
-		return None, None, -1, None
+		return None, None, -1, None, None, None, None
 	except TypeError:
 		#print(d_data)
 		#print(xd_data)
 		#print(y_data)
-		return None, None, -1, None
-	
+		return None, None, -1, None, None, None, None
+	except IndexError:
+		print(d_data)
+		print(xd_data)
+		print(yd_data)
+		print(si)
+		print(yd_data[si:])
+		return None, None, -1, None, None, None, None
+		
 	# calc ALL curve fit values for 0 thru n-day forecast -> our trajectory
 	xm_data = np.array([i for i in range(size + n_forecast)])
 	if (model_type == 'EXP'):
-		ym_data = model_exp(xm_data, *popt)
+		ym_data = model_exp(xm_data, *popt) * yd_data[si]
 	elif (model_type == 'SIGMOID'):
-		ym_data = model_sigmoid(xm_data, *popt)
+		ym_data = model_sigmoid(xm_data, *popt) * yd_data[si]
 	else: # POLY3
+		# TBD if it works!
 		results = smf.ols(formula='y ~ model(x)', data=xm_data).fit()
 		print(results)
 	
@@ -171,6 +187,7 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		# plots
 		plot_label = 'Model'
 		if (model_type == 'EXP'): plot_label += ' EXP (r^2 = ' + '{0:.3f}'.format(rsqd) + ')'
+		ax.plot(xm_data, yavg_data, '-.', color ='lightgreen', label = yavg_label)
 		ax.plot(xm_data, ym_data, '--', color ='darkgrey', label = plot_label)
 		ax.plot(xd_data, yd_data, 'o', color ='red', label ='Reported Open ' + label)
 		ax.plot(xh_data, yh_data, 'o', color ='black', label ='Historical Estimate') 
@@ -203,6 +220,6 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		#ax2.set_xlim(df_data[0], df_data[size])
 		# x_data = mdates.date2num(dates)
 		#fig.tight_layout()
-		return plt, popt, rsqd, fig
+		return plt, popt, rsqd, fig, ax, xm_data, ym_data
 	else:
-		return None, popt, rsqd, None
+		return None, popt, rsqd, None, None, xm_data, ym_data
