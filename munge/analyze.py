@@ -27,10 +27,16 @@ basepath = path.dirname(__file__)
 # 1|1|01/22/2020|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|1|0|0|-1|N|1
 # 2|39|01/23/2020|Anhui, Mainland China|N/A|N/A|Anhui|Mainland China|31.8257|117.2264|9|0|0|-1|N|2
 
-n_obs = 0 # observations
-ndays = 3
 label_prior = None
-label_prior_v = None
+case_n_positive = 0
+died_n_positive = 0
+n_obs = 0
+key_data = []
+date_data = []
+case_data = []
+died_data = []		
+		
+ndays = 3
 case_n_positive = 0
 died_n_positive = 0
 n_cpass = 0
@@ -58,44 +64,24 @@ with open(data, 'r') as csvfile:
 		label = v['LABEL']
 		hash[v['LABEL'] + '_' + v['DATE']] = v
 		#print('? ', label, '|', label_prior)
-		# interested in US only
-		if (v['ADM1'] != 'US'): continue
 		# get rid of oddities 
 		if (label.find('Unassigned') == -1 and label.find('Out of') == -1 and \
 		label.find('Recovered') == -1 and label.find('US, US') == -1):
 			# do something with buffer, because the label is new
 			if (label_prior != label or label_prior == None):
-				# arbitrary looking for 3 days where number of cases is > 0
+				#print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+				# arbitrarily looking for 3 days where number of cases is > 0
 				if (case_n_positive > 3):
 					#print('=======================================')
-					#print(label_prior + ' ----> ' + str(n_obs) + ':' + str(case_n_positive))
+					#print(label_prior + ' --C--> ' + str(n_obs) + ':' + str(case_n_positive))
 					#print(date_data)
 					#print(case_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
 						ndays, label_prior, 'Cases', 'EXP', False)
-					if (rsqd >= 0.80):
-						if (plt != None):
-							plot_img = path.abspath(path.join(basepath, '..', 'data', 'plots', \
-							label_prior.replace(' ','_').replace(',','') + '_C.png'))
-							plt.savefig(plot_img)
-							plt.close(fig)
-							plt = None
+					if (rsqd >= 0.80 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
 						statsc[n_cpass] = (rsqd, popt[0], popt[1])
 						statscl[n_cpass] = label_prior
 						n_cpass += 1
-						#if (n_ok > 10): break
-						# try:
-							# print('R-Squared: ' + '{0:.3f}'.format(rsqd) + ' POPT: ' + '{0:.3f}'.format(popt[0]) + ', ' + \
-							# '{0:.3f}'.format(popt[1]))
-						# except:
-							# print('R-Squared: ' + str(rsqd) + ' POPT: ' + str(popt))
-						# interpolate
-						# print('=======================================')
-						# print(key_data)
-						# print(case_data)
-						# print(date_data)
-						# print(xm_data)
-						# print(ym_data)
 						for i in range(len(key_data)):
 							if (case_data[i] == -1):
 								case_data[i] = str(int(round(ym_data[i],0)))
@@ -103,25 +89,19 @@ with open(data, 'r') as csvfile:
 								vtemp['FLAG'] += 'C'
 								vtemp['CONFIRMED'] = case_data[i]
 								n_cinter += 1
-						fig = None
 					else:
 						n_cfail += 1
-						if (plt != None):
-							plt.close(fig)
-							plt = None
 				else:
 					n_cnei += 1
-				# arbitrary looking for 3 days where number of deaths is > 0
+				# arbitrarily looking for 3 days where number of deaths is > 0
 				if (died_n_positive > 3):
+					#print('=======================================')
+					#print(label_prior + ' --D--> ' + str(n_obs) + ':' + str(died_n_positive))
+					#print(date_data)
+					#print(died_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
 						ndays, label_prior, 'Deaths', 'EXP', False)
-					if (rsqd >= 0.80):
-						if (plt != None):
-							plot_img = path.abspath(path.join(basepath, '..', 'data', 'plots', \
-							label_prior.replace(' ','_').replace(',','') + '_D.png'))
-							plt.savefig(plot_img)
-							plt.close(fig)
-							plt = None
+					if (rsqd >= 0.80 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
 						statsd[n_dpass] = (rsqd, popt[0], popt[1])
 						n_dpass += 1
 						# interpolate
@@ -132,12 +112,8 @@ with open(data, 'r') as csvfile:
 								vtemp['FLAG'] += 'D'
 								vtemp['DEATHS'] = died_data[i]
 								n_dinter += 1
-						fig = None
 					else:
 						n_dfail += 1
-						if (plt != None):
-							plt.close(fig)
-							plt = None
 				else:
 					n_dnei += 1
 				# reset after doing something above
@@ -201,18 +177,27 @@ print('# Inter: ' + str(n_dinter))
 dev = np.zeros((2,6))
 dev[0][2] = np.nanmean(statsc, axis = 0)[1] # average a
 dev[0][3] = np.nanmean(statsc, axis = 0)[2] # average b
+dev[1][2] = np.nanmean(statsd, axis = 0)[1] # average a
+dev[1][3] = np.nanmean(statsd, axis = 0)[2] # average b
 dev[0][0] = dev[0][2] + np.nanstd(statsc, axis = 0)[1] # 1st stddev above a
 dev[0][1] = dev[0][3] + np.nanstd(statsc, axis = 0)[2] # 1st stddev above b
 dev[0][4] = dev[0][2] - np.nanstd(statsc, axis = 0)[1] # 1st stddev below a
 dev[0][5] = dev[0][3] - np.nanstd(statsc, axis = 0)[2] # 1st stddev below b
 #print(dev)
 
-# for i in range(1010): # SHOULD NOT HAPPEN
+# for i in range(1010): # SHOULD NOT HAPPEN; LEAVE HERE FOR DEBUGGING
 	# if (statsc[i][2] < 0): 
 		# print(str(i) + ' ' + statscl[i] + ' {0:.3f}'.format(statsc[i][0]) + ' ' + '{0:.3f}'.format(statsc[i][1]) + ' ' + '{0:.3f}'.format(statsc[i][2]))
 
 # plot loop
-label_prior == None
+label_prior = label
+case_n_positive = 0
+died_n_positive = 0
+n_obs = 0
+key_data = []
+date_data = []
+case_data = []
+died_data = []
 print()
 hash = {}
 csv.register_dialect('piper', delimiter='|', quoting=csv.QUOTE_NONE)
@@ -221,16 +206,22 @@ with open(data, 'r') as csvfile:
 	for v in csv.DictReader(csvfile, dialect='piper'):
 		label = v['LABEL']
 		hash[v['LABEL'] + '_' + v['DATE']] = v
-		# interested in US only
+		# interested in US counties only
 		if (v['ADM1'] != 'US'): continue
+		if (v['FIPS'] == 'N/A'): continue
+		#print('? ', label, '|', label_prior)
 		# get rid of oddities 
 		if (label.find('Unassigned') == -1 and label.find('Out of') == -1 and \
 		label.find('Recovered') == -1 and label.find('US, US') == -1):
 			# do something with buffer, because the label is new
-			if (label_prior != label):
+			if (label_prior != label or label_prior == None):
+				#print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
 				# arbitrary looking for 3 days where number of cases is > 0
 				if (case_n_positive > 3):
-					print(v['LABEL'] + ' >>> C ')
+					#print('=======================================')
+					#print(label_prior + ' --C--> ')
+					#print(date_data)
+					#print(case_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
 						ndays, label_prior, 'Cases', 'EXP', False)
 					if (rsqd >= 0.80):
@@ -238,12 +229,9 @@ with open(data, 'r') as csvfile:
 						#y_avg_data = np.zeros(len(xm_data))
 						# for i in range(len(xm_data)):
 							# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
-						y_avg_data = cf_model.model_exp(xm_data, dev[0][2], dev[0][3])
-							
-						# print(xm_data)
-						# print(ym_data)
-						# print(y_avg_data)
-						
+						y_avg_data = cf_model.model_exp(xm_data, dev[0][2], dev[0][3]) 
+						y_avg_data = y_avg_data / y_avg_data[0]
+
 						si = -1 # starting index where ym_data >= 1
 						for i in range(len(ym_data)):
 							if (ym_data[i] >= 1.0): 
@@ -252,29 +240,58 @@ with open(data, 'r') as csvfile:
 						if (si == -1):
 							sys.exit('zero value ym_data', ym_data)
 							
-						#print(y_avg_data)
 						y_avg_data = y_avg_data * ym_data[si]
-						# print(y_avg_data)
-						#if (True): sys.exit('ok')
-						
 						plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
-						ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. Average')
-						#ax.plot(xm_data, y_avg_data, '-.', color ='lightgreen', label = "U.S. Average")
-						#ax.legend()
+						ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. County Average')
 						
-						plot_img = path.abspath(path.join(basepath, '..', 'data', 'plots', \
+						plot_img = path.abspath(path.join(basepath, '..', 'plots', \
 						label_prior.replace(' ','_').replace(',','') + '_C.png'))
 						plt.savefig(plot_img)
 						plt.close(fig)
 						plt = None
-						#if (True): sys.exit('ok')
 						fig = None
-					# elif (plt != None):
-						# plt.close(fig)
-						# plt = None
+						print(label_prior + ' --C--> {:0.3f}'.format(rsqd))
+				# arbitrary looking for 3 days where number of deaths is > 0
+				if (died_n_positive > 3):
+					#print(label_prior + ' --D--> ')
+					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
+						ndays, label_prior, 'Deaths', 'EXP', False)
+					if (rsqd >= 0.80):
+						#if (plt != None):
+						#y_avg_data = np.zeros(len(xm_data))
+						# for i in range(len(xm_data)):
+							# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
+						y_avg_data = cf_model.model_exp(xm_data, dev[1][2], dev[1][3]) 
+						y_avg_data = y_avg_data / y_avg_data[0]
+						
+						# print(xm_data)
+						# print(ym_data)
+						# print(y_avg_data)
+						# print(y_avg_data / y_avg_data[0])
+						# if (True): sys.exit('Stopping...')
+
+						si = -1 # starting index where ym_data >= 1
+						for i in range(len(ym_data)):
+							if (ym_data[i] >= 1.0): 
+								si = i
+								break
+						if (si == -1):
+							sys.exit('zero value ym_data', ym_data)
+							
+						y_avg_data = y_avg_data * ym_data[si]
+						plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
+						ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, 'U.S. County Average')
+						
+						plot_img = path.abspath(path.join(basepath, '..', 'plots', \
+						label_prior.replace(' ','_').replace(',','') + '_D.png'))
+						plt.savefig(plot_img)
+						plt.close(fig)
+						plt = None
+						fig = None
+						print(label_prior + ' --D--> {:0.3f}'.format(rsqd))
+					#if (True): sys.exit('ok')
 				# reset after doing something above
 				label_prior = label
-				label_prior_v = v
 				case_n_positive = 0
 				died_n_positive = 0
 				n_obs = 0
@@ -290,6 +307,7 @@ with open(data, 'r') as csvfile:
 			if (int(v['CONFIRMED']) > 0): case_n_positive += 1
 			if (int(v['DEATHS']) > 0): died_n_positive += 1
 			n_obs += 1
+			#print(v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + ' ' + str(n_obs))
 
 print('\nDone.')
 duration = timer()-start

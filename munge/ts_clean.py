@@ -317,6 +317,16 @@ for key in sorted(hash.keys()):
 	# roll dates forward
 	line = None
 	bv = None
+	# consistent lat/lon
+	tv = None
+	date_check = date_stop_obj
+	while (tv == None):
+		keygen = label + '_' + date_check.strftime('%m/%d/%Y')
+		tv = hash.get(keygen)
+		date_check = date_check + timedelta(days=-1)
+		if (tv != None):
+			fLat = tv['LAT']
+			fLon = tv['LON']
 	while (date_on <= date_stop_obj):
 		keygen = label + '_' + date_on.strftime('%m/%d/%Y')
 		v = hash.get(keygen)
@@ -328,18 +338,18 @@ for key in sorted(hash.keys()):
 				bv = v
 				n_days = 1
 				line = str(obs) + '|' + v['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
-				v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+				v['ADM2'] + '|' + v['ADM1'] + '|' + fLat + '|' + fLon + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
 				v['ACTIVE'] + '|' + 'N|1'
 			else:
 				n_days += 1
 				line = str(obs) + '|' + v['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
-				v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+				v['ADM2'] + '|' + v['ADM1'] + '|' + fLat + '|' + fLon + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
 				v['ACTIVE'] + '|' + 'N|' + str(n_days)
 		else:
 			if (flag1.get(label) != None and flag1.get(label) < date_on):
 				n_days += 1
 				line = str(obs) + '|' + bv['OBS'] + '|' + date_on.strftime('%m/%d/%Y') + '|' + bv['LABEL'] + '|' + bv['FIPS'] + '|' + bv['ADM3'] + '|' + \
-				bv['ADM2'] + '|' + bv['ADM1'] + '|' + bv['LAT'] + '|' + bv['LON'] + '|' + '-1' + '|' + '-1' + '|' + '-1' + '|' + \
+				bv['ADM2'] + '|' + bv['ADM1'] + '|' + fLat + '|' + fLon + '|' + '-1' + '|' + '-1' + '|' + '-1' + '|' + \
 				'-1' + '|' + 'Y|' + str(n_days)
 		date_on = date_on + timedelta(days=1)
 		if (line != None): # write record
@@ -360,8 +370,18 @@ fileout.write('OBS|POBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|
 obs = 1
 for key in sorted(hash.keys()):
 	v = hash.get(key)
+	# consistent lat/lon
+	tv = None
+	date_check = date_stop_obj
+	while (tv == None):
+		keygen = v['LABEL'] + '_' + date_check.strftime('%m/%d/%Y')
+		tv = hash.get(keygen)
+		date_check = date_check + timedelta(days=-1)
+		if (tv != None):
+			fLat = tv['LAT']
+			fLon = tv['LON']
 	line = str(obs) + '|' + v['OBS'] + '|' + v['LASTUPDATED'] + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + \
-	v['ADM2'] + '|' + v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+	v['ADM2'] + '|' + v['ADM1'] + '|' + fLat + '|' + fLon + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
 	v['ACTIVE']
 	#print(line)
 	fileout.write(line + '\n')

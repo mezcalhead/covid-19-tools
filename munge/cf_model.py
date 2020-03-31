@@ -66,7 +66,8 @@ def fit(x_data, y_data, model_type = 'EXP'):
 		results = smf.ols(formula='y ~ model(x)', data=x_data).fit()
 		return weights, model, results
 
-def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False, yavg_data = None, yavg_label = 'Average'):
+def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False, \
+	yavg_data = None, yavg_label = 'Average'):
 	# d_data: list of dates in datetime format, sorted
 	# y_data: list of numbers (e.g. covid cases) of same length for each date
 	# n_forecast: number of days to forecast
@@ -145,10 +146,11 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 	
 	# set curve fit values for missing data; useful for visualization
 	xh_data = np.copy(xm_data)
-	yh_data = np.copy(ym_data)
+	yh_data = np.rint(ym_data)
 	removal_list = []
-	for i in range(size):
-		if (y_data[i] != -1): removal_list.append(i)
+	for i in range(len(xm_data)):
+		if (i < size and y_data[i] != -1): removal_list.append(i)
+		if (i > (size-1)): removal_list.append(i)
 	xh_data = np.delete(xh_data, removal_list)
 	yh_data = np.delete(yh_data, removal_list)
 	
@@ -171,8 +173,9 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		arrowprops = dict(arrowstyle="->", connectionstyle="angle,angleA=90,angleB=0,rad=10")
 		fig, ax = plt.subplots()
 		#ax = fig.add_subplot(111)
-		ax.set_xlim(-1,(np.amax(xp_data)*1.08))
-		ax.set_ylim(-1,(np.amax(ym_data)*1.08))
+		#ax.set_xlim(-1,(np.amax(xp_data)*1.08))
+		#ax.set_ylim(-1,(np.amax(ym_data)*1.08))
+		ax.set_yscale('log')
 		# custom x labels
 		if (True):
 			custom_labels = []
@@ -187,20 +190,27 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		# plots
 		plot_label = 'Model'
 		if (model_type == 'EXP'): plot_label += ' EXP (r^2 = ' + '{0:.3f}'.format(rsqd) + ')'
-		ax.plot(xm_data, yavg_data, '-.', color ='lightgreen', label = yavg_label)
+		try:
+			ax.plot(xm_data, yavg_data, '-.', color ='lightgreen', label = yavg_label)
+		except:
+			PlaceholderAction = True
 		ax.plot(xm_data, ym_data, '--', color ='darkgrey', label = plot_label)
 		ax.plot(xd_data, yd_data, 'o', color ='red', label ='Reported Open ' + label)
-		ax.plot(xh_data, yh_data, 'o', color ='black', label ='Historical Estimate') 
-		ax.plot(xp_data, yp_data, 'o', color ='blue', label ='Projected Estimate') 
+		if (len(xh_data) > 0): ax.plot(xh_data, yh_data, 'o', color ='black', label ='Historical Estimate') 
+		if (len(xp_data) > 0): ax.plot(xp_data, yp_data, 'o', color ='blue', label ='Projected Estimate') 
 		ax.legend()
 		ax.set_title(title, fontsize=18, horizontalalignment='center')
 		#ax.set_xlabel('Days + ' + d_data[0].strftime('%m/%d/%Y'), fontsize=12)
-		ax.set_xlabel('Days', fontsize=12)
+		ax.set_xlabel('Day', fontsize=12)
 		ax.set_ylabel('# ' + label, fontsize=12)
 		ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
 		for i,j in zip(xh_data,yh_data):
 			c = 'black'
-			if (i >= (size-1)): c = 'blue'
+			#if (i >= (size-1)): c = 'blue'
+			ax.annotate(str(int(round(j, 0))), xy=(i, j), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+			fontsize=8, horizontalalignment='right', color=c)
+		for i,j in zip(xp_data,yp_data):
+			c = 'blue'
 			ax.annotate(str(int(round(j, 0))), xy=(i, j), xycoords='data', xytext=(-3,4), textcoords='offset points', \
 			fontsize=8, horizontalalignment='right', color=c)
 		# initial value

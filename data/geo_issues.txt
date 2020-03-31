@@ -30,3 +30,6 @@ Unassigned, Wisconsin, US|0.0|0.0
 Unassigned, Michigan, US|0.0|0.0
 MS Zaandam|0.0|0.0
 Unassigned, Virginia, US|0.0|0.0
+Unassigned, Connecticut, US|0.0|0.0
+Unassigned, Mississippi, US|0.0|0.0
+Unassigned, North Dakota, US|0.0|0.0
