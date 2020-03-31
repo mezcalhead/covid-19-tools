@@ -14,6 +14,7 @@ from csv import reader
 import sys
 import cf_model
 import numpy as np
+import copy
 
 start = timer()
 now = datetime.now()
@@ -36,7 +37,7 @@ date_data = []
 case_data = []
 died_data = []		
 		
-ndays = 3
+ndays = 3 # days to project
 case_n_positive = 0
 died_n_positive = 0
 n_cpass = 0
@@ -55,8 +56,13 @@ statsd = np.zeros((3000,3))
 statsd[:] = np.nan # fill all as NaN
 statscl = [''] * 3000
 
+def merge_hashes(dict1, dict2): 
+    res = {**dict1, **dict2} 
+    return res
+
 # study loop
 hash = {}
+hashp = {} # projected entries
 csv.register_dialect('piper', delimiter='|', quoting=csv.QUOTE_NONE)
 data = path.abspath(path.join(basepath, '..', 'data', 'data_temporal.txt'))
 with open(data, 'r') as csvfile:
@@ -73,30 +79,55 @@ with open(data, 'r') as csvfile:
 				# arbitrarily looking for 3 days where number of cases is > 0
 				if (case_n_positive > 3):
 					#print('=======================================')
-					#print(label_prior + ' --C--> ' + str(n_obs) + ':' + str(case_n_positive))
+					#print(label_prior + ' : ' + str(n_obs) + ':' + str(case_n_positive))
 					#print(date_data)
 					#print(case_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
 						ndays, label_prior, 'Cases', 'EXP', False)
-					if (rsqd >= 0.80 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
+					if (rsqd >= 0.40 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
 						statsc[n_cpass] = (rsqd, popt[0], popt[1])
 						statscl[n_cpass] = label_prior
 						n_cpass += 1
+						# interpolate
+						date_project_start = None
 						for i in range(len(key_data)):
+							vtemp = hash[key_data[i]]
+							vtemp_date_obj = datetime.strptime(vtemp['DATE'], '%m/%d/%Y')
+							if (date_project_start == None or vtemp_date_obj < date_project_start): date_project_start = vtemp_date_obj
 							if (case_data[i] == -1):
 								case_data[i] = str(int(round(ym_data[i],0)))
-								vtemp = hash[key_data[i]]
 								vtemp['FLAG'] += 'C'
 								vtemp['CONFIRMED'] = case_data[i]
 								n_cinter += 1
+						# add projection data
+						# print(date_project_start)
+						# print(date_data)
+						# print(xm_data)
+						# print(ym_data)
+						# print(len(date_data),len(ym_data))
+						for i in range(len(date_data), len(xm_data)):
+							date_obj = date_project_start + timedelta(days=i)
+							#print(i, date_obj, ym_data[i])
+							keygen = key_data[0].split('_')[0] + '_' + date_obj.strftime('%m/%d/%Y')
+							hashp[keygen] = copy.deepcopy(hash[key_data[0]])
+							hashp[keygen]['DATE'] = date_obj.strftime('%m/%d/%Y')
+							hashp[keygen]['RECOVERED'] = '-1'
+							hashp[keygen]['ACTIVE'] = '-1'
+							hashp[keygen]['DAYN'] = str(i+1)
+							hashp[keygen]['FLAG'] = 'YP'
+							hashp[keygen]['CONFIRMED'] = str(int(round(ym_data[i], 0)))
+							#print(keygen, hashp[keygen])
 					else:
 						n_cfail += 1
+					print(label_prior + ' : ' + str(n_obs) + ':' + str(case_n_positive) + ' --C--> {:0.3f}'.format(rsqd))
+					#if (True): sys.exit('ok')
+					#if (True): break
 				else:
 					n_cnei += 1
 				# arbitrarily looking for 3 days where number of deaths is > 0
 				if (died_n_positive > 3):
 					#print('=======================================')
-					#print(label_prior + ' --D--> ' + str(n_obs) + ':' + str(died_n_positive))
+					#print(label_prior + ' : ' + str(n_obs) + ':' + str(died_n_positive))
 					#print(date_data)
 					#print(died_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
@@ -112,8 +143,23 @@ with open(data, 'r') as csvfile:
 								vtemp['FLAG'] += 'D'
 								vtemp['DEATHS'] = died_data[i]
 								n_dinter += 1
+						for i in range(len(date_data), len(xm_data)):
+							date_obj = date_project_start + timedelta(days=i)
+							#print(i, date_obj, ym_data[i])
+							keygen = key_data[0].split('_')[0] + '_' + date_obj.strftime('%m/%d/%Y')
+							if (hashp.get(keygen) == None):
+								hashp[keygen] = copy.deepcopy(hash[key_data[0]])
+								hashp[keygen]['DATE'] = date_obj.strftime('%m/%d/%Y')
+								hashp[keygen]['RECOVERED'] = '-1'
+								hashp[keygen]['ACTIVE'] = '-1'
+								hashp[keygen]['DAYN'] = str(i+1)
+								hashp[keygen]['FLAG'] = 'YP'
+							hashp[keygen]['DEATHS'] = str(int(round(ym_data[i], 0)))
+							#print(keygen, hashp[keygen])
 					else:
 						n_dfail += 1
+					#print(label_prior + ' : ' + str(n_obs) + ':' + str(died_n_positive) + ' --C--> {:0.3f}'.format(rsqd))
+					#if (True): sys.exit('ok')
 				else:
 					n_dnei += 1
 				# reset after doing something above
@@ -135,18 +181,63 @@ with open(data, 'r') as csvfile:
 			n_obs += 1
 			#print(v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + ' ' + str(n_obs))
 
+# state roll up & national US
+# st_data = {}
+# for key in sorted(hash.keys()):
+	# v = hash.get(key)
+	# if (v['FIPS'] != 'N/A' and v['ADM2'] != 'Grand Princess'):
+		# state = v['ADM2']
+		# if (st_data.get(state) == None):
+			# st_data[state] = {}
+		# if (st_data[state].get(v['FIPS']) == None):
+			# st_data[state][v['FIPS']] = {}
+		# if (st_data[state][v['FIPS']].get(v['DATE']) == None):
+			# st_data[state][v['FIPS']][v['DATE']] = key
+		# else:
+			# print(st_data[state][v['FIPS']][v['DATE']])
+			# sys.exit('Invalid Key: ' + key + ' >>> ' + str(v))
+# for st in st_data:
+	# print(st)
+	# for fips in st_data[st]:
+		# print('	' + fips)
+		# for date in st_data[st][fips]:
+			# print('		' + date)
+			
 # interpolations
+#if (True): sys.exit('Ok')
 print('\nWriting Interpolated Temporal File...')
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal_i.txt'))
 fileout = open(fileout,'w')
 fileout.write('OBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FLAG|DAYN\n')
+n_obs = 1
 for key in sorted(hash.keys()):
 	v = hash.get(key)
 	line = v['OBS'] + '|' + v['DATE'] + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + v['ADM2'] + '|' + \
 	v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
 	v['ACTIVE'] + '|' + v['FLAG'] + '|' + v['DAYN']
 	fileout.write(line + '\n')
+	n_obs += 1
 fileout.close()
+print(str(n_obs) + ' records.')
+
+# projections
+hash2 = merge_hashes(hash, hashp)
+print('\nProjections: ' + str(len(hashp)))
+print('\nWriting Projected Temporal File...')
+fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal_p.txt'))
+fileout = open(fileout,'w')
+fileout.write('OBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FLAG|DAYN\n')
+n_obs = 1
+for key in sorted(hash2.keys()):
+	v = hash2.get(key)
+	#print(key, v)
+	line = str(n_obs) + '|' + v['DATE'] + '|' + v['LABEL'] + '|' + v['FIPS'] + '|' + v['ADM3'] + '|' + v['ADM2'] + '|' + \
+	v['ADM1'] + '|' + v['LAT'] + '|' + v['LON'] + '|' + v['CONFIRMED'] + '|' + v['DEATHS'] + '|' + v['RECOVERED'] + '|' + \
+	v['ACTIVE'] + '|' + v['FLAG'] + '|' + v['DAYN']
+	fileout.write(line + '\n')
+	n_obs += 1
+fileout.close()
+print(str(n_obs) + ' records.')
 
 # stats
 print('\nCase Statistics:')
@@ -242,7 +333,7 @@ with open(data, 'r') as csvfile:
 							
 						y_avg_data = y_avg_data * ym_data[si]
 						plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
-						ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. County Average')
+						ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
 						
 						plot_img = path.abspath(path.join(basepath, '..', 'plots', \
 						label_prior.replace(' ','_').replace(',','') + '_C.png'))
@@ -251,6 +342,7 @@ with open(data, 'r') as csvfile:
 						plt = None
 						fig = None
 						print(label_prior + ' --C--> {:0.3f}'.format(rsqd))
+					#if (True): sys.exit('ok')
 				# arbitrary looking for 3 days where number of deaths is > 0
 				if (died_n_positive > 3):
 					#print(label_prior + ' --D--> ')
@@ -280,7 +372,7 @@ with open(data, 'r') as csvfile:
 							
 						y_avg_data = y_avg_data * ym_data[si]
 						plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
-						ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, 'U.S. County Average')
+						ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
 						
 						plot_img = path.abspath(path.join(basepath, '..', 'plots', \
 						label_prior.replace(' ','_').replace(',','') + '_D.png'))

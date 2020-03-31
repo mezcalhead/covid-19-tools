@@ -112,6 +112,8 @@ with open(datafile, 'r') as csvfile:
 							line['LABEL'] = line['ADM2'] + ', US'
 						key = line['LABEL']
 		# mispellings/case fixes
+		if (line['ADM3'].find('Doña Ana') != -1):
+			continue # these are redundant 
 		if (line['ADM3'] == 'Desoto'):
 			line['ADM3'] = 'DeSoto'
 			line['LABEL'] = line['LABEL'].replace('Desoto','DeSoto')

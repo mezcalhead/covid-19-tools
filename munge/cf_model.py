@@ -67,13 +67,16 @@ def fit(x_data, y_data, model_type = 'EXP'):
 		return weights, model, results
 
 def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False, \
-	yavg_data = None, yavg_label = 'Average'):
+	yavg_data = None, yavg_label = 'Average', yscale = 'STANDARD'):
 	# d_data: list of dates in datetime format, sorted
 	# y_data: list of numbers (e.g. covid cases) of same length for each date
 	# n_forecast: number of days to forecast
 	# label: eg 'cases'
 	# model_type EXP, SIGMOID, POLY3
 	# NOTE: only EXP presently works
+	# yavg_data = mean data
+	# yavg_label = label for legend for mean data
+	# yscale = STANDARD or LOG
 	
 	# check model_type
 	if (isinstance(model_type, str) == False):
@@ -143,10 +146,11 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		# TBD if it works!
 		results = smf.ols(formula='y ~ model(x)', data=xm_data).fit()
 		print(results)
+	ym_data = np.rint(ym_data) # if we want to force integers
 	
 	# set curve fit values for missing data; useful for visualization
 	xh_data = np.copy(xm_data)
-	yh_data = np.rint(ym_data)
+	yh_data = np.rint(ym_data) # force integers
 	removal_list = []
 	for i in range(len(xm_data)):
 		if (i < size and y_data[i] != -1): removal_list.append(i)
@@ -156,7 +160,7 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 	
 	# set curve fit values for projected data; useful for visualization
 	xp_data = np.copy(xm_data)
-	yp_data = np.copy(ym_data)
+	yp_data = np.rint(ym_data) # force integers
 	removal_list = []
 	for i in range(size):
 		if (i < size): removal_list.append(i)
@@ -175,7 +179,7 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		#ax = fig.add_subplot(111)
 		#ax.set_xlim(-1,(np.amax(xp_data)*1.08))
 		#ax.set_ylim(-1,(np.amax(ym_data)*1.08))
-		ax.set_yscale('log')
+		if (yscale.upper() == 'LOG'): ax.set_yscale('log')
 		# custom x labels
 		if (True):
 			custom_labels = []

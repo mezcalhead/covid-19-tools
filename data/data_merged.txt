@@ -7713,46 +7713,46 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 7712|34009|Cape May|New Jersey|US|03/22/2020|39.150088|-74.801702|2|0|0|0|Cape May, New Jersey, US
 7713|34011|Cumberland|New Jersey|US|03/22/2020|39.371994|-75.107126|1|0|0|0|Cumberland, New Jersey, US
 7714|34033|Salem|New Jersey|US|03/22/2020|39.587197|-75.346966|1|0|0|0|Salem, New Jersey, US
-7715|6037|Los Angeles|California|US|03/22/2020|34.308284|-118.228241|407|5|0|0|Los Angeles, California, US
-7716|6085|Santa Clara|California|US|03/22/2020|37.231049|-121.697046|263|8|0|0|Santa Clara, California, US
-7717|6073|San Diego|California|US|03/22/2020|33.034846|-116.736533|155|0|0|0|San Diego, California, US
-7718|6081|San Mateo|California|US|03/22/2020|37.422881|-122.327555|117|1|0|0|San Mateo, California, US
-7719|6075|San Francisco|California|US|03/22/2020|37.752151|-122.438567|108|0|0|0|San Francisco, California, US
-7720|6059|Orange|California|US|03/22/2020|33.701475|-117.7646|95|0|0|0|Orange, California, US
-7721|6001|Alameda|California|US|03/22/2020|37.646294|-121.892927|71|0|0|0|Alameda, California, US
-7722|6013|Contra Costa|California|US|03/22/2020|37.919235|-121.928953|61|1|0|0|Contra Costa, California, US
-7723|6067|Sacramento|California|US|03/22/2020|38.451068|-121.342537|53|3|0|0|Sacramento, California, US
-7724|6041|Marin|California|US|03/22/2020|38.071225|-122.721063|38|0|0|0|Marin, California, US
-7725|6077|San Joaquin|California|US|03/22/2020|37.934337|-121.273006|31|2|0|0|San Joaquin, California, US
-7726|6065|Riverside|California|US|03/22/2020|33.74315|-115.993358|29|6|0|0|Riverside, California, US
-7727|6079|San Luis Obispo|California|US|03/22/2020|35.38822|-120.403903|27|0|0|0|San Luis Obispo, California, US
-7728|6111|Ventura|California|US|03/22/2020|34.444657|-119.091061|25|0|0|0|Ventura, California, US
-7729|6097|Sonoma|California|US|03/22/2020|38.527464|-122.886251|22|1|0|0|Sonoma, California, US
-7730|6071|San Bernardino|California|US|03/22/2020|34.840603|-116.177469|17|0|0|0|San Bernardino, California, US
-7731|6087|Santa Cruz|California|US|03/22/2020|37.055803|-122.006652|15|0|0|0|Santa Cruz, California, US
-7732|6095|Solano|California|US|03/22/2020|38.268274|-121.935711|13|0|0|0|Solano, California, US
-7733|6083|Santa Barbara|California|US|03/22/2020|34.653295|-120.018849|13|0|0|0|Santa Barbara, California, US
-7734|6061|Placer|California|US|03/22/2020|39.061672|-120.724057|12|1|0|0|Placer, California, US
-7735|6107|Tulare|California|US|03/22/2020|36.220266|-118.80202|12|0|0|0|Tulare, California, US
-7736|6053|Monterey|California|US|03/22/2020|36.218624|-121.24134|11|1|0|0|Monterey, California, US
-7737|6113|Yolo|California|US|03/22/2020|38.682789|-121.901829|6|0|0|0|Yolo, California, US
-7738|6019|Fresno|California|US|03/22/2020|36.757339|-119.646695|6|0|0|0|Fresno, California, US
-7739|6025|Imperial|California|US|03/22/2020|33.039308|-115.366904|6|0|0|0|Imperial, California, US
-7740|6069|San Benito|California|US|03/22/2020|36.603082|-121.069975|5|1|0|0|San Benito, California, US
-7741|6099|Stanislaus|California|US|03/22/2020|37.558625|-120.997072|5|0|0|0|Stanislaus, California, US
-7742|6029|Kern|California|US|03/22/2020|35.343294|-118.72778|5|0|0|0|Kern, California, US
-7743|6039|Madera|California|US|03/22/2020|37.21514|-119.766559|3|0|0|0|Madera, California, US
-7744|6023|Humboldt|California|US|03/22/2020|40.69923|-123.876044|2|0|0|0|Humboldt, California, US
-7745|6009|Calaveras|California|US|03/22/2020|38.205371|-120.552913|2|0|0|0|Calaveras, California, US
-7746|6093|Siskiyou|California|US|03/22/2020|41.591989|-122.540743|2|0|0|0|Siskiyou, California, US
-7747|6115|Yuba|California|US|03/22/2020|39.262559|-121.353564|2|0|0|0|Yuba, California, US
-7748|6089|Shasta|California|US|03/22/2020|40.763914|-122.039688|1|0|0|0|Shasta, California, US
-7749|6057|Nevada|California|US|03/22/2020|39.303948|-120.762728|1|0|0|0|Nevada, California, US
-7750|6045|Mendocino|California|US|03/22/2020|39.438119|-123.391131|1|0|0|0|Mendocino, California, US
-7751|6005|Amador|California|US|03/22/2020|38.445831|-120.65696|1|0|0|0|Amador, California, US
-7752|6051|Mono|California|US|03/22/2020|37.938993|-118.887241|1|0|0|0|Mono, California, US
-7753|6007|Butte|California|US|03/22/2020|39.667278|-121.600525|1|0|0|0|Butte, California, US
-7754|6055|Napa|California|US|03/22/2020|38.507358|-122.332839|1|0|0|0|Napa, California, US
+7715|06037|Los Angeles|California|US|03/22/2020|34.308284|-118.228241|407|5|0|0|Los Angeles, California, US
+7716|06085|Santa Clara|California|US|03/22/2020|37.231049|-121.697046|263|8|0|0|Santa Clara, California, US
+7717|06073|San Diego|California|US|03/22/2020|33.034846|-116.736533|155|0|0|0|San Diego, California, US
+7718|06081|San Mateo|California|US|03/22/2020|37.422881|-122.327555|117|1|0|0|San Mateo, California, US
+7719|06075|San Francisco|California|US|03/22/2020|37.752151|-122.438567|108|0|0|0|San Francisco, California, US
+7720|06059|Orange|California|US|03/22/2020|33.701475|-117.7646|95|0|0|0|Orange, California, US
+7721|06001|Alameda|California|US|03/22/2020|37.646294|-121.892927|71|0|0|0|Alameda, California, US
+7722|06013|Contra Costa|California|US|03/22/2020|37.919235|-121.928953|61|1|0|0|Contra Costa, California, US
+7723|06067|Sacramento|California|US|03/22/2020|38.451068|-121.342537|53|3|0|0|Sacramento, California, US
+7724|06041|Marin|California|US|03/22/2020|38.071225|-122.721063|38|0|0|0|Marin, California, US
+7725|06077|San Joaquin|California|US|03/22/2020|37.934337|-121.273006|31|2|0|0|San Joaquin, California, US
+7726|06065|Riverside|California|US|03/22/2020|33.74315|-115.993358|29|6|0|0|Riverside, California, US
+7727|06079|San Luis Obispo|California|US|03/22/2020|35.38822|-120.403903|27|0|0|0|San Luis Obispo, California, US
+7728|06111|Ventura|California|US|03/22/2020|34.444657|-119.091061|25|0|0|0|Ventura, California, US
+7729|06097|Sonoma|California|US|03/22/2020|38.527464|-122.886251|22|1|0|0|Sonoma, California, US
+7730|06071|San Bernardino|California|US|03/22/2020|34.840603|-116.177469|17|0|0|0|San Bernardino, California, US
+7731|06087|Santa Cruz|California|US|03/22/2020|37.055803|-122.006652|15|0|0|0|Santa Cruz, California, US
+7732|06095|Solano|California|US|03/22/2020|38.268274|-121.935711|13|0|0|0|Solano, California, US
+7733|06083|Santa Barbara|California|US|03/22/2020|34.653295|-120.018849|13|0|0|0|Santa Barbara, California, US
+7734|06061|Placer|California|US|03/22/2020|39.061672|-120.724057|12|1|0|0|Placer, California, US
+7735|06107|Tulare|California|US|03/22/2020|36.220266|-118.80202|12|0|0|0|Tulare, California, US
+7736|06053|Monterey|California|US|03/22/2020|36.218624|-121.24134|11|1|0|0|Monterey, California, US
+7737|06113|Yolo|California|US|03/22/2020|38.682789|-121.901829|6|0|0|0|Yolo, California, US
+7738|06019|Fresno|California|US|03/22/2020|36.757339|-119.646695|6|0|0|0|Fresno, California, US
+7739|06025|Imperial|California|US|03/22/2020|33.039308|-115.366904|6|0|0|0|Imperial, California, US
+7740|06069|San Benito|California|US|03/22/2020|36.603082|-121.069975|5|1|0|0|San Benito, California, US
+7741|06099|Stanislaus|California|US|03/22/2020|37.558625|-120.997072|5|0|0|0|Stanislaus, California, US
+7742|06029|Kern|California|US|03/22/2020|35.343294|-118.72778|5|0|0|0|Kern, California, US
+7743|06039|Madera|California|US|03/22/2020|37.21514|-119.766559|3|0|0|0|Madera, California, US
+7744|06023|Humboldt|California|US|03/22/2020|40.69923|-123.876044|2|0|0|0|Humboldt, California, US
+7745|06009|Calaveras|California|US|03/22/2020|38.205371|-120.552913|2|0|0|0|Calaveras, California, US
+7746|06093|Siskiyou|California|US|03/22/2020|41.591989|-122.540743|2|0|0|0|Siskiyou, California, US
+7747|06115|Yuba|California|US|03/22/2020|39.262559|-121.353564|2|0|0|0|Yuba, California, US
+7748|06089|Shasta|California|US|03/22/2020|40.763914|-122.039688|1|0|0|0|Shasta, California, US
+7749|06057|Nevada|California|US|03/22/2020|39.303948|-120.762728|1|0|0|0|Nevada, California, US
+7750|06045|Mendocino|California|US|03/22/2020|39.438119|-123.391131|1|0|0|0|Mendocino, California, US
+7751|06005|Amador|California|US|03/22/2020|38.445831|-120.65696|1|0|0|0|Amador, California, US
+7752|06051|Mono|California|US|03/22/2020|37.938993|-118.887241|1|0|0|0|Mono, California, US
+7753|06007|Butte|California|US|03/22/2020|39.667278|-121.600525|1|0|0|0|Butte, California, US
+7754|06055|Napa|California|US|03/22/2020|38.507358|-122.332839|1|0|0|0|Napa, California, US
 7755|17031|Cook|Illinois|US|03/22/2020|41.841448|-87.816588|805|4|0|0|Cook, Illinois, US
 7756|17043|DuPage|Illinois|US|03/22/2020|41.85117|-88.086427|79|0|0|0|DuPage, Illinois, US
 7757|17097|Lake|Illinois|US|03/22/2020|42.322491|-88.003679|69|0|0|0|Lake, Illinois, US
@@ -8035,36 +8035,36 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8034|13035|Butts|Georgia|US|03/22/2020|33.283094|-83.95435|1|0|0|0|Butts, Georgia, US
 8035|13055|Chattooga|Georgia|US|03/22/2020|34.471977|-85.345357|1|0|0|0|Chattooga, Georgia, US
 8036|13289|Twiggs|Georgia|US|03/22/2020|32.674356|-83.430787|1|0|0|0|Twiggs, Georgia, US
-8037|8031|Denver|Colorado|US|03/22/2020|39.760183|-104.872569|125|0|0|0|Denver, Colorado, US
-8038|8037|Eagle|Colorado|US|03/22/2020|39.627543|-106.693364|80|1|0|0|Eagle, Colorado, US
-8039|8041|El Paso|Colorado|US|03/22/2020|38.832401|-104.525141|51|3|0|0|El Paso, Colorado, US
-8040|8059|Jefferson|Colorado|US|03/22/2020|39.586356|-105.251769|51|0|0|0|Jefferson, Colorado, US
-8041|8005|Arapahoe|Colorado|US|03/22/2020|39.649775|-104.335362|45|0|0|0|Arapahoe, Colorado, US
-8042|8123|Weld|Colorado|US|03/22/2020|40.554994|-104.392962|37|1|0|0|Weld, Colorado, US
-8043|8013|Boulder|Colorado|US|03/22/2020|40.093136|-105.354677|37|0|0|0|Boulder, Colorado, US
-8044|8035|Douglas|Colorado|US|03/22/2020|39.331338|-104.930001|33|0|0|0|Douglas, Colorado, US
-8045|8069|Larimer|Colorado|US|03/22/2020|40.666716|-105.462578|32|0|0|0|Larimer, Colorado, US
-8046|8051|Gunnison|Colorado|US|03/22/2020|38.666117|-107.032073|22|0|0|0|Gunnison, Colorado, US
-8047|8001|Adams|Colorado|US|03/22/2020|39.874321|-104.336258|18|0|0|0|Adams, Colorado, US
-8048|8097|Pitkin|Colorado|US|03/22/2020|39.217201|-106.931003|16|0|0|0|Pitkin, Colorado, US
-8049|8045|Garfield|Colorado|US|03/22/2020|39.599218|-107.902708|8|0|0|0|Garfield, Colorado, US
-8050|8117|Summit|Colorado|US|03/22/2020|39.638032|-106.115076|7|0|0|0|Summit, Colorado, US
-8051|8101|Pueblo|Colorado|US|03/22/2020|38.173591|-104.512744|3|0|0|0|Pueblo, Colorado, US
-8052|8107|Routt|Colorado|US|03/22/2020|40.485965|-106.990555|3|0|0|0|Routt, Colorado, US
-8053|8019|Clear Creek|Colorado|US|03/22/2020|39.688645|-105.646312|3|0|0|0|Clear Creek, Colorado, US
-8054|8015|Chaffee|Colorado|US|03/22/2020|38.747458|-106.192657|3|0|0|0|Chaffee, Colorado, US
-8055|8039|Elbert|Colorado|US|03/22/2020|39.286568|-104.135872|3|0|0|0|Elbert, Colorado, US
-8056|8077|Mesa|Colorado|US|03/22/2020|39.017879|-108.469799|2|0|0|0|Mesa, Colorado, US
-8057|8049|Grand|Colorado|US|03/22/2020|40.106033|-106.117804|2|0|0|0|Grand, Colorado, US
-8058|8087|Morgan|Colorado|US|03/22/2020|40.262798|-103.80933|2|0|0|0|Morgan, Colorado, US
-8059|8025|Crowley|Colorado|US|03/22/2020|38.326086|-103.784497|1|1|0|0|Crowley, Colorado, US
-8060|8014|Broomfield|Colorado|US|03/22/2020|39.959988|-105.056632|1|0|0|0|Broomfield, Colorado, US
-8061|8093|Park|Colorado|US|03/22/2020|39.120926|-105.718206|1|0|0|0|Park, Colorado, US
-8062|8125|Yuma|Colorado|US|03/22/2020|40.003468|-102.425867|1|0|0|0|Yuma, Colorado, US
+8037|08031|Denver|Colorado|US|03/22/2020|39.760183|-104.872569|125|0|0|0|Denver, Colorado, US
+8038|08037|Eagle|Colorado|US|03/22/2020|39.627543|-106.693364|80|1|0|0|Eagle, Colorado, US
+8039|08041|El Paso|Colorado|US|03/22/2020|38.832401|-104.525141|51|3|0|0|El Paso, Colorado, US
+8040|08059|Jefferson|Colorado|US|03/22/2020|39.586356|-105.251769|51|0|0|0|Jefferson, Colorado, US
+8041|08005|Arapahoe|Colorado|US|03/22/2020|39.649775|-104.335362|45|0|0|0|Arapahoe, Colorado, US
+8042|08123|Weld|Colorado|US|03/22/2020|40.554994|-104.392962|37|1|0|0|Weld, Colorado, US
+8043|08013|Boulder|Colorado|US|03/22/2020|40.093136|-105.354677|37|0|0|0|Boulder, Colorado, US
+8044|08035|Douglas|Colorado|US|03/22/2020|39.331338|-104.930001|33|0|0|0|Douglas, Colorado, US
+8045|08069|Larimer|Colorado|US|03/22/2020|40.666716|-105.462578|32|0|0|0|Larimer, Colorado, US
+8046|08051|Gunnison|Colorado|US|03/22/2020|38.666117|-107.032073|22|0|0|0|Gunnison, Colorado, US
+8047|08001|Adams|Colorado|US|03/22/2020|39.874321|-104.336258|18|0|0|0|Adams, Colorado, US
+8048|08097|Pitkin|Colorado|US|03/22/2020|39.217201|-106.931003|16|0|0|0|Pitkin, Colorado, US
+8049|08045|Garfield|Colorado|US|03/22/2020|39.599218|-107.902708|8|0|0|0|Garfield, Colorado, US
+8050|08117|Summit|Colorado|US|03/22/2020|39.638032|-106.115076|7|0|0|0|Summit, Colorado, US
+8051|08101|Pueblo|Colorado|US|03/22/2020|38.173591|-104.512744|3|0|0|0|Pueblo, Colorado, US
+8052|08107|Routt|Colorado|US|03/22/2020|40.485965|-106.990555|3|0|0|0|Routt, Colorado, US
+8053|08019|Clear Creek|Colorado|US|03/22/2020|39.688645|-105.646312|3|0|0|0|Clear Creek, Colorado, US
+8054|08015|Chaffee|Colorado|US|03/22/2020|38.747458|-106.192657|3|0|0|0|Chaffee, Colorado, US
+8055|08039|Elbert|Colorado|US|03/22/2020|39.286568|-104.135872|3|0|0|0|Elbert, Colorado, US
+8056|08077|Mesa|Colorado|US|03/22/2020|39.017879|-108.469799|2|0|0|0|Mesa, Colorado, US
+8057|08049|Grand|Colorado|US|03/22/2020|40.106033|-106.117804|2|0|0|0|Grand, Colorado, US
+8058|08087|Morgan|Colorado|US|03/22/2020|40.262798|-103.80933|2|0|0|0|Morgan, Colorado, US
+8059|08025|Crowley|Colorado|US|03/22/2020|38.326086|-103.784497|1|1|0|0|Crowley, Colorado, US
+8060|08014|Broomfield|Colorado|US|03/22/2020|39.959988|-105.056632|1|0|0|0|Broomfield, Colorado, US
+8061|08093|Park|Colorado|US|03/22/2020|39.120926|-105.718206|1|0|0|0|Park, Colorado, US
+8062|08125|Yuma|Colorado|US|03/22/2020|40.003468|-102.425867|1|0|0|0|Yuma, Colorado, US
 8063|N/A|Unassigned|Colorado|US|03/22/2020|0.0|0.0|1|0|0|0|Unassigned, Colorado, US
-8064|8053|Hinsdale|Colorado|US|03/22/2020|37.822474|-107.300434|1|0|0|0|Hinsdale, Colorado, US
-8065|8085|Montrose|Colorado|US|03/22/2020|38.402141|-108.263902|1|0|0|0|Montrose, Colorado, US
-8066|8113|San Miguel|Colorado|US|03/22/2020|38.004509|-108.402073|1|0|0|0|San Miguel, Colorado, US
+8064|08053|Hinsdale|Colorado|US|03/22/2020|37.822474|-107.300434|1|0|0|0|Hinsdale, Colorado, US
+8065|08085|Montrose|Colorado|US|03/22/2020|38.402141|-108.263902|1|0|0|0|Montrose, Colorado, US
+8066|08113|San Miguel|Colorado|US|03/22/2020|38.004509|-108.402073|1|0|0|0|San Miguel, Colorado, US
 8067|42091|Montgomery|Pennsylvania|US|03/22/2020|40.210537|-75.366523|110|1|0|0|Montgomery, Pennsylvania, US
 8068|42101|Philadelphia|Pennsylvania|US|03/22/2020|40.003385|-75.137927|96|0|0|0|Philadelphia, Pennsylvania, US
 8069|42045|Delaware|Pennsylvania|US|03/22/2020|39.916802|-75.402437|43|0|0|0|Delaware, Pennsylvania, US
@@ -8213,14 +8213,14 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8212|39173|Wood|Ohio|US|03/22/2020|41.362248|-83.622851|1|0|0|0|Wood, Ohio, US
 8213|39167|Washington|Ohio|US|03/22/2020|39.456906|-81.491214|1|0|0|0|Washington, Ohio, US
 8214|39083|Knox|Ohio|US|03/22/2020|40.398302|-82.420276|1|0|0|0|Knox, Ohio, US
-8215|9001|Fairfield|Connecticut|US|03/22/2020|41.268099|-73.388117|208|5|0|0|Fairfield, Connecticut, US
-8216|9003|Hartford|Connecticut|US|03/22/2020|41.80283|-72.731039|54|1|0|0|Hartford, Connecticut, US
-8217|9009|New Haven|Connecticut|US|03/22/2020|41.408032|-72.936204|29|0|0|0|New Haven, Connecticut, US
-8218|9013|Tolland|Connecticut|US|03/22/2020|41.858538|-72.330848|14|2|0|0|Tolland, Connecticut, US
-8219|9005|Litchfield|Connecticut|US|03/22/2020|41.793753|-73.245148|12|0|0|0|Litchfield, Connecticut, US
-8220|9007|Middlesex|Connecticut|US|03/22/2020|41.459497|-72.537149|6|0|0|0|Middlesex, Connecticut, US
-8221|9011|New London|Connecticut|US|03/22/2020|41.488964|-72.10431|3|0|0|0|New London, Connecticut, US
-8222|9015|Windham|Connecticut|US|03/22/2020|41.829727|-71.981823|1|0|0|0|Windham, Connecticut, US
+8215|09001|Fairfield|Connecticut|US|03/22/2020|41.268099|-73.388117|208|5|0|0|Fairfield, Connecticut, US
+8216|09003|Hartford|Connecticut|US|03/22/2020|41.80283|-72.731039|54|1|0|0|Hartford, Connecticut, US
+8217|09009|New Haven|Connecticut|US|03/22/2020|41.408032|-72.936204|29|0|0|0|New Haven, Connecticut, US
+8218|09013|Tolland|Connecticut|US|03/22/2020|41.858538|-72.330848|14|2|0|0|Tolland, Connecticut, US
+8219|09005|Litchfield|Connecticut|US|03/22/2020|41.793753|-73.245148|12|0|0|0|Litchfield, Connecticut, US
+8220|09007|Middlesex|Connecticut|US|03/22/2020|41.459497|-72.537149|6|0|0|0|Middlesex, Connecticut, US
+8221|09011|New London|Connecticut|US|03/22/2020|41.488964|-72.10431|3|0|0|0|New London, Connecticut, US
+8222|09015|Windham|Connecticut|US|03/22/2020|41.829727|-71.981823|1|0|0|0|Windham, Connecticut, US
 8223|37119|Mecklenburg|North Carolina|US|03/22/2020|35.244693|-80.831767|77|0|0|0|Mecklenburg, North Carolina, US
 8224|37183|Wake|North Carolina|US|03/22/2020|35.788793|-78.652492|52|0|0|0|Wake, North Carolina, US
 8225|37063|Durham|North Carolina|US|03/22/2020|36.036385|-78.876083|41|0|0|0|Durham, North Carolina, US
@@ -8490,33 +8490,33 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8489|27021|Cass|Minnesota|US|03/22/2020|46.950436|-94.32604|1|0|0|0|Cass, Minnesota, US
 8490|N/A|LeSeur|Minnesota|US|03/22/2020|0.0|0.0|1|0|0|0|LeSeur, Minnesota, US
 8491|N/A|Unassigned|Arkansas|US|03/22/2020|0.0|0.0|121|0|0|0|Unassigned, Arkansas, US
-8492|5069|Jefferson|Arkansas|US|03/22/2020|34.267671|-91.926198|9|0|0|0|Jefferson, Arkansas, US
-8493|5119|Pulaski|Arkansas|US|03/22/2020|34.770541|-92.313551|4|0|0|0|Pulaski, Arkansas, US
-8494|5051|Garland|Arkansas|US|03/22/2020|34.576921|-93.149216|3|0|0|0|Garland, Arkansas, US
-8495|5023|Cleburne|Arkansas|US|03/22/2020|35.538649|-92.0264|3|0|0|0|Cleburne, Arkansas, US
-8496|5143|Washington|Arkansas|US|03/22/2020|35.976844|-94.218007|2|0|0|0|Washington, Arkansas, US
-8497|5045|Faulkner|Arkansas|US|03/22/2020|35.14719|-92.337175|2|0|0|0|Faulkner, Arkansas, US
-8498|5125|Saline|Arkansas|US|03/22/2020|34.649161|-92.675832|1|0|0|0|Saline, Arkansas, US
-8499|5053|Grant|Arkansas|US|03/22/2020|34.29018|-92.423206|1|0|0|0|Grant, Arkansas, US
-8500|5011|Bradley|Arkansas|US|03/22/2020|33.467558|-92.159808|1|0|0|0|Bradley, Arkansas, US
-8501|5019|Clark|Arkansas|US|03/22/2020|34.046134|-93.174847|1|0|0|0|Clark, Arkansas, US
-8502|5031|Craighead|Arkansas|US|03/22/2020|35.830183|-90.632357|1|0|0|0|Craighead, Arkansas, US
-8503|5063|Independence|Arkansas|US|03/22/2020|35.742427|-91.570016|1|0|0|0|Independence, Arkansas, US
-8504|5111|Poinsett|Arkansas|US|03/22/2020|35.574335|-90.662687|1|0|0|0|Poinsett, Arkansas, US
-8505|5115|Pope|Arkansas|US|03/22/2020|35.448715|-93.032122|1|0|0|0|Pope, Arkansas, US
-8506|5129|Searcy|Arkansas|US|03/22/2020|35.910936|-92.699365|1|0|0|0|Searcy, Arkansas, US
-8507|5133|Sevier|Arkansas|US|03/22/2020|33.997804|-94.242487|1|0|0|0|Sevier, Arkansas, US
-8508|5141|Van Buren|Arkansas|US|03/22/2020|35.580958|-92.51295|1|0|0|0|Van Buren, Arkansas, US
-8509|5007|Benton|Arkansas|US|03/22/2020|36.336447|-94.256808|1|0|0|0|Benton, Arkansas, US
-8510|5009|Boone|Arkansas|US|03/22/2020|36.30845|-93.093749|1|0|0|0|Boone, Arkansas, US
-8511|5035|Crittenden|Arkansas|US|03/22/2020|35.212473|-90.308394|1|0|0|0|Crittenden, Arkansas, US
-8512|5055|Greene|Arkansas|US|03/22/2020|36.117355|-90.558327|1|0|0|0|Greene, Arkansas, US
-8513|5113|Polk|Arkansas|US|03/22/2020|34.482549|-94.227288|1|0|0|0|Polk, Arkansas, US
-8514|5131|Sebastian|Arkansas|US|03/22/2020|35.196055|-94.271627|1|0|0|0|Sebastian, Arkansas, US
-8515|5027|Columbia|Arkansas|US|03/22/2020|33.212307|-93.226428|1|0|0|0|Columbia, Arkansas, US
-8516|5029|Conway|Arkansas|US|03/22/2020|35.262055|-92.705066|1|0|0|0|Conway, Arkansas, US
-8517|5139|Union|Arkansas|US|03/22/2020|33.168871|-92.59747|1|0|0|0|Union, Arkansas, US
-8518|5147|Woodruff|Arkansas|US|03/22/2020|35.189025|-91.243949|1|0|0|0|Woodruff, Arkansas, US
+8492|05069|Jefferson|Arkansas|US|03/22/2020|34.267671|-91.926198|9|0|0|0|Jefferson, Arkansas, US
+8493|05119|Pulaski|Arkansas|US|03/22/2020|34.770541|-92.313551|4|0|0|0|Pulaski, Arkansas, US
+8494|05051|Garland|Arkansas|US|03/22/2020|34.576921|-93.149216|3|0|0|0|Garland, Arkansas, US
+8495|05023|Cleburne|Arkansas|US|03/22/2020|35.538649|-92.0264|3|0|0|0|Cleburne, Arkansas, US
+8496|05143|Washington|Arkansas|US|03/22/2020|35.976844|-94.218007|2|0|0|0|Washington, Arkansas, US
+8497|05045|Faulkner|Arkansas|US|03/22/2020|35.14719|-92.337175|2|0|0|0|Faulkner, Arkansas, US
+8498|05125|Saline|Arkansas|US|03/22/2020|34.649161|-92.675832|1|0|0|0|Saline, Arkansas, US
+8499|05053|Grant|Arkansas|US|03/22/2020|34.29018|-92.423206|1|0|0|0|Grant, Arkansas, US
+8500|05011|Bradley|Arkansas|US|03/22/2020|33.467558|-92.159808|1|0|0|0|Bradley, Arkansas, US
+8501|05019|Clark|Arkansas|US|03/22/2020|34.046134|-93.174847|1|0|0|0|Clark, Arkansas, US
+8502|05031|Craighead|Arkansas|US|03/22/2020|35.830183|-90.632357|1|0|0|0|Craighead, Arkansas, US
+8503|05063|Independence|Arkansas|US|03/22/2020|35.742427|-91.570016|1|0|0|0|Independence, Arkansas, US
+8504|05111|Poinsett|Arkansas|US|03/22/2020|35.574335|-90.662687|1|0|0|0|Poinsett, Arkansas, US
+8505|05115|Pope|Arkansas|US|03/22/2020|35.448715|-93.032122|1|0|0|0|Pope, Arkansas, US
+8506|05129|Searcy|Arkansas|US|03/22/2020|35.910936|-92.699365|1|0|0|0|Searcy, Arkansas, US
+8507|05133|Sevier|Arkansas|US|03/22/2020|33.997804|-94.242487|1|0|0|0|Sevier, Arkansas, US
+8508|05141|Van Buren|Arkansas|US|03/22/2020|35.580958|-92.51295|1|0|0|0|Van Buren, Arkansas, US
+8509|05007|Benton|Arkansas|US|03/22/2020|36.336447|-94.256808|1|0|0|0|Benton, Arkansas, US
+8510|05009|Boone|Arkansas|US|03/22/2020|36.30845|-93.093749|1|0|0|0|Boone, Arkansas, US
+8511|05035|Crittenden|Arkansas|US|03/22/2020|35.212473|-90.308394|1|0|0|0|Crittenden, Arkansas, US
+8512|05055|Greene|Arkansas|US|03/22/2020|36.117355|-90.558327|1|0|0|0|Greene, Arkansas, US
+8513|05113|Polk|Arkansas|US|03/22/2020|34.482549|-94.227288|1|0|0|0|Polk, Arkansas, US
+8514|05131|Sebastian|Arkansas|US|03/22/2020|35.196055|-94.271627|1|0|0|0|Sebastian, Arkansas, US
+8515|05027|Columbia|Arkansas|US|03/22/2020|33.212307|-93.226428|1|0|0|0|Columbia, Arkansas, US
+8516|05029|Conway|Arkansas|US|03/22/2020|35.262055|-92.705066|1|0|0|0|Conway, Arkansas, US
+8517|05139|Union|Arkansas|US|03/22/2020|33.168871|-92.59747|1|0|0|0|Union, Arkansas, US
+8518|05147|Woodruff|Arkansas|US|03/22/2020|35.189025|-91.243949|1|0|0|0|Woodruff, Arkansas, US
 8519|41067|Washington|Oregon|US|03/22/2020|45.559727|-123.095526|55|1|0|0|Washington, Oregon, US
 8520|41047|Marion|Oregon|US|03/22/2020|44.902879|-122.581512|22|1|0|0|Marion, Oregon, US
 8521|41051|Multnomah|Oregon|US|03/22/2020|45.54748|-122.416935|19|1|0|0|Multnomah, Oregon, US
@@ -8534,38 +8534,38 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8533|41023|Grant|Oregon|US|03/22/2020|44.490245|-119.006863|1|0|0|0|Grant, Oregon, US
 8534|41061|Union|Oregon|US|03/22/2020|45.309155|-118.006898|1|0|0|0|Union, Oregon, US
 8535|41033|Josephine|Oregon|US|03/22/2020|42.366555|-123.556194|1|0|0|0|Josephine, Oregon, US
-8536|1073|Jefferson|Alabama|US|03/22/2020|33.555547|-86.895063|71|0|0|0|Jefferson, Alabama, US
-8537|1117|Shelby|Alabama|US|03/22/2020|33.268798|-86.662326|17|0|0|0|Shelby, Alabama, US
-8538|1081|Lee|Alabama|US|03/22/2020|32.601549|-85.351322|16|0|0|0|Lee, Alabama, US
-8539|1089|Madison|Alabama|US|03/22/2020|34.763271|-86.550696|16|0|0|0|Madison, Alabama, US
-8540|1125|Tuscaloosa|Alabama|US|03/22/2020|33.287261|-87.525568|7|0|0|0|Tuscaloosa, Alabama, US
-8541|1051|Elmore|Alabama|US|03/22/2020|32.597854|-86.144153|6|0|0|0|Elmore, Alabama, US
-8542|1101|Montgomery|Alabama|US|03/22/2020|32.220683|-86.209693|3|0|0|0|Montgomery, Alabama, US
-8543|1115|St. Clair|Alabama|US|03/22/2020|33.719022|-86.310294|3|0|0|0|St. Clair, Alabama, US
-8544|1003|Baldwin|Alabama|US|03/22/2020|30.72775|-87.722071|2|0|0|0|Baldwin, Alabama, US
-8545|1017|Chambers|Alabama|US|03/22/2020|32.913601|-85.390727|2|0|0|0|Chambers, Alabama, US
-8546|1097|Mobile|Alabama|US|03/22/2020|30.784723|-88.208424|2|0|0|0|Mobile, Alabama, US
-8547|1077|Lauderdale|Alabama|US|03/22/2020|34.901719|-87.656247|2|0|0|0|Lauderdale, Alabama, US
-8548|1043|Cullman|Alabama|US|03/22/2020|34.130203|-86.86888|2|0|0|0|Cullman, Alabama, US
-8549|1083|Limestone|Alabama|US|03/22/2020|34.811856|-86.983101|1|0|0|0|Limestone, Alabama, US
-8550|1015|Calhoun|Alabama|US|03/22/2020|33.774837|-85.826304|1|0|0|0|Calhoun, Alabama, US
-8551|1121|Talladega|Alabama|US|03/22/2020|33.378232|-86.168862|1|0|0|0|Talladega, Alabama, US
-8552|1127|Walker|Alabama|US|03/22/2020|33.802705|-87.300272|1|0|0|0|Walker, Alabama, US
-8553|1071|Jackson|Alabama|US|03/22/2020|34.781442|-85.997505|1|0|0|0|Jackson, Alabama, US
-8554|1075|Lamar|Alabama|US|03/22/2020|33.77995|-88.09668|1|0|0|0|Lamar, Alabama, US
-8555|1129|Washington|Alabama|US|03/22/2020|31.409279|-88.206899|1|0|0|0|Washington, Alabama, US
-8556|1093|Marion|Alabama|US|03/22/2020|34.136974|-87.887042|1|0|0|0|Marion, Alabama, US
-8557|4013|Maricopa|Arizona|US|03/22/2020|33.348359|-112.491815|81|2|0|0|Maricopa, Arizona, US
-8558|4019|Pima|Arizona|US|03/22/2020|32.097133|-111.789003|17|0|0|0|Pima, Arizona, US
-8559|4021|Pinal|Arizona|US|03/22/2020|32.905256|-111.344948|16|0|0|0|Pinal, Arizona, US
-8560|4005|Coconino|Arizona|US|03/22/2020|35.838834|-111.770718|14|0|0|0|Coconino, Arizona, US
-8561|4017|Navajo|Arizona|US|03/22/2020|35.399771|-110.321898|13|0|0|0|Navajo, Arizona, US
-8562|4025|Yavapai|Arizona|US|03/22/2020|34.599339|-112.553859|3|0|0|0|Yavapai, Arizona, US
-8563|4001|Apache|Arizona|US|03/22/2020|35.39465|-109.489238|3|0|0|0|Apache, Arizona, US
-8564|4009|Graham|Arizona|US|03/22/2020|32.931669|-109.888218|2|0|0|0|Graham, Arizona, US
-8565|4023|Santa Cruz|Arizona|US|03/22/2020|31.52509|-110.847909|1|0|0|0|Santa Cruz, Arizona, US
-8566|4027|Yuma|Arizona|US|03/22/2020|32.768957|-113.906667|1|0|0|0|Yuma, Arizona, US
-8567|4003|Cochise|Arizona|US|03/22/2020|31.879347|-109.751609|1|0|0|0|Cochise, Arizona, US
+8536|01073|Jefferson|Alabama|US|03/22/2020|33.555547|-86.895063|71|0|0|0|Jefferson, Alabama, US
+8537|01117|Shelby|Alabama|US|03/22/2020|33.268798|-86.662326|17|0|0|0|Shelby, Alabama, US
+8538|01081|Lee|Alabama|US|03/22/2020|32.601549|-85.351322|16|0|0|0|Lee, Alabama, US
+8539|01089|Madison|Alabama|US|03/22/2020|34.763271|-86.550696|16|0|0|0|Madison, Alabama, US
+8540|01125|Tuscaloosa|Alabama|US|03/22/2020|33.287261|-87.525568|7|0|0|0|Tuscaloosa, Alabama, US
+8541|01051|Elmore|Alabama|US|03/22/2020|32.597854|-86.144153|6|0|0|0|Elmore, Alabama, US
+8542|01101|Montgomery|Alabama|US|03/22/2020|32.220683|-86.209693|3|0|0|0|Montgomery, Alabama, US
+8543|01115|St. Clair|Alabama|US|03/22/2020|33.719022|-86.310294|3|0|0|0|St. Clair, Alabama, US
+8544|01003|Baldwin|Alabama|US|03/22/2020|30.72775|-87.722071|2|0|0|0|Baldwin, Alabama, US
+8545|01017|Chambers|Alabama|US|03/22/2020|32.913601|-85.390727|2|0|0|0|Chambers, Alabama, US
+8546|01097|Mobile|Alabama|US|03/22/2020|30.784723|-88.208424|2|0|0|0|Mobile, Alabama, US
+8547|01077|Lauderdale|Alabama|US|03/22/2020|34.901719|-87.656247|2|0|0|0|Lauderdale, Alabama, US
+8548|01043|Cullman|Alabama|US|03/22/2020|34.130203|-86.86888|2|0|0|0|Cullman, Alabama, US
+8549|01083|Limestone|Alabama|US|03/22/2020|34.811856|-86.983101|1|0|0|0|Limestone, Alabama, US
+8550|01015|Calhoun|Alabama|US|03/22/2020|33.774837|-85.826304|1|0|0|0|Calhoun, Alabama, US
+8551|01121|Talladega|Alabama|US|03/22/2020|33.378232|-86.168862|1|0|0|0|Talladega, Alabama, US
+8552|01127|Walker|Alabama|US|03/22/2020|33.802705|-87.300272|1|0|0|0|Walker, Alabama, US
+8553|01071|Jackson|Alabama|US|03/22/2020|34.781442|-85.997505|1|0|0|0|Jackson, Alabama, US
+8554|01075|Lamar|Alabama|US|03/22/2020|33.77995|-88.09668|1|0|0|0|Lamar, Alabama, US
+8555|01129|Washington|Alabama|US|03/22/2020|31.409279|-88.206899|1|0|0|0|Washington, Alabama, US
+8556|01093|Marion|Alabama|US|03/22/2020|34.136974|-87.887042|1|0|0|0|Marion, Alabama, US
+8557|04013|Maricopa|Arizona|US|03/22/2020|33.348359|-112.491815|81|2|0|0|Maricopa, Arizona, US
+8558|04019|Pima|Arizona|US|03/22/2020|32.097133|-111.789003|17|0|0|0|Pima, Arizona, US
+8559|04021|Pinal|Arizona|US|03/22/2020|32.905256|-111.344948|16|0|0|0|Pinal, Arizona, US
+8560|04005|Coconino|Arizona|US|03/22/2020|35.838834|-111.770718|14|0|0|0|Coconino, Arizona, US
+8561|04017|Navajo|Arizona|US|03/22/2020|35.399771|-110.321898|13|0|0|0|Navajo, Arizona, US
+8562|04025|Yavapai|Arizona|US|03/22/2020|34.599339|-112.553859|3|0|0|0|Yavapai, Arizona, US
+8563|04001|Apache|Arizona|US|03/22/2020|35.39465|-109.489238|3|0|0|0|Apache, Arizona, US
+8564|04009|Graham|Arizona|US|03/22/2020|32.931669|-109.888218|2|0|0|0|Graham, Arizona, US
+8565|04023|Santa Cruz|Arizona|US|03/22/2020|31.52509|-110.847909|1|0|0|0|Santa Cruz, Arizona, US
+8566|04027|Yuma|Arizona|US|03/22/2020|32.768957|-113.906667|1|0|0|0|Yuma, Arizona, US
+8567|04003|Cochise|Arizona|US|03/22/2020|31.879347|-109.751609|1|0|0|0|Cochise, Arizona, US
 8568|N/A|Unassigned|Kentucky|US|03/22/2020|0.0|0.0|39|0|0|0|Unassigned, Kentucky, US
 8569|21111|Jefferson|Kentucky|US|03/22/2020|38.186647|-85.65931|25|1|0|0|Jefferson, Kentucky, US
 8570|21067|Fayette|Kentucky|US|03/22/2020|38.036822|-84.455769|10|0|0|0|Fayette, Kentucky, US
@@ -8761,9 +8761,9 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8760|46009|Bon Homme|South Dakota|US|03/22/2020|42.989142|-97.885927|1|0|0|0|Bon Homme, South Dakota, US
 8761|46087|McCook|South Dakota|US|03/22/2020|43.674257|-97.368631|1|0|0|0|McCook, South Dakota, US
 8762|46013|Brown|South Dakota|US|03/22/2020|45.589943|-98.351654|1|0|0|0|Brown, South Dakota, US
-8763|2090|Fairbanks North Star|Alaska|US|03/22/2020|64.807262|-146.569266|7|0|0|0|Fairbanks North Star, Alaska, US
-8764|2130|Ketchikan Gateway|Alaska|US|03/22/2020|55.57445|-130.975561|6|0|0|0|Ketchikan Gateway, Alaska, US
-8765|2020|Anchorage|Alaska|US|03/22/2020|61.149982|-149.142699|5|0|0|0|Anchorage, Alaska, US
+8763|02090|Fairbanks North Star|Alaska|US|03/22/2020|64.807262|-146.569266|7|0|0|0|Fairbanks North Star, Alaska, US
+8764|02130|Ketchikan Gateway|Alaska|US|03/22/2020|55.57445|-130.975561|6|0|0|0|Ketchikan Gateway, Alaska, US
+8765|02020|Anchorage|Alaska|US|03/22/2020|61.149982|-149.142699|5|0|0|0|Anchorage, Alaska, US
 8766|N/A|Soldotna|Alaska|US|03/22/2020|0.0|0.0|1|0|0|0|Soldotna, Alaska, US
 8767|N/A|Sterling|Alaska|US|03/22/2020|0.0|0.0|1|0|0|0|Sterling, Alaska, US
 8768|54037|Jefferson|West Virginia|US|03/22/2020|39.307762|-77.860141|3|0|0|0|Jefferson, West Virginia, US
@@ -8776,183 +8776,183 @@ OBS|FIPS|ADM3|ADM2|ADM1|LASTUPDATED|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|LA
 8775|54079|Putnam|West Virginia|US|03/22/2020|38.507823|-81.908213|1|0|0|0|Putnam, West Virginia, US
 8776|78000|N/A|Virgin Islands|US|03/22/2020|18.3358|-64.8963|6|0|0|0|Virgin Islands, US
 8777|N/A|Unassigned|Wuhan Evacuee|US|03/22/2020|0.0|0.0|4|0|0|0|Unassigned, Wuhan Evacuee, US
-8778|1001|Autauga|Alabama|US|03/22/2020|32.539527|-86.644082|0|0|0|0|Autauga, Alabama, US
-8779|1005|Barbour|Alabama|US|03/22/2020|31.868263|-85.387129|0|0|0|0|Barbour, Alabama, US
-8780|1007|Bibb|Alabama|US|03/22/2020|32.996421|-87.125115|0|0|0|0|Bibb, Alabama, US
-8781|1009|Blount|Alabama|US|03/22/2020|33.982109|-86.567906|0|0|0|0|Blount, Alabama, US
-8782|1011|Bullock|Alabama|US|03/22/2020|32.100305|-85.712655|0|0|0|0|Bullock, Alabama, US
-8783|1013|Butler|Alabama|US|03/22/2020|31.753001|-86.680575|0|0|0|0|Butler, Alabama, US
-8784|1019|Cherokee|Alabama|US|03/22/2020|34.17806|-85.60639|0|0|0|0|Cherokee, Alabama, US
-8785|1021|Chilton|Alabama|US|03/22/2020|32.850441|-86.717326|0|0|0|0|Chilton, Alabama, US
-8786|1023|Choctaw|Alabama|US|03/22/2020|32.022273|-88.265644|0|0|0|0|Choctaw, Alabama, US
-8787|1025|Clarke|Alabama|US|03/22/2020|31.680999|-87.835486|0|0|0|0|Clarke, Alabama, US
-8788|1027|Clay|Alabama|US|03/22/2020|33.269842|-85.858361|0|0|0|0|Clay, Alabama, US
-8789|1029|Cleburne|Alabama|US|03/22/2020|33.676792|-85.520059|0|0|0|0|Cleburne, Alabama, US
-8790|1031|Coffee|Alabama|US|03/22/2020|31.399328|-85.98901|0|0|0|0|Coffee, Alabama, US
-8791|1033|Colbert|Alabama|US|03/22/2020|34.698475|-87.801685|0|0|0|0|Colbert, Alabama, US
-8792|1035|Conecuh|Alabama|US|03/22/2020|31.434017|-86.9932|0|0|0|0|Conecuh, Alabama, US
-8793|1037|Coosa|Alabama|US|03/22/2020|32.936901|-86.248477|0|0|0|0|Coosa, Alabama, US
-8794|1039|Covington|Alabama|US|03/22/2020|31.247785|-86.450509|0|0|0|0|Covington, Alabama, US
-8795|1041|Crenshaw|Alabama|US|03/22/2020|31.729418|-86.315931|0|0|0|0|Crenshaw, Alabama, US
-8796|1045|Dale|Alabama|US|03/22/2020|31.430371|-85.610957|0|0|0|0|Dale, Alabama, US
-8797|1047|Dallas|Alabama|US|03/22/2020|32.326881|-87.108667|0|0|0|0|Dallas, Alabama, US
-8798|1049|DeKalb|Alabama|US|03/22/2020|34.459469|-85.807829|0|0|0|0|DeKalb, Alabama, US
-8799|1053|Escambia|Alabama|US|03/22/2020|31.125679|-87.159187|0|0|0|0|Escambia, Alabama, US
-8800|1055|Etowah|Alabama|US|03/22/2020|34.045673|-86.040519|0|0|0|0|Etowah, Alabama, US
-8801|1057|Fayette|Alabama|US|03/22/2020|33.720769|-87.738866|0|0|0|0|Fayette, Alabama, US
-8802|1059|Franklin|Alabama|US|03/22/2020|34.442353|-87.842895|0|0|0|0|Franklin, Alabama, US
-8803|1061|Geneva|Alabama|US|03/22/2020|31.09389|-85.835728|0|0|0|0|Geneva, Alabama, US
-8804|1063|Greene|Alabama|US|03/22/2020|32.855042|-87.95684|0|0|0|0|Greene, Alabama, US
-8805|1065|Hale|Alabama|US|03/22/2020|32.760393|-87.63285|0|0|0|0|Hale, Alabama, US
-8806|1067|Henry|Alabama|US|03/22/2020|31.51148|-85.242679|0|0|0|0|Henry, Alabama, US
-8807|1069|Houston|Alabama|US|03/22/2020|31.151979|-85.299396|0|0|0|0|Houston, Alabama, US
-8808|1079|Lawrence|Alabama|US|03/22/2020|34.520415|-87.310695|0|0|0|0|Lawrence, Alabama, US
-8809|1085|Lowndes|Alabama|US|03/22/2020|32.159728|-86.651584|0|0|0|0|Lowndes, Alabama, US
-8810|1087|Macon|Alabama|US|03/22/2020|32.387599|-85.692677|0|0|0|0|Macon, Alabama, US
-8811|1091|Marengo|Alabama|US|03/22/2020|32.247676|-87.787962|0|0|0|0|Marengo, Alabama, US
-8812|1095|Marshall|Alabama|US|03/22/2020|34.36976|-86.304867|0|0|0|0|Marshall, Alabama, US
-8813|1099|Monroe|Alabama|US|03/22/2020|31.567294|-87.36995|0|0|0|0|Monroe, Alabama, US
-8814|1103|Morgan|Alabama|US|03/22/2020|34.455006|-86.854759|0|0|0|0|Morgan, Alabama, US
-8815|1105|Perry|Alabama|US|03/22/2020|32.640483|-87.297706|0|0|0|0|Perry, Alabama, US
-8816|1107|Pickens|Alabama|US|03/22/2020|33.280949|-88.088181|0|0|0|0|Pickens, Alabama, US
-8817|1109|Pike|Alabama|US|03/22/2020|31.803964|-85.94083|0|0|0|0|Pike, Alabama, US
-8818|1111|Randolph|Alabama|US|03/22/2020|33.295267|-85.457088|0|0|0|0|Randolph, Alabama, US
-8819|1113|Russell|Alabama|US|03/22/2020|32.287253|-85.184153|0|0|0|0|Russell, Alabama, US
-8820|1119|Sumter|Alabama|US|03/22/2020|32.591174|-88.199162|0|0|0|0|Sumter, Alabama, US
-8821|1123|Tallapoosa|Alabama|US|03/22/2020|32.866983|-85.798331|0|0|0|0|Tallapoosa, Alabama, US
-8822|1131|Wilcox|Alabama|US|03/22/2020|31.987732|-87.308911|0|0|0|0|Wilcox, Alabama, US
-8823|1133|Winston|Alabama|US|03/22/2020|34.150305|-87.373259|0|0|0|0|Winston, Alabama, US
-8824|2013|Aleutians East|Alaska|US|03/22/2020|55.322224|-161.972202|0|0|0|0|Aleutians East, Alaska, US
-8825|2016|Aleutians West|Alaska|US|03/22/2020|52.725411|-110.408643|0|0|0|0|Aleutians West, Alaska, US
-8826|2050|Bethel|Alaska|US|03/22/2020|60.909805|-159.856183|0|0|0|0|Bethel, Alaska, US
-8827|2060|Bristol Bay|Alaska|US|03/22/2020|58.74514|-156.701064|0|0|0|0|Bristol Bay, Alaska, US
-8828|2068|Denali|Alaska|US|03/22/2020|63.67264|-150.007611|0|0|0|0|Denali, Alaska, US
-8829|2070|Dillingham|Alaska|US|03/22/2020|59.796037|-158.238194|0|0|0|0|Dillingham, Alaska, US
-8830|2100|Haines|Alaska|US|03/22/2020|59.098936|-135.467984|0|0|0|0|Haines, Alaska, US
-8831|2105|Hoonah-Angoon|Alaska|US|03/22/2020|58.293074|-135.642442|0|0|0|0|Hoonah-Angoon, Alaska, US
-8832|2110|Juneau|Alaska|US|03/22/2020|58.450318|-134.200436|0|0|0|0|Juneau, Alaska, US
-8833|2122|Kenai Peninsula|Alaska|US|03/22/2020|60.244297|-151.538888|0|0|0|0|Kenai Peninsula, Alaska, US
-8834|2150|Kodiak Island|Alaska|US|03/22/2020|57.655294|-153.749358|0|0|0|0|Kodiak Island, Alaska, US
-8835|2158|Kusilvak|Alaska|US|03/22/2020|62.154292|-163.396788|0|0|0|0|Kusilvak, Alaska, US
-8836|2164|Lake and Peninsula|Alaska|US|03/22/2020|58.624033|-156.214059|0|0|0|0|Lake and Peninsula, Alaska, US
-8837|2170|Matanuska-Susitna|Alaska|US|03/22/2020|62.31305|-149.574174|0|0|0|0|Matanuska-Susitna, Alaska, US
-8838|2180|Nome|Alaska|US|03/22/2020|64.903207|-164.03538|0|0|0|0|Nome, Alaska, US
-8839|2185|North Slope|Alaska|US|03/22/2020|69.314792|-153.483609|0|0|0|0|North Slope, Alaska, US
-8840|2188|Northwest Arctic|Alaska|US|03/22/2020|67.049192|-159.750395|0|0|0|0|Northwest Arctic, Alaska, US
-8841|2195|Petersburg|Alaska|US|03/22/2020|57.139789|-132.9541|0|0|0|0|Petersburg, Alaska, US
-8842|2198|Prince of Wales-Hyder|Alaska|US|03/22/2020|55.76262|-133.051162|0|0|0|0|Prince of Wales-Hyder, Alaska, US
-8843|2220|Sitka|Alaska|US|03/22/2020|57.241246|-135.320659|0|0|0|0|Sitka, Alaska, US
-8844|2230|Skagway|Alaska|US|03/22/2020|59.5615|-135.333775|0|0|0|0|Skagway, Alaska, US
-8845|2240|Southeast Fairbanks|Alaska|US|03/22/2020|63.876921|-143.212764|0|0|0|0|Southeast Fairbanks, Alaska, US
-8846|2261|Valdez-Cordova|Alaska|US|03/22/2020|61.475028|-144.71268|0|0|0|0|Valdez-Cordova, Alaska, US
-8847|2275|Wrangell|Alaska|US|03/22/2020|56.3202|-132.058373|0|0|0|0|Wrangell, Alaska, US
-8848|2282|Yakutat|Alaska|US|03/22/2020|59.890981|-140.360145|0|0|0|0|Yakutat, Alaska, US
-8849|2290|Yukon-Koyukuk|Alaska|US|03/22/2020|65.508155|-151.390739|0|0|0|0|Yukon-Koyukuk, Alaska, US
-8850|4007|Gila|Arizona|US|03/22/2020|33.801901|-110.813278|0|0|0|0|Gila, Arizona, US
-8851|4011|Greenlee|Arizona|US|03/22/2020|33.214988|-109.240528|0|0|0|0|Greenlee, Arizona, US
-8852|4012|La Paz|Arizona|US|03/22/2020|33.728542|-113.981003|0|0|0|0|La Paz, Arizona, US
-8853|4015|Mohave|Arizona|US|03/22/2020|35.704717|-113.75779|0|0|0|0|Mohave, Arizona, US
-8854|5001|Arkansas|Arkansas|US|03/22/2020|34.291452|-91.372773|0|0|0|0|Arkansas, Arkansas, US
-8855|5003|Ashley|Arkansas|US|03/22/2020|33.191535|-91.769847|0|0|0|0|Ashley, Arkansas, US
-8856|5005|Baxter|Arkansas|US|03/22/2020|36.287844|-92.337829|0|0|0|0|Baxter, Arkansas, US
-8857|5013|Calhoun|Arkansas|US|03/22/2020|33.555988|-92.499744|0|0|0|0|Calhoun, Arkansas, US
-8858|5015|Carroll|Arkansas|US|03/22/2020|36.340386|-93.542703|0|0|0|0|Carroll, Arkansas, US
-8859|5017|Chicot|Arkansas|US|03/22/2020|33.26459|-91.295392|0|0|0|0|Chicot, Arkansas, US
-8860|5021|Clay|Arkansas|US|03/22/2020|36.368262|-90.414817|0|0|0|0|Clay, Arkansas, US
-8861|5025|Cleveland|Arkansas|US|03/22/2020|33.897232|-92.18537|0|0|0|0|Cleveland, Arkansas, US
-8862|5033|Crawford|Arkansas|US|03/22/2020|35.589286|-94.244681|0|0|0|0|Crawford, Arkansas, US
-8863|5037|Cross|Arkansas|US|03/22/2020|35.296314|-90.771858|0|0|0|0|Cross, Arkansas, US
-8864|5039|Dallas|Arkansas|US|03/22/2020|33.970428|-92.651674|0|0|0|0|Dallas, Arkansas, US
-8865|5041|Desha|Arkansas|US|03/22/2020|33.83011|-91.255009|0|0|0|0|Desha, Arkansas, US
-8866|5043|Drew|Arkansas|US|03/22/2020|33.59035|-91.717779|0|0|0|0|Drew, Arkansas, US
-8867|5047|Franklin|Arkansas|US|03/22/2020|35.512028|-93.892996|0|0|0|0|Franklin, Arkansas, US
-8868|5049|Fulton|Arkansas|US|03/22/2020|36.381771|-91.817291|0|0|0|0|Fulton, Arkansas, US
-8869|5057|Hempstead|Arkansas|US|03/22/2020|33.733256|-93.669351|0|0|0|0|Hempstead, Arkansas, US
-8870|5059|Hot Spring|Arkansas|US|03/22/2020|34.317093|-92.953963|0|0|0|0|Hot Spring, Arkansas, US
-8871|5061|Howard|Arkansas|US|03/22/2020|34.090074|-93.993487|0|0|0|0|Howard, Arkansas, US
-8872|5065|Izard|Arkansas|US|03/22/2020|36.09604|-91.90848|0|0|0|0|Izard, Arkansas, US
-8873|5067|Jackson|Arkansas|US|03/22/2020|35.59803|-91.214946|0|0|0|0|Jackson, Arkansas, US
-8874|5071|Johnson|Arkansas|US|03/22/2020|35.567591|-93.460364|0|0|0|0|Johnson, Arkansas, US
-8875|5073|Lafayette|Arkansas|US|03/22/2020|33.241167|-93.606771|0|0|0|0|Lafayette, Arkansas, US
-8876|5075|Lawrence|Arkansas|US|03/22/2020|36.041882|-91.108672|0|0|0|0|Lawrence, Arkansas, US
-8877|5077|Lee|Arkansas|US|03/22/2020|34.784989|-90.783839|0|0|0|0|Lee, Arkansas, US
-8878|5079|Lincoln|Arkansas|US|03/22/2020|33.953172|-91.740028|0|0|0|0|Lincoln, Arkansas, US
-8879|5081|Little River|Arkansas|US|03/22/2020|33.703757|-94.234686|0|0|0|0|Little River, Arkansas, US
-8880|5083|Logan|Arkansas|US|03/22/2020|35.214132|-93.71951|0|0|0|0|Logan, Arkansas, US
-8881|5085|Lonoke|Arkansas|US|03/22/2020|34.753922|-91.887424|0|0|0|0|Lonoke, Arkansas, US
-8882|5087|Madison|Arkansas|US|03/22/2020|36.010382|-93.725249|0|0|0|0|Madison, Arkansas, US
-8883|5089|Marion|Arkansas|US|03/22/2020|36.268445|-92.684519|0|0|0|0|Marion, Arkansas, US
-8884|5091|Miller|Arkansas|US|03/22/2020|33.314034|-93.892853|0|0|0|0|Miller, Arkansas, US
-8885|5093|Mississippi|Arkansas|US|03/22/2020|35.762715|-90.051944|0|0|0|0|Mississippi, Arkansas, US
-8886|5095|Monroe|Arkansas|US|03/22/2020|34.681593|-91.205403|0|0|0|0|Monroe, Arkansas, US
-8887|5097|Montgomery|Arkansas|US|03/22/2020|34.537049|-93.658245|0|0|0|0|Montgomery, Arkansas, US
-8888|5099|Nevada|Arkansas|US|03/22/2020|33.663401|-93.306324|0|0|0|0|Nevada, Arkansas, US
-8889|5101|Newton|Arkansas|US|03/22/2020|35.919475|-93.21613|0|0|0|0|Newton, Arkansas, US
-8890|5103|Ouachita|Arkansas|US|03/22/2020|33.588398|-92.87796|0|0|0|0|Ouachita, Arkansas, US
-8891|5105|Perry|Arkansas|US|03/22/2020|34.945915|-92.943726|0|0|0|0|Perry, Arkansas, US
-8892|5107|Phillips|Arkansas|US|03/22/2020|34.432685|-90.848002|0|0|0|0|Phillips, Arkansas, US
-8893|5109|Pike|Arkansas|US|03/22/2020|34.162504|-93.657893|0|0|0|0|Pike, Arkansas, US
-8894|5117|Prairie|Arkansas|US|03/22/2020|34.836244|-91.551622|0|0|0|0|Prairie, Arkansas, US
-8895|5121|Randolph|Arkansas|US|03/22/2020|36.341571|-91.024555|0|0|0|0|Randolph, Arkansas, US
-8896|5127|Scott|Arkansas|US|03/22/2020|34.855889|-94.063218|0|0|0|0|Scott, Arkansas, US
-8897|5135|Sharp|Arkansas|US|03/22/2020|36.162582|-91.478193|0|0|0|0|Sharp, Arkansas, US
-8898|5123|St. Francis|Arkansas|US|03/22/2020|35.02202|-90.748281|0|0|0|0|St. Francis, Arkansas, US
-8899|5137|Stone|Arkansas|US|03/22/2020|35.862519|-92.156841|0|0|0|0|Stone, Arkansas, US
-8900|5145|White|Arkansas|US|03/22/2020|35.256885|-91.749083|0|0|0|0|White, Arkansas, US
-8901|5149|Yell|Arkansas|US|03/22/2020|35.002924|-93.411713|0|0|0|0|Yell, Arkansas, US
-8902|6003|Alpine|California|US|03/22/2020|38.596786|-119.822359|0|0|0|0|Alpine, California, US
-8903|6011|Colusa|California|US|03/22/2020|39.17882|-122.233173|0|0|0|0|Colusa, California, US
-8904|6015|Del Norte|California|US|03/22/2020|41.742283|-123.897406|0|0|0|0|Del Norte, California, US
-8905|6017|El Dorado|California|US|03/22/2020|38.77966|-120.523317|0|0|0|0|El Dorado, California, US
-8906|6021|Glenn|California|US|03/22/2020|39.598759|-122.393845|0|0|0|0|Glenn, California, US
-8907|6027|Inyo|California|US|03/22/2020|36.511121|-117.411198|0|0|0|0|Inyo, California, US
-8908|6031|Kings|California|US|03/22/2020|36.074091|-119.815997|0|0|0|0|Kings, California, US
-8909|6033|Lake|California|US|03/22/2020|39.101243|-122.753624|0|0|0|0|Lake, California, US
-8910|6035|Lassen|California|US|03/22/2020|40.673113|-120.59351|0|0|0|0|Lassen, California, US
-8911|6043|Mariposa|California|US|03/22/2020|37.579786|-119.907333|0|0|0|0|Mariposa, California, US
-8912|6047|Merced|California|US|03/22/2020|37.189224|-120.720904|0|0|0|0|Merced, California, US
-8913|6049|Modoc|California|US|03/22/2020|41.589656|-120.724482|0|0|0|0|Modoc, California, US
-8914|6063|Plumas|California|US|03/22/2020|40.00356|-120.839524|0|0|0|0|Plumas, California, US
-8915|6091|Sierra|California|US|03/22/2020|39.577135|-120.52007|0|0|0|0|Sierra, California, US
-8916|6101|Sutter|California|US|03/22/2020|39.034175|-121.69459|0|0|0|0|Sutter, California, US
-8917|6103|Tehama|California|US|03/22/2020|40.125709|-122.237017|0|0|0|0|Tehama, California, US
-8918|6105|Trinity|California|US|03/22/2020|40.649177|-123.114713|0|0|0|0|Trinity, California, US
-8919|6109|Tuolumne|California|US|03/22/2020|38.02644|-119.952509|0|0|0|0|Tuolumne, California, US
-8920|8003|Alamosa|Colorado|US|03/22/2020|37.572506|-105.788545|0|0|0|0|Alamosa, Colorado, US
-8921|8007|Archuleta|Colorado|US|03/22/2020|37.194742|-107.047687|0|0|0|0|Archuleta, Colorado, US
-8922|8009|Baca|Colorado|US|03/22/2020|37.319409|-102.560322|0|0|0|0|Baca, Colorado, US
-8923|8011|Bent|Colorado|US|03/22/2020|37.954743|-103.072019|0|0|0|0|Bent, Colorado, US
-8924|8017|Cheyenne|Colorado|US|03/22/2020|38.827774|-102.603256|0|0|0|0|Cheyenne, Colorado, US
-8925|8021|Conejos|Colorado|US|03/22/2020|37.201606|-106.191749|0|0|0|0|Conejos, Colorado, US
-8926|8023|Costilla|Colorado|US|03/22/2020|37.277325|-105.427655|0|0|0|0|Costilla, Colorado, US
-8927|8027|Custer|Colorado|US|03/22/2020|38.108832|-105.368348|0|0|0|0|Custer, Colorado, US
-8928|8029|Delta|Colorado|US|03/22/2020|38.862462|-107.863134|0|0|0|0|Delta, Colorado, US
-8929|8033|Dolores|Colorado|US|03/22/2020|37.752087|-108.521158|0|0|0|0|Dolores, Colorado, US
-8930|8043|Fremont|Colorado|US|03/22/2020|38.473623|-105.439967|0|0|0|0|Fremont, Colorado, US
-8931|8047|Gilpin|Colorado|US|03/22/2020|39.856465|-105.52526|0|0|0|0|Gilpin, Colorado, US
-8932|8055|Huerfano|Colorado|US|03/22/2020|37.684731|-104.961258|0|0|0|0|Huerfano, Colorado, US
-8933|8057|Jackson|Colorado|US|03/22/2020|40.665939|-106.340891|0|0|0|0|Jackson, Colorado, US
-8934|8061|Kiowa|Colorado|US|03/22/2020|38.432609|-102.739215|0|0|0|0|Kiowa, Colorado, US
-8935|8063|Kit Carson|Colorado|US|03/22/2020|39.304978|-102.60222|0|0|0|0|Kit Carson, Colorado, US
-8936|8067|La Plata|Colorado|US|03/22/2020|37.28632|-107.842901|0|0|0|0|La Plata, Colorado, US
-8937|8065|Lake|Colorado|US|03/22/2020|39.202788|-106.35557|0|0|0|0|Lake, Colorado, US
-8938|8071|Las Animas|Colorado|US|03/22/2020|37.315341|-104.037646|0|0|0|0|Las Animas, Colorado, US
-8939|8073|Lincoln|Colorado|US|03/22/2020|38.987495|-103.513665|0|0|0|0|Lincoln, Colorado, US
-8940|8075|Logan|Colorado|US|03/22/2020|40.724964|-103.110817|0|0|0|0|Logan, Colorado, US
-8941|8079|Mineral|Colorado|US|03/22/2020|37.669543|-106.92817|0|0|0|0|Mineral, Colorado, US
-8942|8081|Moffat|Colorado|US|03/22/2020|40.61811|-108.207088|0|0|0|0|Moffat, Colorado, US
-8943|8083|Montezuma|Colorado|US|03/22/2020|37.338596|-108.595886|0|0|0|0|Montezuma, Colorado, US
-8944|8089|Otero|Colorado|US|03/22/2020|37.901449|-103.717338|0|0|0|0|Otero, Colorado, US
-8945|8091|Ouray|Colorado|US|03/22/2020|38.147175|-107.767514|0|0|0|0|Ouray, Colorado, US
-8946|8095|Phillips|Colorado|US|03/22/2020|40.594143|-102.35777|0|0|0|0|Phillips, Colorado, US
-8947|8099|Prowers|Colorado|US|03/22/2020|37.95545|-102.392605|0|0|0|0|Prowers, Colorado, US
-8948|8103|Rio Blanco|Colorado|US|03/22/2020|39.979135|-108.217901|0|0|0|0|Rio Blanco, Colorado, US
-8949|8105|Rio Grande|Colorado|US|03/22/2020|37.583686|-106.384784|0|0|0|0|Rio Grande, Colorado, US
-8950|8109|Saguache|Colorado|US|03/22/2020|38.080546|-106.282466|0|0|0|0|Saguache, Colorado, US
-8951|8111|San Juan|Colorado|US|03/22/2020|37.76249|-107.676329|0|0|0|0|San Juan, Colorado, US
-8952|8115|Sedgwick|Colorado|US|03/22/2020|40.875954|-102.351923|0|0|0|0|Sedgwick, Colorado, US
-8953|8119|Teller|Colorado|US|03/22/2020|38.881335|-105.161489|0|0|0|0|Teller, Colorado, US
-8954|8121|Washington|Colorado|US|03/22/2020|39.970155|-103.202587|0|0|0|0|Washington, Colorado, US
+8778|01001|Autauga|Alabama|US|03/22/2020|32.539527|-86.644082|0|0|0|0|Autauga, Alabama, US
+8779|01005|Barbour|Alabama|US|03/22/2020|31.868263|-85.387129|0|0|0|0|Barbour, Alabama, US
+8780|01007|Bibb|Alabama|US|03/22/2020|32.996421|-87.125115|0|0|0|0|Bibb, Alabama, US
+8781|01009|Blount|Alabama|US|03/22/2020|33.982109|-86.567906|0|0|0|0|Blount, Alabama, US
+8782|01011|Bullock|Alabama|US|03/22/2020|32.100305|-85.712655|0|0|0|0|Bullock, Alabama, US
+8783|01013|Butler|Alabama|US|03/22/2020|31.753001|-86.680575|0|0|0|0|Butler, Alabama, US
+8784|01019|Cherokee|Alabama|US|03/22/2020|34.17806|-85.60639|0|0|0|0|Cherokee, Alabama, US
+8785|01021|Chilton|Alabama|US|03/22/2020|32.850441|-86.717326|0|0|0|0|Chilton, Alabama, US
+8786|01023|Choctaw|Alabama|US|03/22/2020|32.022273|-88.265644|0|0|0|0|Choctaw, Alabama, US
+8787|01025|Clarke|Alabama|US|03/22/2020|31.680999|-87.835486|0|0|0|0|Clarke, Alabama, US
+8788|01027|Clay|Alabama|US|03/22/2020|33.269842|-85.858361|0|0|0|0|Clay, Alabama, US
+8789|01029|Cleburne|Alabama|US|03/22/2020|33.676792|-85.520059|0|0|0|0|Cleburne, Alabama, US
+8790|01031|Coffee|Alabama|US|03/22/2020|31.399328|-85.98901|0|0|0|0|Coffee, Alabama, US
+8791|01033|Colbert|Alabama|US|03/22/2020|34.698475|-87.801685|0|0|0|0|Colbert, Alabama, US
+8792|01035|Conecuh|Alabama|US|03/22/2020|31.434017|-86.9932|0|0|0|0|Conecuh, Alabama, US
+8793|01037|Coosa|Alabama|US|03/22/2020|32.936901|-86.248477|0|0|0|0|Coosa, Alabama, US
+8794|01039|Covington|Alabama|US|03/22/2020|31.247785|-86.450509|0|0|0|0|Covington, Alabama, US
+8795|01041|Crenshaw|Alabama|US|03/22/2020|31.729418|-86.315931|0|0|0|0|Crenshaw, Alabama, US
+8796|01045|Dale|Alabama|US|03/22/2020|31.430371|-85.610957|0|0|0|0|Dale, Alabama, US
+8797|01047|Dallas|Alabama|US|03/22/2020|32.326881|-87.108667|0|0|0|0|Dallas, Alabama, US
+8798|01049|DeKalb|Alabama|US|03/22/2020|34.459469|-85.807829|0|0|0|0|DeKalb, Alabama, US
+8799|01053|Escambia|Alabama|US|03/22/2020|31.125679|-87.159187|0|0|0|0|Escambia, Alabama, US
+8800|01055|Etowah|Alabama|US|03/22/2020|34.045673|-86.040519|0|0|0|0|Etowah, Alabama, US
+8801|01057|Fayette|Alabama|US|03/22/2020|33.720769|-87.738866|0|0|0|0|Fayette, Alabama, US
+8802|01059|Franklin|Alabama|US|03/22/2020|34.442353|-87.842895|0|0|0|0|Franklin, Alabama, US
+8803|01061|Geneva|Alabama|US|03/22/2020|31.09389|-85.835728|0|0|0|0|Geneva, Alabama, US
+8804|01063|Greene|Alabama|US|03/22/2020|32.855042|-87.95684|0|0|0|0|Greene, Alabama, US
+8805|01065|Hale|Alabama|US|03/22/2020|32.760393|-87.63285|0|0|0|0|Hale, Alabama, US
+8806|01067|Henry|Alabama|US|03/22/2020|31.51148|-85.242679|0|0|0|0|Henry, Alabama, US
+8807|01069|Houston|Alabama|US|03/22/2020|31.151979|-85.299396|0|0|0|0|Houston, Alabama, US
+8808|01079|Lawrence|Alabama|US|03/22/2020|34.520415|-87.310695|0|0|0|0|Lawrence, Alabama, US
+8809|01085|Lowndes|Alabama|US|03/22/2020|32.159728|-86.651584|0|0|0|0|Lowndes, Alabama, US
+8810|01087|Macon|Alabama|US|03/22/2020|32.387599|-85.692677|0|0|0|0|Macon, Alabama, US
+8811|01091|Marengo|Alabama|US|03/22/2020|32.247676|-87.787962|0|0|0|0|Marengo, Alabama, US
+8812|01095|Marshall|Alabama|US|03/22/2020|34.36976|-86.304867|0|0|0|0|Marshall, Alabama, US
+8813|01099|Monroe|Alabama|US|03/22/2020|31.567294|-87.36995|0|0|0|0|Monroe, Alabama, US
+8814|01103|Morgan|Alabama|US|03/22/2020|34.455006|-86.854759|0|0|0|0|Morgan, Alabama, US
+8815|01105|Perry|Alabama|US|03/22/2020|32.640483|-87.297706|0|0|0|0|Perry, Alabama, US
+8816|01107|Pickens|Alabama|US|03/22/2020|33.280949|-88.088181|0|0|0|0|Pickens, Alabama, US
+8817|01109|Pike|Alabama|US|03/22/2020|31.803964|-85.94083|0|0|0|0|Pike, Alabama, US
+8818|01111|Randolph|Alabama|US|03/22/2020|33.295267|-85.457088|0|0|0|0|Randolph, Alabama, US
+8819|01113|Russell|Alabama|US|03/22/2020|32.287253|-85.184153|0|0|0|0|Russell, Alabama, US
+8820|01119|Sumter|Alabama|US|03/22/2020|32.591174|-88.199162|0|0|0|0|Sumter, Alabama, US
+8821|01123|Tallapoosa|Alabama|US|03/22/2020|32.866983|-85.798331|0|0|0|0|Tallapoosa, Alabama, US
+8822|01131|Wilcox|Alabama|US|03/22/2020|31.987732|-87.308911|0|0|0|0|Wilcox, Alabama, US
+8823|01133|Winston|Alabama|US|03/22/2020|34.150305|-87.373259|0|0|0|0|Winston, Alabama, US
+8824|02013|Aleutians East|Alaska|US|03/22/2020|55.322224|-161.972202|0|0|0|0|Aleutians East, Alaska, US
+8825|02016|Aleutians West|Alaska|US|03/22/2020|52.725411|-110.408643|0|0|0|0|Aleutians West, Alaska, US
+8826|02050|Bethel|Alaska|US|03/22/2020|60.909805|-159.856183|0|0|0|0|Bethel, Alaska, US
+8827|02060|Bristol Bay|Alaska|US|03/22/2020|58.74514|-156.701064|0|0|0|0|Bristol Bay, Alaska, US
+8828|02068|Denali|Alaska|US|03/22/2020|63.67264|-150.007611|0|0|0|0|Denali, Alaska, US
+8829|02070|Dillingham|Alaska|US|03/22/2020|59.796037|-158.238194|0|0|0|0|Dillingham, Alaska, US
+8830|02100|Haines|Alaska|US|03/22/2020|59.098936|-135.467984|0|0|0|0|Haines, Alaska, US
+8831|02105|Hoonah-Angoon|Alaska|US|03/22/2020|58.293074|-135.642442|0|0|0|0|Hoonah-Angoon, Alaska, US
+8832|02110|Juneau|Alaska|US|03/22/2020|58.450318|-134.200436|0|0|0|0|Juneau, Alaska, US
+8833|02122|Kenai Peninsula|Alaska|US|03/22/2020|60.244297|-151.538888|0|0|0|0|Kenai Peninsula, Alaska, US
+8834|02150|Kodiak Island|Alaska|US|03/22/2020|57.655294|-153.749358|0|0|0|0|Kodiak Island, Alaska, US
+8835|02158|Kusilvak|Alaska|US|03/22/2020|62.154292|-163.396788|0|0|0|0|Kusilvak, Alaska, US
+8836|02164|Lake and Peninsula|Alaska|US|03/22/2020|58.624033|-156.214059|0|0|0|0|Lake and Peninsula, Alaska, US
+8837|02170|Matanuska-Susitna|Alaska|US|03/22/2020|62.31305|-149.574174|0|0|0|0|Matanuska-Susitna, Alaska, US
+8838|02180|Nome|Alaska|US|03/22/2020|64.903207|-164.03538|0|0|0|0|Nome, Alaska, US
+8839|02185|North Slope|Alaska|US|03/22/2020|69.314792|-153.483609|0|0|0|0|North Slope, Alaska, US
+8840|02188|Northwest Arctic|Alaska|US|03/22/2020|67.049192|-159.750395|0|0|0|0|Northwest Arctic, Alaska, US
+8841|02195|Petersburg|Alaska|US|03/22/2020|57.139789|-132.9541|0|0|0|0|Petersburg, Alaska, US
+8842|02198|Prince of Wales-Hyder|Alaska|US|03/22/2020|55.76262|-133.051162|0|0|0|0|Prince of Wales-Hyder, Alaska, US
+8843|02220|Sitka|Alaska|US|03/22/2020|57.241246|-135.320659|0|0|0|0|Sitka, Alaska, US
+8844|02230|Skagway|Alaska|US|03/22/2020|59.5615|-135.333775|0|0|0|0|Skagway, Alaska, US
+8845|02240|Southeast Fairbanks|Alaska|US|03/22/2020|63.876921|-143.212764|0|0|0|0|Southeast Fairbanks, Alaska, US
+8846|02261|Valdez-Cordova|Alaska|US|03/22/2020|61.475028|-144.71268|0|0|0|0|Valdez-Cordova, Alaska, US
+8847|02275|Wrangell|Alaska|US|03/22/2020|56.3202|-132.058373|0|0|0|0|Wrangell, Alaska, US
+8848|02282|Yakutat|Alaska|US|03/22/2020|59.890981|-140.360145|0|0|0|0|Yakutat, Alaska, US
+8849|02290|Yukon-Koyukuk|Alaska|US|03/22/2020|65.508155|-151.390739|0|0|0|0|Yukon-Koyukuk, Alaska, US
+8850|04007|Gila|Arizona|US|03/22/2020|33.801901|-110.813278|0|0|0|0|Gila, Arizona, US
+8851|04011|Greenlee|Arizona|US|03/22/2020|33.214988|-109.240528|0|0|0|0|Greenlee, Arizona, US
+8852|04012|La Paz|Arizona|US|03/22/2020|33.728542|-113.981003|0|0|0|0|La Paz, Arizona, US
+8853|04015|Mohave|Arizona|US|03/22/2020|35.704717|-113.75779|0|0|0|0|Mohave, Arizona, US
+8854|05001|Arkansas|Arkansas|US|03/22/2020|34.291452|-91.372773|0|0|0|0|Arkansas, Arkansas, US
+8855|05003|Ashley|Arkansas|US|03/22/2020|33.191535|-91.769847|0|0|0|0|Ashley, Arkansas, US
+8856|05005|Baxter|Arkansas|US|03/22/2020|36.287844|-92.337829|0|0|0|0|Baxter, Arkansas, US
+8857|05013|Calhoun|Arkansas|US|03/22/2020|33.555988|-92.499744|0|0|0|0|Calhoun, Arkansas, US
+8858|05015|Carroll|Arkansas|US|03/22/2020|36.340386|-93.542703|0|0|0|0|Carroll, Arkansas, US
+8859|05017|Chicot|Arkansas|US|03/22/2020|33.26459|-91.295392|0|0|0|0|Chicot, Arkansas, US
+8860|05021|Clay|Arkansas|US|03/22/2020|36.368262|-90.414817|0|0|0|0|Clay, Arkansas, US
+8861|05025|Cleveland|Arkansas|US|03/22/2020|33.897232|-92.18537|0|0|0|0|Cleveland, Arkansas, US
+8862|05033|Crawford|Arkansas|US|03/22/2020|35.589286|-94.244681|0|0|0|0|Crawford, Arkansas, US
+8863|05037|Cross|Arkansas|US|03/22/2020|35.296314|-90.771858|0|0|0|0|Cross, Arkansas, US
+8864|05039|Dallas|Arkansas|US|03/22/2020|33.970428|-92.651674|0|0|0|0|Dallas, Arkansas, US
+8865|05041|Desha|Arkansas|US|03/22/2020|33.83011|-91.255009|0|0|0|0|Desha, Arkansas, US
+8866|05043|Drew|Arkansas|US|03/22/2020|33.59035|-91.717779|0|0|0|0|Drew, Arkansas, US
+8867|05047|Franklin|Arkansas|US|03/22/2020|35.512028|-93.892996|0|0|0|0|Franklin, Arkansas, US
+8868|05049|Fulton|Arkansas|US|03/22/2020|36.381771|-91.817291|0|0|0|0|Fulton, Arkansas, US
+8869|05057|Hempstead|Arkansas|US|03/22/2020|33.733256|-93.669351|0|0|0|0|Hempstead, Arkansas, US
+8870|05059|Hot Spring|Arkansas|US|03/22/2020|34.317093|-92.953963|0|0|0|0|Hot Spring, Arkansas, US
+8871|05061|Howard|Arkansas|US|03/22/2020|34.090074|-93.993487|0|0|0|0|Howard, Arkansas, US
+8872|05065|Izard|Arkansas|US|03/22/2020|36.09604|-91.90848|0|0|0|0|Izard, Arkansas, US
+8873|05067|Jackson|Arkansas|US|03/22/2020|35.59803|-91.214946|0|0|0|0|Jackson, Arkansas, US
+8874|05071|Johnson|Arkansas|US|03/22/2020|35.567591|-93.460364|0|0|0|0|Johnson, Arkansas, US
+8875|05073|Lafayette|Arkansas|US|03/22/2020|33.241167|-93.606771|0|0|0|0|Lafayette, Arkansas, US
+8876|05075|Lawrence|Arkansas|US|03/22/2020|36.041882|-91.108672|0|0|0|0|Lawrence, Arkansas, US
+8877|05077|Lee|Arkansas|US|03/22/2020|34.784989|-90.783839|0|0|0|0|Lee, Arkansas, US
+8878|05079|Lincoln|Arkansas|US|03/22/2020|33.953172|-91.740028|0|0|0|0|Lincoln, Arkansas, US
+8879|05081|Little River|Arkansas|US|03/22/2020|33.703757|-94.234686|0|0|0|0|Little River, Arkansas, US
+8880|05083|Logan|Arkansas|US|03/22/2020|35.214132|-93.71951|0|0|0|0|Logan, Arkansas, US
+8881|05085|Lonoke|Arkansas|US|03/22/2020|34.753922|-91.887424|0|0|0|0|Lonoke, Arkansas, US
+8882|05087|Madison|Arkansas|US|03/22/2020|36.010382|-93.725249|0|0|0|0|Madison, Arkansas, US
+8883|05089|Marion|Arkansas|US|03/22/2020|36.268445|-92.684519|0|0|0|0|Marion, Arkansas, US
+8884|05091|Miller|Arkansas|US|03/22/2020|33.314034|-93.892853|0|0|0|0|Miller, Arkansas, US
+8885|05093|Mississippi|Arkansas|US|03/22/2020|35.762715|-90.051944|0|0|0|0|Mississippi, Arkansas, US
+8886|05095|Monroe|Arkansas|US|03/22/2020|34.681593|-91.205403|0|0|0|0|Monroe, Arkansas, US
+8887|05097|Montgomery|Arkansas|US|03/22/2020|34.537049|-93.658245|0|0|0|0|Montgomery, Arkansas, US
+8888|05099|Nevada|Arkansas|US|03/22/2020|33.663401|-93.306324|0|0|0|0|Nevada, Arkansas, US
+8889|05101|Newton|Arkansas|US|03/22/2020|35.919475|-93.21613|0|0|0|0|Newton, Arkansas, US
+8890|05103|Ouachita|Arkansas|US|03/22/2020|33.588398|-92.87796|0|0|0|0|Ouachita, Arkansas, US
+8891|05105|Perry|Arkansas|US|03/22/2020|34.945915|-92.943726|0|0|0|0|Perry, Arkansas, US
+8892|05107|Phillips|Arkansas|US|03/22/2020|34.432685|-90.848002|0|0|0|0|Phillips, Arkansas, US
+8893|05109|Pike|Arkansas|US|03/22/2020|34.162504|-93.657893|0|0|0|0|Pike, Arkansas, US
+8894|05117|Prairie|Arkansas|US|03/22/2020|34.836244|-91.551622|0|0|0|0|Prairie, Arkansas, US
+8895|05121|Randolph|Arkansas|US|03/22/2020|36.341571|-91.024555|0|0|0|0|Randolph, Arkansas, US
+8896|05127|Scott|Arkansas|US|03/22/2020|34.855889|-94.063218|0|0|0|0|Scott, Arkansas, US
+8897|05135|Sharp|Arkansas|US|03/22/2020|36.162582|-91.478193|0|0|0|0|Sharp, Arkansas, US
+8898|05123|St. Francis|Arkansas|US|03/22/2020|35.02202|-90.748281|0|0|0|0|St. Francis, Arkansas, US
+8899|05137|Stone|Arkansas|US|03/22/2020|35.862519|-92.156841|0|0|0|0|Stone, Arkansas, US
+8900|05145|White|Arkansas|US|03/22/2020|35.256885|-91.749083|0|0|0|0|White, Arkansas, US
+8901|05149|Yell|Arkansas|US|03/22/2020|35.002924|-93.411713|0|0|0|0|Yell, Arkansas, US
+8902|06003|Alpine|California|US|03/22/2020|38.596786|-119.822359|0|0|0|0|Alpine, California, US
+8903|06011|Colusa|California|US|03/22/2020|39.17882|-122.233173|0|0|0|0|Colusa, California, US
+8904|06015|Del Norte|California|US|03/22/2020|41.742283|-123.897406|0|0|0|0|Del Norte, California, US
+8905|06017|El Dorado|California|US|03/22/2020|38.77966|-120.523317|0|0|0|0|El Dorado, California, US
+8906|06021|Glenn|California|US|03/22/2020|39.598759|-122.393845|0|0|0|0|Glenn, California, US
+8907|06027|Inyo|California|US|03/22/2020|36.511121|-117.411198|0|0|0|0|Inyo, California, US
+8908|06031|Kings|California|US|03/22/2020|36.074091|-119.815997|0|0|0|0|Kings, California, US
+8909|06033|Lake|California|US|03/22/2020|39.101243|-122.753624|0|0|0|0|Lake, California, US
+8910|06035|Lassen|California|US|03/22/2020|40.673113|-120.59351|0|0|0|0|Lassen, California, US
+8911|06043|Mariposa|California|US|03/22/2020|37.579786|-119.907333|0|0|0|0|Mariposa, California, US
+8912|06047|Merced|California|US|03/22/2020|37.189224|-120.720904|0|0|0|0|Merced, California, US
+8913|06049|Modoc|California|US|03/22/2020|41.589656|-120.724482|0|0|0|0|Modoc, California, US
+8914|06063|Plumas|California|US|03/22/2020|40.00356|-120.839524|0|0|0|0|Plumas, California, US
+8915|06091|Sierra|California|US|03/22/2020|39.577135|-120.52007|0|0|0|0|Sierra, California, US
+8916|06101|Sutter|California|US|03/22/2020|39.034175|-121.69459|0|0|0|0|Sutter, California, US
+8917|06103|Tehama|California|US|03/22/2020|40.125709|-122.237017|0|0|0|0|Tehama, California, US
+8918|06105|Trinity|California|US|03/22/2020|40.649177|-123.114713|0|0|0|0|Trinity, California, US
+8919|06109|Tuolumne|California|US|03/22/2020|38.02644|-119.952509|0|0|0|0|Tuolumne, California, US
+8920|08003|Alamosa|Colorado|US|03/22/2020|37.572506|-105.788545|0|0|0|0|Alamosa, Colorado, US
+8921|08007|Archuleta|Colorado|US|03/22/2020|37.194742|-107.047687|0|0|0|0|Archuleta, Colorado, US
+8922|08009|Baca|Colorado|US|03/22/2020|37.319409|-102.560322|0|0|0|0|Baca, Colorado, US
+8923|08011|Bent|Colorado|US|03/22/2020|37.954743|-103.072019|0|0|0|0|Bent, Colorado, US
+8924|08017|Cheyenne|Colorado|US|03/22/2020|38.827774|-102.603256|0|0|0|0|Cheyenne, Colorado, US
+8925|08021|Conejos|Colorado|US|03/22/2020|37.201606|-106.191749|0|0|0|0|Conejos, Colorado, US
+8926|08023|Costilla|Colorado|US|03/22/2020|37.277325|-105.427655|0|0|0|0|Costilla, Colorado, US
+8927|08027|Custer|Colorado|US|03/22/2020|38.108832|-105.368348|0|0|0|0|Custer, Colorado, US
+8928|08029|Delta|Colorado|US|03/22/2020|38.862462|-107.863134|0|0|0|0|Delta, Colorado, US
+8929|08033|Dolores|Colorado|US|03/22/2020|37.752087|-108.521158|0|0|0|0|Dolores, Colorado, US
+8930|08043|Fremont|Colorado|US|03/22/2020|38.473623|-105.439967|0|0|0|0|Fremont, Colorado, US
+8931|08047|Gilpin|Colorado|US|03/22/2020|39.856465|-105.52526|0|0|0|0|Gilpin, Colorado, US
+8932|08055|Huerfano|Colorado|US|03/22/2020|37.684731|-104.961258|0|0|0|0|Huerfano, Colorado, US
+8933|08057|Jackson|Colorado|US|03/22/2020|40.665939|-106.340891|0|0|0|0|Jackson, Colorado, US
+8934|08061|Kiowa|Colorado|US|03/22/2020|38.432609|-102.739215|0|0|0|0|Kiowa, Colorado, US
+8935|08063|Kit Carson|Colorado|US|03/22/2020|39.304978|-102.60222|0|0|0|0|Kit Carson, Colorado, US
+8936|08067|La Plata|Colorado|US|03/22/2020|37.28632|-107.842901|0|0|0|0|La Plata, Colorado, US
+8937|08065|Lake|Colorado|US|03/22/2020|39.202788|-106.35557|0|0|0|0|Lake, Colorado, US
+8938|08071|Las Animas|Colorado|US|03/22/2020|37.315341|-104.037646|0|0|0|0|Las Animas, Colorado, US
+8939|08073|Lincoln|Colorado|US|03/22/2020|38.987495|-103.513665|0|0|0|0|Lincoln, Colorado, US
+8940|08075|Logan|Colorado|US|03/22/2020|40.724964|-103.110817|0|0|0|0|Logan, Colorado, US
+8941|08079|Mineral|Colorado|US|03/22/2020|37.669543|-106.92817|0|0|0|0|Mineral, Colorado, US
+8942|08081|Moffat|Colorado|US|03/22/2020|40.61811|-108.207088|0|0|0|0|Moffat, Colorado, US
+8943|08083|Montezuma|Colorado|US|03/22/2020|37.338596|-108.595886|0|0|0|0|Montezuma, Colorado, US
+8944|08089|Otero|Colorado|US|03/22/2020|37.901449|-103.717338|0|0|0|0|Otero, Colorado, US
+8945|08091|Ouray|Colorado|US|03/22/2020|38.147175|-107.767514|0|0|0|0|Ouray, Colorado, US
+8946|08095|Phillips|Colorado|US|03/22/2020|40.594143|-102.35777|0|0|0|0|Phillips, Colorado, US
+8947|08099|Prowers|Colorado|US|03/22/2020|37.95545|-102.392605|0|0|0|0|Prowers, Colorado, US
+8948|08103|Rio Blanco|Colorado|US|03/22/2020|39.979135|-108.217901|0|0|0|0|Rio Blanco, Colorado, US
+8949|08105|Rio Grande|Colorado|US|03/22/2020|37.583686|-106.384784|0|0|0|0|Rio Grande, Colorado, US
+8950|08109|Saguache|Colorado|US|03/22/2020|38.080546|-106.282466|0|0|0|0|Saguache, Colorado, US
+8951|08111|San Juan|Colorado|US|03/22/2020|37.76249|-107.676329|0|0|0|0|San Juan, Colorado, US
+8952|08115|Sedgwick|Colorado|US|03/22/2020|40.875954|-102.351923|0|0|0|0|Sedgwick, Colorado, US
+8953|08119|Teller|Colorado|US|03/22/2020|38.881335|-105.161489|0|0|0|0|Teller, Colorado, US
+8954|08121|Washington|Colorado|US|03/22/2020|39.970155|-103.202587|0|0|0|0|Washington, Colorado, US
 8955|11001|District of Columbia|District of Columbia|US|03/22/2020|38.904178|-77.01656|0|0|0|0|District of Columbia, District of Columbia, US
 8956|12013|Calhoun|Florida|US|03/22/2020|30.406667|-85.193942|0|0|0|0|Calhoun, Florida, US
 8957|12027|DeSoto|Florida|US|03/22/2020|27.186779|-81.809414|0|0|0|0|DeSoto, Florida, US

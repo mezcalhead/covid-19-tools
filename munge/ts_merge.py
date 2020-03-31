@@ -61,10 +61,8 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 			datetime_object = datetime.strptime(ts, '%Y-%m-%d %H:%M:%S')
 		except ValueError:
 			datetime_object = datetime.strptime(ts, '%m/%d/%Y %H:%M')
-	if (lat == None or lat == ''):
-		lat = 0
-	if (lon == None or lon == ''):
-		lon = 0
+	if (lat == None or lat == ''): lat = 0
+	if (lon == None or lon == ''): lon = 0
 	try:
 		lat = round(float(lat), 6)
 		lon = round(float(lon), 6)
@@ -72,14 +70,10 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 		print('WARNING: lat/lon Error', lat, lon)
 		lat = 0
 		lon = 0
-	if (confirmed == ''):
-		confirmed = 0
-	if (deaths == ''):
-		deaths = 0
-	if (recovered == ''):
-		recovered = 0
-	if (active == None or active == ''):
-		active = -1
+	if (confirmed == ''): confirmed = 0
+	if (deaths == ''): deaths = 0
+	if (recovered == ''): recovered = 0
+	if (active == None or active == ''): active = -1
 	if (label == None or label == ''):
 		label = ''
 		if (adm3 != 'N/A'):
@@ -93,6 +87,9 @@ def process(header_type, fips, adm3, adm2, adm1, ts, lat, lon, confirmed, deaths
 			label = adm1
 		else:
 			label = label + ", " + adm1
+	# fips leading zero missing issue
+	if (len(fips) == 4): fips = '0' + fips
+	# write line
 	n_obs += 1
 	fileout.write(str(n_obs) + '|' + fips.strip() + '|' + adm3.strip() + '|' + adm2.strip() + '|' + adm1.strip() + '|' + \
 		datetime_object.strftime('%m/%d/%Y') + '|' + str(lat).strip() + '|' + str(lon).strip() + '|' + str(confirmed) + '|' + \
