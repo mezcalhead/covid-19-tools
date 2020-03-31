@@ -191,6 +191,11 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 			plt.subplots_adjust(bottom=0.20)
 			#print(xm_data)
 			#print(custom_labels)
+		# footer
+		plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+		horizontalalignment='right', color='gray', transform=ax.transAxes)
+		plt.text(0, -0.28,'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+		horizontalalignment='left', color='gray', transform=ax.transAxes)
 		# plots
 		plot_label = 'Model'
 		if (model_type == 'EXP'): plot_label += ' EXP (r^2 = ' + '{0:.3f}'.format(rsqd) + ')'
@@ -224,7 +229,7 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 		else:
 			ax.annotate(str(int(round(yh_data[0], 0))), xy=(xh_data[0], yh_data[0]), xycoords='data', xytext=(-3,4), \
 			textcoords='offset points', fontsize=8, horizontalalignment='right', color='black')
-		# today indicator
+		# today indicator / might turn into LOCKDOWN from LOOKUP table
 		# offset = 72
 		# disp = ax.annotate((datetime.now()).strftime('%m/%d'), \
 		# #disp = ax.annotate((d_data[0] + timedelta(days=int(xm_data[(size-1)]))).strftime('%m/%d'), \
