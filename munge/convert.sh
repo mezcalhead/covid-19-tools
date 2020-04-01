@@ -24,8 +24,8 @@ sed  "s/|/\t/g" $psvfile > $csvfile
 
 echo "converting CSV to $outformat using ogr2ogr..."
 ogr2ogr -overwrite -progress -s_srs EPSG:4326 -t_srs EPSG:4326 -f "$1" -nlt POINT -oo AUTODETECT_TYPE=YES \
-  -oo X_POSSIBLE_NAMES=LON -oo Y_POSSIBLE_NAMES=LAT -lco SPATIAL_INDEX=YES data_cleaned.shp $csvfile  
-  
+  -oo X_POSSIBLE_NAMES=LON -oo Y_POSSIBLE_NAMES=LAT -lco SPATIAL_INDEX=YES $outfile $csvfile
+
 echo "$outfile successfully created"
 
 
