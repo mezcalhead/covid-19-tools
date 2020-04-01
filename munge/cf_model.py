@@ -110,12 +110,15 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 			si = i
 			break
 	if (si == -1):
-		sys.exit('zero value y_data', y_data)
+		#sys.exit('zero value y_data: ' + str(y_data))
+		return None, None, -1, None, None, None, None
 	
 	# curve fit
+	rsqd = -1
 	try:
 		if (model_type == 'EXP' or model_type == 'SIGMOID'):
 			popt, pcov, perr, rsqd = fit(xd_data[si:], yd_data[si:] / yd_data[si], model_type)
+			if (rsqd < -1): rsqd = -1
 		else: # POLY3
 			weights, model, results = fit(xd_data[si:], yd_data[si:] / yd_data[si], model_type)
 	except RuntimeError:

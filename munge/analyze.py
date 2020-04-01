@@ -84,7 +84,7 @@ with open(data, 'r') as csvfile:
 					#print(case_data)
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
 						ndays, label_prior, 'Cases', 'EXP', False)
-					if (rsqd >= 0.40 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
+					if (rsqd >= 0.80 and v['ADM1'] == 'US' and v['FIPS'] != 'N/A'):
 						statsc[n_cpass] = (rsqd, popt[0], popt[1])
 						statscl[n_cpass] = label_prior
 						n_cpass += 1
@@ -182,29 +182,226 @@ with open(data, 'r') as csvfile:
 			#print(v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + ' ' + str(n_obs))
 
 # state roll up & national US
-# st_data = {}
-# for key in sorted(hash.keys()):
-	# v = hash.get(key)
-	# if (v['FIPS'] != 'N/A' and v['ADM2'] != 'Grand Princess'):
-		# state = v['ADM2']
-		# if (st_data.get(state) == None):
-			# st_data[state] = {}
-		# if (st_data[state].get(v['FIPS']) == None):
-			# st_data[state][v['FIPS']] = {}
-		# if (st_data[state][v['FIPS']].get(v['DATE']) == None):
-			# st_data[state][v['FIPS']][v['DATE']] = key
-		# else:
-			# print(st_data[state][v['FIPS']][v['DATE']])
-			# sys.exit('Invalid Key: ' + key + ' >>> ' + str(v))
-# for st in st_data:
+st_data = {}
+rollup = {}
+rollup['US'] = {}
+
+for key in sorted(hash.keys()):
+	v = hash.get(key)
+	if (True and v['FIPS'] != 'N/A' and v['ADM1'] == 'US'):
+		state = v['ADM2']
+		if (st_data.get(state) == None):
+			st_data[state] = {}
+			rollup[state] = {}
+		if (st_data[state].get(v['DATE']) == None):
+			st_data[state][v['DATE']] = {}
+			rollup[state][v['DATE']] = {}
+			rollup['US'][v['DATE']] = {}
+			rollup[state][v['DATE']]['CONFIRMED'] = 0
+			rollup[state][v['DATE']]['DEATHS'] = 0
+			rollup['US'][v['DATE']]['CONFIRMED'] = 0
+			rollup['US'][v['DATE']]['DEATHS'] = 0
+		if (st_data[state][v['DATE']].get(v['FIPS']) == None):
+			st_data[state][v['DATE']][v['FIPS']] = key
+		else:
+			#print(st_data[state][v['DATE']][v['FIPS']])
+			sys.exit('Invalid Key: ' + key + ' >F> ' + str(v))
+	elif (True and v['FIPS'] == 'N/A'  and v['ADM3'].find('Unassigned') != -1 and v['ADM1'] == 'US'): # assign FIPS code of 'UNAGD' in the hash
+		state = v['ADM2']
+		if (st_data.get(state) == None):
+			st_data[state] = {}
+			rollup[state] = {}
+		if (st_data[state].get(v['DATE']) == None):
+			st_data[state][v['DATE']] = {}
+			rollup[state][v['DATE']] = {}
+			rollup['US'][v['DATE']] = {}
+			rollup[state][v['DATE']]['CONFIRMED'] = 0
+			rollup[state][v['DATE']]['DEATHS'] = 0
+			rollup['US'][v['DATE']]['CONFIRMED'] = 0
+			rollup['US'][v['DATE']]['DEATHS'] = 0
+		if (st_data[state][v['DATE']].get('UNAGD') == None):
+			st_data[state][v['DATE']]['UNAGD'] = key
+		else:
+			#print(st_data[state][v['DATE']]['UNAGD'])
+			sys.exit('Invalid Key: ' + key + ' >U> ' + str(v))		
+	elif (True and v['FIPS'] == 'N/A' and v['ADM3'] == 'N/A' and v['ADM1'] == 'US'): # assign FIPS code of 'STATE'
+		state = v['ADM2']
+		if (st_data.get(state) == None):
+			st_data[state] = {}
+			rollup[state] = {}
+		if (st_data[state].get(v['DATE']) == None):
+			st_data[state][v['DATE']] = {}
+			rollup[state][v['DATE']] = {}
+			rollup['US'][v['DATE']] = {}
+			rollup[state][v['DATE']]['CONFIRMED'] = 0
+			rollup[state][v['DATE']]['DEATHS'] = 0
+			rollup['US'][v['DATE']]['CONFIRMED'] = 0
+			rollup['US'][v['DATE']]['DEATHS'] = 0
+		if (st_data[state][v['DATE']].get('STATE') == None):
+			st_data[state][v['DATE']]['STATE'] = key
+		else:
+			#print(st_data[state][v['DATE']]['STATE'])
+			sys.exit('Invalid Key: ' + key + ' >S> ' + str(v))
+
+print('\n#####################################')
+print('Loaded US National Hash Tree...\nRolling Up...')
+print('#####################################')
+for st in sorted(st_data):
+	#print(st)
+	for date in sorted(st_data[st]):
+		#print('	' + date)
+		for fips in st_data[st][date]:
+			v = hash.get(st_data[st][date][fips])
+			num_c = int(v['CONFIRMED'])
+			num_d = int(v['DEATHS'])
+			flag = v['FLAG']
+			#print('		' + date + ' | ' + fips + ' >>> ' + str(num_c) + '/' + str(num_d))	
+			if (flag == 'N'): # non interpolated
+				if (num_c > 0):
+					if (rollup[st][date]['CONFIRMED'] == None): rollup[st][date]['CONFIRMED'] = 0
+					rollup[st][date]['CONFIRMED'] += num_c
+					if (rollup['US'][date]['CONFIRMED'] == None): rollup['US'][date]['CONFIRMED'] = 0
+					rollup['US'][date]['CONFIRMED'] += num_c
+				if (num_d > 0):
+					if (rollup[st][date]['DEATHS'] == None): rollup[st][date]['DEATHS'] = 0
+					rollup[st][date]['DEATHS'] += num_d	
+					if (rollup['US'][date]['DEATHS'] == None): rollup['US'][date]['DEATHS'] = 0
+					rollup['US'][date]['DEATHS'] += num_d
+# print()
+# for st in sorted(st_data):
 	# print(st)
-	# for fips in st_data[st]:
-		# print('	' + fips)
-		# for date in st_data[st][fips]:
-			# print('		' + date)
+	# for date in sorted(st_data[st]):
+		# print('	' + date + ' | ' + str(rollup[st][date]['CONFIRMED']) + '/' + str(rollup[st][date]['DEATHS']))
+# print('US')
+# for date in sorted(rollup['US']):
+	# print('	' + date + ' | ' + str(rollup['US'][date]['CONFIRMED']) + '/' + str(rollup['US'][date]['DEATHS']))
+
+# insert rollup data into US states and US country, skip zeros/-1s
+n_fixes = 0
+for st in sorted(st_data):
+	for date in sorted(st_data[st]):
+		key = st + ', US_' + date
+		v = hash.get(key)
+		if (v != None): 
+			#print(key + ' | ' + v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + '/' + v['DEATHS'] + ' : ' + \
+			#	str(rollup[st][date]['CONFIRMED']) + '/' + str(rollup[st][date]['DEATHS']))
+			if (rollup[st][date]['CONFIRMED'] > 0): 
+				v['CONFIRMED'] = str(max(int(v['CONFIRMED']), rollup[st][date]['CONFIRMED']))
+				n_fixes += 1
+				v['FLAG'] = 'YR'
+			if (rollup[st][date]['DEATHS'] > 0): 
+				v['DEATHS'] = str(max(int(v['DEATHS']), rollup[st][date]['DEATHS']))
+				n_fixes += 1
+				v['FLAG'] = 'YR'
+print('\n' + str(n_fixes) + ' rollup fixes.\n')
+
+# state interpolations
+print('State Analysis...')
+hashp2 = {}
+stats2c = np.zeros((3000,3))
+stats2d = np.zeros((3000,3))
+n_cpass2 = 0
+n_dpass2 = 0
+for st in sorted(st_data):
+	case_n_positive = 0
+	died_n_positive = 0
+	n_obs = 0
+	key_data = []
+	date_data = []
+	case_data = []
+	died_data = []
+	label = None
+	
+	#print('=======================================')
+	for date in sorted(st_data[st]):
+		key = st + ', US_' + date
+		if (st == 'District of Columbia'): key = 'District of Columbia, District of Columbia, US_' + date
+		v = hash.get(key)
+		#print(key, v)
+		if (v != None):
+			if (label == None): label = v['LABEL']
+			key_data.append(v['LABEL'] + '_' + v['DATE'])
+			date_data.append(datetime.strptime(v['DATE'], '%m/%d/%Y'))
+			case_data.append(int(v['CONFIRMED']))
+			died_data.append(int(v['DEATHS']))
+			if (int(v['CONFIRMED']) > 0): case_n_positive += 1
+			if (int(v['DEATHS']) > 0): died_n_positive += 1
+			n_obs += 1
 			
+	if (case_n_positive > 3):
+		#print(label + ' : ' + str(n_obs) + ':' + str(case_n_positive))
+		#print(date_data)
+		#print(case_data)
+		plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
+			ndays, st, 'Cases', 'EXP', False)
+		if (rsqd >= 0.80):
+			stats2c[n_cpass2] = (rsqd, popt[0], popt[1])
+			n_cpass2 += 1
+			# interpolate
+			date_project_start = None
+			for i in range(len(key_data)):
+				vtemp = hash[key_data[i]]
+				vtemp_date_obj = datetime.strptime(vtemp['DATE'], '%m/%d/%Y')
+				if (date_project_start == None or vtemp_date_obj < date_project_start): date_project_start = vtemp_date_obj
+				if (case_data[i] == -1):
+					case_data[i] = str(int(round(ym_data[i],0)))
+					vtemp['FLAG'] += 'C'
+					vtemp['CONFIRMED'] = case_data[i]
+					n_cinter += 1
+			for i in range(len(date_data), len(xm_data)):
+				date_obj = date_project_start + timedelta(days=i)
+				keygen = key_data[0].split('_')[0] + '_' + date_obj.strftime('%m/%d/%Y')
+				hashp2[keygen] = copy.deepcopy(hash[key_data[0]])
+				hashp2[keygen]['DATE'] = date_obj.strftime('%m/%d/%Y')
+				hashp2[keygen]['RECOVERED'] = '-1'
+				hashp2[keygen]['ACTIVE'] = '-1'
+				hashp2[keygen]['DAYN'] = str(i+1)
+				hashp2[keygen]['FLAG'] = 'YP'
+				hashp2[keygen]['CONFIRMED'] = str(int(round(ym_data[i], 0)))
+		print(label + ' : ' + str(n_obs) + ':' + str(case_n_positive) + ' --C--> {:0.3f}'.format(rsqd))
+	if (died_n_positive > 3):
+		#print(label + ' : ' + str(n_obs) + ':' + str(died_n_positive))
+		#print(date_data)
+		#print(died_data)
+		plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
+			ndays, st, 'Deaths', 'EXP', False)
+		if (rsqd >= 0.80):
+			stats2d[n_dpass2] = (rsqd, popt[0], popt[1])
+			n_dpass2 += 1
+			# interpolate
+			date_project_start = None
+			for i in range(len(key_data)):
+				vtemp = hash[key_data[i]]
+				vtemp_date_obj = datetime.strptime(vtemp['DATE'], '%m/%d/%Y')
+				if (date_project_start == None or vtemp_date_obj < date_project_start): date_project_start = vtemp_date_obj
+				if (died_data[i] == -1):
+					died_data[i] = str(int(round(ym_data[i],0)))
+					vtemp['FLAG'] += 'D'
+					vtemp['CONFIRMED'] = died_data[i]
+					n_cinter += 1
+			for i in range(len(date_data), len(xm_data)):
+				date_obj = date_project_start + timedelta(days=i)
+				keygen = key_data[0].split('_')[0] + '_' + date_obj.strftime('%m/%d/%Y')
+				hashp2[keygen] = copy.deepcopy(hash[key_data[0]])
+				hashp2[keygen]['DATE'] = date_obj.strftime('%m/%d/%Y')
+				hashp2[keygen]['RECOVERED'] = '-1'
+				hashp2[keygen]['ACTIVE'] = '-1'
+				hashp2[keygen]['DAYN'] = str(i+1)
+				hashp2[keygen]['FLAG'] = 'YP'
+				hashp2[keygen]['CONFIRMED'] = str(int(round(ym_data[i], 0)))
+		print(label + ' : ' + str(n_obs) + ':' + str(died_n_positive) + ' --D--> {:0.3f}'.format(rsqd))
+
+dev2 = np.zeros((2,6))
+dev2[0][2] = np.nanmean(stats2c, axis = 0)[1] # average a
+dev2[0][3] = np.nanmean(stats2c, axis = 0)[2] # average b
+dev2[1][2] = np.nanmean(stats2d, axis = 0)[1] # average a
+dev2[1][3] = np.nanmean(stats2d, axis = 0)[2] # average b
+
+
+
+
 # interpolations
-#if (True): sys.exit('Ok')
+#if (True): sys.exit('Halted')
 print('\nWriting Interpolated Temporal File...')
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal_i.txt'))
 fileout = open(fileout,'w')
@@ -218,12 +415,12 @@ for key in sorted(hash.keys()):
 	fileout.write(line + '\n')
 	n_obs += 1
 fileout.close()
-print(str(n_obs) + ' records.')
+print(str((n_obs-1)) + ' records.')
 
 # projections
 hash2 = merge_hashes(hash, hashp)
 print('\nProjections: ' + str(len(hashp)))
-print('\nWriting Projected Temporal File...')
+print('Writing Projected Temporal File...')
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_temporal_p.txt'))
 fileout = open(fileout,'w')
 fileout.write('OBS|DATE|LABEL|FIPS|ADM3|ADM2|ADM1|LAT|LON|CONFIRMED|DEATHS|RECOVERED|ACTIVE|FLAG|DAYN\n')
@@ -237,7 +434,10 @@ for key in sorted(hash2.keys()):
 	fileout.write(line + '\n')
 	n_obs += 1
 fileout.close()
-print(str(n_obs) + ' records.')
+print(str((n_obs-1)) + ' records.')
+print()
+
+if (True): sys.exit('Halted')
 
 # stats
 print('\nCase Statistics:')

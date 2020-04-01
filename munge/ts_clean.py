@@ -31,10 +31,14 @@ n_obs = 0 # observations
 print('Loading state abbreviations reference...')
 state2abbr = {}
 abbr2state = {}
+state_geo = {}
 stateabbr = path.abspath(path.join(basepath, '..', 'data', 'states.csv'))
 for line in reader(open(stateabbr)):
 	state2abbr[line[0]] = line[1]
 	abbr2state[line[1]] = line[0]
+	state_geo[line[1]] = {}
+	state_geo[line[1]]['LAT'] = line[2]
+	state_geo[line[1]]['LON'] = line[3]
 print('Loading county data reference...')
 countiesbyFIPS = {}
 countiesbyLABEL = {}
@@ -52,6 +56,9 @@ with open(county_data, 'r') as csvfile:
 		countiesbyLABEL[temp] = line
 print()
 
+# fileout = path.abspath(path.join(basepath, '..', 'data', 'data_diamond.txt'))
+# fileout = open(fileout,'w')
+		
 # study data and hash locations
 geohash = {} # labels that reference lat/lon
 hash = {} # labels that reference the entire line
@@ -65,8 +72,22 @@ with open(datafile, 'r') as csvfile:
 	for line in csv.DictReader(csvfile, dialect='piper'):
 		# do something
 		key = None
-		# hash US county info for cleanup later
-		#
+		# Wuhan Evacuee
+		if (line['LABEL'].upper().find('WUHAN EVACUEE') >= 0): continue
+		# U.S. Virgin Islands
+		if (line['ADM1'] == 'US' and (line['ADM2'] == 'United States Virgin Islands' or \
+			line['ADM2'] == 'Virgin Islands, U.S.' or line['ADM2'] == 'Virgin Islands')):
+			line['ADM2'] = 'U.S. Virgin Islands'
+			line['FIPS'] = '78000'
+			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
+			key = line['LABEL']
+		# cook county, IL (Chicago correction)
+		if (line['ADM1'] == 'US' and line['LABEL'].find('Chicago') >= 0):
+			line['ADM2'] = 'Illinois'
+			line['ADM3'] = 'Cook'
+			line['FIPS'] = '17031'
+			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
+			key = line['LABEL']
 		# { Elko County, Walla Walla County } wierd condition
 		if (line['ADM3'].find('County') > 0):
 			# print(line['ADM3'] + '-' + line['ADM2'])
@@ -78,18 +99,61 @@ with open(datafile, 'r') as csvfile:
 			key = tok[0].replace('County', '').strip() + ', ' + abbr2state[tok[1].strip()] + ', US'
 		if (key == None):
 			key = line['LABEL']
+		# Out of [State] condition
+		if ((line['ADM3'].startswith('Out of') or line['ADM3'].startswith('Out-of') or line['ADM3'].startswith('Unknown')) and \
+			line['ADM1'] == 'US'):
+			line['ADM3'] = 'Unassigned'
+			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
+			key = line['LABEL']
+		# ms zaandam cruise ship
+		if (line['LABEL'].upper().find('MS ZAANDAM') >= 0):
+			line['ADM3'] = 'Unassigned'
+			line['ADM2'] = 'MS Zaandam'
+			line['FIPS'] = 'ZAANDM'
+			line['LABEL'] = line['ADM2'] + ', ' + line['ADM1']
+			line['LAT'] = '9.38743' # Currently Panamal Canal
+			line['LON'] = '-79.91863'
+			key = line['LABEL']
+		# grand princess or line['ADM2'].startswith('Grand Princess Cruise Ship')
+		if (line['ADM1'].upper().find('GRAND PRINCESS') >= 0 or line['LABEL'].upper().find('GRAND PRINCESS') >= 0):
+			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
+			line['ADM2'] = 'Unassigned'
+			line['ADM3'] = 'Grand Princess'
+			if (line['ADM1'] == 'US'):
+				line['FIPS'] = 'GRAPR'
+			else:
+				line['FIPS'] = 'N/A'
+			line['LABEL'] = line['ADM2'] + ', ' + line['ADM1'] # could be other nationalities on this one
+			line['LAT'] = '37.807054' # San Fran Pier
+			line['LON'] = '-122.405770'
+			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
+			key = line['LABEL']
 		# diamond princess conditions
-		if (line['LABEL'].find('From Diamond Princess') >= 0 or line['LABEL'].find('Diamond Princess cruise ship') >= 0 or \
-			line['LABEL'].find('Diamond Princess, US') >= 0 or line['LABEL'].find('Diamond Princess, Canada') >= 0):
-			continue
-		if (line['ADM1'] == 'Cruise Ship'):
-			line['ADM1'] = 'Diamond Princess'
-			line['LABEL'] = 'Diamond Princess, Cruise Ship'
-			line['ADM2'] = 'N/A'
-			key = line['LABEL']
-		elif (line['LABEL'] == 'Diamond Princess'):
-			line['LABEL'] = 'Diamond Princess, Cruise Ship'
-			key = line['LABEL']
+		elif (line['LABEL'].upper().find('DIAMOND') >= 0 or line['LABEL'].upper().find('CRUISE') >= 0 or line['LABEL'].upper().find('SHIP') >= 0):
+			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
+			#fileout.write(line['LABEL'] + '\t' + line['ADM1'] + '\t' + line['ADM2'] + '\t' + line['ADM3'] + '\t' + line['FIPS'] + '\n')
+			if (line['ADM1'] == 'Cruise Ship' or line['ADM1'] == 'Diamond Princess'):
+				line['ADM1'] = 'Others'
+			if (line['ADM1'] == 'Others' or line['ADM1'] != 'US'):
+				line['ADM2'] = 'Diamond Princess'
+				line['ADM3'] = 'N/A'
+				line['FIPS'] = 'DIAMD'
+				line['LABEL'] = line['ADM2'] + ', ' + line['ADM1']
+				line['LAT'] = '35.456676' # Daikoku Pier Cruise Terminal
+				line['LON'] = '139.679919'
+				key = line['LABEL']
+			if (line['ADM1'] == 'US'):
+				line['FIPS'] = 'DIAMD'
+				if (line['ADM2'].startswith('Unassigned') or line['ADM2'].startswith('Diamond Princess')):
+					line['ADM2'] = 'Unassigned'
+				else:
+					temp_state = line['ADM2'].split(',')[1][0:3]
+					line['ADM2'] = abbr2state.get(temp_state.strip())
+				line['ADM3'] = 'Diamond Princess'
+				line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
+				key = line['LABEL']
+			#fileout.write(line['LABEL'] + '\t' + line['ADM1'] + '\t' + line['ADM2'] + '\t' + line['ADM3'] + '\t' + line['FIPS'] + '\n')
+			#print('  ' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
 		# DC, Washington DC.
 		if (line['LABEL'].find('D.C.') != -1 or line['LABEL'].find('District of Columbia') != -1):
 			# print(line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
@@ -162,8 +226,8 @@ with open(datafile, 'r') as csvfile:
 		hash[keyterm] = line
 		n_obs += 1
 
-#if (True):
-#	sys.exit('')
+#if (True): sys.exit('Halted')
+# fileout.close()
 
 print('	# obs before: ' + str(n_obs))
 print('	# obs intermediate: ' + str(len(hash)))
@@ -195,6 +259,7 @@ print()
 # we'll assume the more recent keys are more accurate, since they are the latest updates
 geo_fixed = 0
 geo_fixed_by_correction_file = 0
+geo_fixed_by_state_geo = 0
 geo_cannot_fix = 0
 print('Step ' + str(step_counter) + ' (Geo Fix)...')
 step_counter += 1
@@ -207,19 +272,32 @@ for i, (key, v) in enumerate(hash.items()):
 			v['LON'] = temp[1]
 			geo_fixed += 1
 		else:
-			# lets see if we can fix from the 'geo_corrections' hash
-			temp = geo_corrections.get(key.split('_')[0])
-			if (temp != None):
-				v['LAT'] = temp[0]
-				v['LON'] = temp[1]
-				geo_fixed_by_correction_file += 1
+			# lets see if we can fix from state_geo hash
+			if (v['ADM3'] == 'Unassigned' and v['ADM1'] == 'US'):
+				try:
+					v['LAT'] = state_geo.get(state2abbr.get(v['ADM2']))['LAT']
+					v['LON'] = state_geo.get(state2abbr.get(v['ADM2']))['LON']
+					geo_fixed_by_state_geo += 1
+				except:
+					print('	WARNING: can\'t fix geo: ' + v['LABEL'])
+					geo_cannot_fix += 1
 			else:
-				print('	WARNING: can\'t fix geo: ' + v['LABEL'])
-				geo_cannot_fix += 1
+				# lets see if we can fix from the 'geo_corrections' hash
+				temp = geo_corrections.get(key.split('_')[0])
+				if (temp != None):
+					v['LAT'] = temp[0]
+					v['LON'] = temp[1]
+					geo_fixed_by_correction_file += 1
+				else:
+					v['LAT'] = '0.0'
+					v['LON'] = '0.0'
+					print('	WARNING: can\'t fix geo: ' + v['LABEL'])
+					geo_cannot_fix += 1
 print('	# geo_fixed: ' + str(geo_fixed))
 print('	# geo_fixed_by_correction_file: ' + str(geo_fixed_by_correction_file))
+print('	# geo_fixed_by_state_geo: ' + str(geo_fixed_by_state_geo))
 print('	# geo_cannot_fix: ' + str(geo_cannot_fix))
-print('	# TOTAL: ' + str(geo_fixed + geo_cannot_fix))
+print('	# TOTAL: ' + str(geo_fixed + geo_fixed_by_correction_file + geo_fixed_by_state_geo + geo_cannot_fix))
 print()
 
 # WRITE OUT THOSE THAT NEED FIXED, UNSORTED
