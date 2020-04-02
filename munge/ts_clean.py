@@ -56,78 +56,148 @@ with open(county_data, 'r') as csvfile:
 		countiesbyLABEL[temp] = line
 print()
 
+def label_fix(v, adm1 = None):
+	if (adm1 == None):
+		s = v['ADM1']
+	else:
+		s = adm1
+	if (v['ADM2'] != 'N/A'): s = v['ADM2'] + ', ' + s
+	if (v['ADM3'] != 'N/A'): s = v['ADM3'] + ', ' + s
+	return s
+
 # fileout = path.abspath(path.join(basepath, '..', 'data', 'data_diamond.txt'))
 # fileout = open(fileout,'w')
-		
+
 # study data and hash locations
 geohash = {} # labels that reference lat/lon
 hash = {} # labels that reference the entire line
+recovered = {} # recovered hash because of wierd separate items for CAN and USA
 geo_consistent = 0 # curious if for same labels, geopoint is consistent
 geo_inconsistent = 0 # curious if for same lables, geopoint changes
 geo_fix = 0 # number of zero lat/lons that need fixing
+n_ignored = 0 # number skipped outright
 csv.register_dialect('piper', delimiter='|', quoting=csv.QUOTE_NONE)
 print('Step ' + str(step_counter) + ' (General Fixes)...')
 step_counter += 1
 with open(datafile, 'r') as csvfile:
 	for line in csv.DictReader(csvfile, dialect='piper'):
-		# do something
 		key = None
+		###### SKIP THESE #######
 		# Wuhan Evacuee
-		if (line['LABEL'].upper().find('WUHAN EVACUEE') >= 0): continue
-		# U.S. Virgin Islands
-		if (line['ADM1'] == 'US' and (line['ADM2'] == 'United States Virgin Islands' or \
-			line['ADM2'] == 'Virgin Islands, U.S.' or line['ADM2'] == 'Virgin Islands')):
-			line['ADM2'] = 'U.S. Virgin Islands'
-			line['FIPS'] = '78000'
-			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-			key = line['LABEL']
-		# cook county, IL (Chicago correction)
-		if (line['ADM1'] == 'US' and line['LABEL'].find('Chicago') >= 0):
-			line['ADM2'] = 'Illinois'
-			line['ADM3'] = 'Cook'
-			line['FIPS'] = '17031'
-			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-			key = line['LABEL']
-		# { Elko County, Walla Walla County } wierd condition
-		if (line['ADM3'].find('County') > 0):
-			# print(line['ADM3'] + '-' + line['ADM2'])
-			line['ADM3'] = line['ADM3'].replace('County', '').strip()
-			key = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-		if (line['ADM2'].find('County') > 0):
-			# print(line['ADM2'])
-			tok = line['ADM2'].split(',')
-			key = tok[0].replace('County', '').strip() + ', ' + abbr2state[tok[1].strip()] + ', US'
-		if (key == None):
-			key = line['LABEL']
-		# Out of [State] condition
-		if ((line['ADM3'].startswith('Out of') or line['ADM3'].startswith('Out-of') or line['ADM3'].startswith('Unknown')) and \
-			line['ADM1'] == 'US'):
-			line['ADM3'] = 'Unassigned'
-			line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-			key = line['LABEL']
+		if (line['LABEL'].upper().find('WUHAN EVACUEE') >= 0):
+			n_ignored += 1
+			continue
+		if (line['LABEL'].find('External territories, Australia') >= 0):
+			n_ignored += 1
+			continue
+		if (line['LABEL'].startswith('Recovered,')):
+			#print(line)
+			# NOT IGNORED; ADDED LATER
+			n_obs += 1
+			line['LABEL'] = line['LABEL'].replace('Recovered,', '').strip()
+			line['ADM2'] = 'N/A'
+			line['LABEL'] = label_fix(line)
+			recovered[line['LABEL'] + '_' + line['LASTUPDATED']] = line
+			continue
+		#
+		# BEGIN US
+		#
+		if (line['ADM1'] == 'US'):
+			# U.S. Virgin Islands Normalization
+			if (line['ADM2'] == 'United States Virgin Islands' or line['ADM2'] == 'Virgin Islands, U.S.' or \
+				line['ADM2'] == 'Virgin Islands'):
+				line['ADM2'] = 'U.S. Virgin Islands'
+				line['FIPS'] = '78000'
+				line['LABEL'] = label_fix(line, 'US')
+				key = line['LABEL']
+			# Cook County, IL Normalization
+			if (line['LABEL'].find('Chicago') >= 0):
+				line['ADM2'] = 'Illinois'
+				line['ADM3'] = 'Cook'
+				line['FIPS'] = '17031'
+				line['LABEL'] = label_fix(line, 'US')
+			# US Country Normalization
+			if (line['ADM2'] == 'US'):
+				line['ADM2'] = 'N/A'
+				line['LABEL'] = label_fix(line, 'US')
+			# US County Label Normalization
+			if (line['ADM2'].find('County') > 0):
+				tok = line['ADM2'].split(',')
+				line['ADM2'] = abbr2state[tok[1].strip()]
+				line['ADM3'] = tok[0].replace('County', '').strip()
+				line['LABEL'] = label_fix(line, 'US')
+			# ADM3 Out of [State] / Unknown condition
+			if (line['ADM3'].startswith('Out of') or line['ADM3'].startswith('Out-of') or line['ADM3'].startswith('Unknown')):
+				line['ADM3'] = 'Unassigned'
+				line['LABEL'] = label_fix(line, 'US')
+			# ADM2 Unknown condition
+			if (line['ADM2'].startswith('Unknown')):
+				line['ADM2'] = abbr2state[line['ADM2'].replace('Unknown Location, ', '')]
+				line['ADM3'] = 'Unassigned'
+				line['LABEL'] = label_fix(line, 'US')
+			# ADM2 Unassigned condition
+			if (line['ADM2'].startswith('Unassigned') and line['ADM2'].find(',') > 0):
+				#print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+				line['ADM2'] = abbr2state[line['ADM2'].replace('Unassigned Location, ', '')]
+				line['ADM3'] = 'Unassigned'
+				line['LABEL'] = label_fix(line, 'US')
+			# US County ADM3 Normalization - { Elko County, Walla Walla County }
+			if (line['ADM3'].find('County') > 0):
+				# print(line['ADM3'] + '-' + line['ADM2'])
+				line['ADM3'] = line['ADM3'].replace('County', '').strip()
+				line['LABEL'] = label_fix(line, 'US')
+			# Parishes
+			if (line['ADM2'].find('Parish, ') > 0):
+				# print(line['ADM3'] + '-' + line['ADM2'])
+				line['ADM2'] = line['ADM2'].replace('Parish', '').replace(' ',  '')
+				line['LABEL'] = label_fix(line, 'US')
+			# DC, Washington DC.
+			if (line['LABEL'].find('D.C.') != -1 or line['LABEL'].find('District of Columbia') != -1):
+				# print(line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+				line['ADM3'] = 'District of Columbia'
+				line['ADM2'] = 'District of Columbia'
+				line['ADM1'] = 'US' # should be
+				line['LABEL'] = label_fix(line, 'US')
+				# print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+			#
+			# check state isn't abbreviated as there are some holes in tests above
+			tok2 = line['LABEL'].split(',')
+			if (len(tok2) == 3):
+				if (len(tok2[1].strip()) == 2):
+					#print('? ' + line['LABEL'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
+					line['ADM2'] = abbr2state[tok2[1].strip()]
+					line['ADM3'] = tok2[0].strip()
+					line['LABEL'] = label_fix(line, 'US')
+					#print('& ' + line['LABEL'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
+		#
+		# END US
+		#
+		# BEGIN SHIPS
+		#
 		# ms zaandam cruise ship
 		if (line['LABEL'].upper().find('MS ZAANDAM') >= 0):
 			line['ADM3'] = 'Unassigned'
 			line['ADM2'] = 'MS Zaandam'
-			line['FIPS'] = 'ZAANDM'
-			line['LABEL'] = line['ADM2'] + ', ' + line['ADM1']
+			if (line['ADM1'] == 'US'):
+				line['FIPS'] = 'N/A'
+			else:
+				line['FIPS'] = 'N/A'
+			line['LABEL'] = label_fix(line)
 			line['LAT'] = '9.38743' # Currently Panamal Canal
 			line['LON'] = '-79.91863'
-			key = line['LABEL']
 		# grand princess or line['ADM2'].startswith('Grand Princess Cruise Ship')
 		if (line['ADM1'].upper().find('GRAND PRINCESS') >= 0 or line['LABEL'].upper().find('GRAND PRINCESS') >= 0):
 			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
 			line['ADM2'] = 'Unassigned'
 			line['ADM3'] = 'Grand Princess'
 			if (line['ADM1'] == 'US'):
-				line['FIPS'] = 'GRAPR'
+				line['FIPS'] = 'N/A'
 			else:
 				line['FIPS'] = 'N/A'
-			line['LABEL'] = line['ADM2'] + ', ' + line['ADM1'] # could be other nationalities on this one
+			line['LABEL'] = label_fix(line)
 			line['LAT'] = '37.807054' # San Fran Pier
 			line['LON'] = '-122.405770'
 			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
-			key = line['LABEL']
 		# diamond princess conditions
 		elif (line['LABEL'].upper().find('DIAMOND') >= 0 or line['LABEL'].upper().find('CRUISE') >= 0 or line['LABEL'].upper().find('SHIP') >= 0):
 			#print('>>>' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
@@ -137,55 +207,98 @@ with open(datafile, 'r') as csvfile:
 			if (line['ADM1'] == 'Others' or line['ADM1'] != 'US'):
 				line['ADM2'] = 'Diamond Princess'
 				line['ADM3'] = 'N/A'
-				line['FIPS'] = 'DIAMD'
+				line['FIPS'] = 'N/A'
 				line['LABEL'] = line['ADM2'] + ', ' + line['ADM1']
 				line['LAT'] = '35.456676' # Daikoku Pier Cruise Terminal
 				line['LON'] = '139.679919'
-				key = line['LABEL']
 			if (line['ADM1'] == 'US'):
-				line['FIPS'] = 'DIAMD'
+				line['FIPS'] = 'N/A'
 				if (line['ADM2'].startswith('Unassigned') or line['ADM2'].startswith('Diamond Princess')):
 					line['ADM2'] = 'Unassigned'
 				else:
 					temp_state = line['ADM2'].split(',')[1][0:3]
 					line['ADM2'] = abbr2state.get(temp_state.strip())
 				line['ADM3'] = 'Diamond Princess'
-				line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-				key = line['LABEL']
+				line['LABEL'] = label_fix(line, 'US')
 			#fileout.write(line['LABEL'] + '\t' + line['ADM1'] + '\t' + line['ADM2'] + '\t' + line['ADM3'] + '\t' + line['FIPS'] + '\n')
 			#print('  ' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'] + '|' + line['FIPS'])
-		# DC, Washington DC.
-		if (line['LABEL'].find('D.C.') != -1 or line['LABEL'].find('District of Columbia') != -1):
-			# print(line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
-			line['ADM3'] = 'District of Columbia'
-			line['ADM2'] = 'District of Columbia'
-			line['ADM1'] = 'US' # should be
-			line['LABEL'] = 'District of Columbia, District of Columbia, US'
-			key = line['LABEL']
-			# print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
-		else:
-			# check state isn't abbreviated as there are some holes in tests above
-			tok2 = line['LABEL'].split(',')
-			if (len(tok2) == 3):
-				if (tok2[2].strip() == 'US'):
-					if (len(tok2[1].strip()) == 2):
-						line['ADM2'] = abbr2state[tok2[1].strip()]
-						if (line['ADM3'] != 'N/A'):
-							line['LABEL'] = line['ADM3'] + ', ' + line['ADM2'] + ', US'
-						else:
-							line['LABEL'] = line['ADM2'] + ', US'
-						key = line['LABEL']
+		#
+		# END SHIPS
+		#
+		#
+		# BEGIN CHINA
+		#
+		# HK  Macau
+		if (line['LABEL'] == 'Hong Kong, Hong Kong'):
+			line['ADM1'] = 'China'
+			line['ADM2'] = 'Hong Kong'
+			line['LABEL'] = label_fix(line)
+		if (line['LABEL'] == 'Macau, Macau' or line['LABEL'] == 'Macau, Macao SAR'):
+			line['ADM1'] = 'China'
+			line['ADM2'] = 'Macau'
+			line['LABEL'] = label_fix(line)
+		# double ADM1 name
+		if (line['ADM1'] == line['ADM2'] and line['ADM3'] == 'N/A'):
+			line['ADM2'] = 'N/A'
+			line['LABEL'] = label_fix(line)
+		# Mainland    Anhui, China   Chongqing, China
+		if (line['ADM1'] == 'Mainland China'):
+			line['ADM1'] = 'China'
+			line['LABEL'] = label_fix(line)
+		if (line['LABEL'] == 'Anhui, China'):
+			line['ADM1'] = 'China'
+			line['ADM2'] = 'Anhui'
+			line['LABEL'] = label_fix(line)
+		if (line['LABEL'] == 'Chongqing, China'):
+			line['ADM1'] = 'China'
+			line['ADM2'] = 'Chongqing'
+			line['LABEL'] = label_fix(line)
+		#
+		# END CHINA
+		#
+		# OTHER PLACES
+		#
+		# Ireland, Republic of Ireland, North Ireland
+		if ((line['ADM1'] == 'Republic of Ireland' or line['ADM1'] == 'North Ireland') and line['ADM2'] == 'N/A'):
+			line['ADM1'] = 'Ireland'
+			line['LABEL'] = label_fix(line)
+		# None
+		if (line['ADM1'] != 'US' and line['ADM2'].upper() == 'NONE' and line['ADM3'] == 'N/A'):
+			line['ADM2'] = 'N/A'
+			line['LABEL'] = label_fix(line)
+		# Ivory Coast
+		if (line['LABEL'] == 'Ivory Coast'):
+			line['ADM1'] = 'Cote d\'Ivoire'
+			line['LAT'] = '7.54'
+			line['LON'] = '-5.5471'
+			line['LABEL'] = label_fix(line)
+		# Aruba, Netherlands
+		if (line['LABEL'] == 'Aruba'):
+			line['ADM1'] = 'Netherlands'
+			line['ADM2'] = 'Aruba'
+			line['LABEL'] = label_fix(line)
+		# UK Country Normalization
+		if (line['ADM1'] == 'UK' or line['ADM1'] == 'United Kingdom'):
+			line['ADM1'] = 'United Kingdom'
+			if (line['ADM2'] == 'UK' or line['ADM2'] == 'United Kingdom'): line['ADM2'] = 'N/A'
+			line['LABEL'] = label_fix(line)
 		# mispellings/case fixes
-		if (line['ADM3'].find('Doña Ana') != -1):
-			continue # these are redundant 
+		if (line['ADM3'].find('Doña Ana') != -1): continue # these entries are redundant 
+		# case fix
 		if (line['ADM3'] == 'Desoto'):
 			line['ADM3'] = 'DeSoto'
 			line['LABEL'] = line['LABEL'].replace('Desoto','DeSoto')
-			key = key.replace('Desoto','DeSoto')
+		# Palestine
 		if (line['LABEL'].find('occupied Palestinian') != -1):
 			line['LABEL'] = 'Occupied Palestinian Territory, Israel'
 			line['ADM1'] = 'Israel'
 			line['ADM2'] = 'Occupied Palestinian Territory'
+		#
+		# END OTHER PLACES
+		#
+		# BEGIN generic clean up
+		#
+		if (key == None):
 			key = line['LABEL']
 		# comma spacing
 		line['LABEL'] = line['LABEL'].replace(', ', ',')
@@ -199,13 +312,16 @@ with open(datafile, 'r') as csvfile:
 		if (line['LABEL'].startswith(', ') == True):
 			line['LABEL'] = line['LABEL'][2:]
 			key = line['LABEL']
+		#
+		# END generic clean up
+		#
+		#
 		# set hash
 		# print(key)
 		keyterm = key + '_' + line['LASTUPDATED']
-		#if (hash.get(keyterm) != None):
-		#	print(keyterm)
-		#	print('  B: ' + str(hash.get(keyterm)))
-		#	print('  A: ' + str(line))
+		#
+		# check geohash
+		#
 		if (float(line['LAT']) != 0 and float(line['LON']) != 0):
 			if (geohash.get(key) == None):
 				geohash[key] = [line['LAT'], line['LON']]
@@ -222,16 +338,37 @@ with open(datafile, 'r') as csvfile:
 					geohash[key] = [line['LAT'], line['LON']]
 		else:
 			geo_fix += 1
+		#
 		# store data in HASH
-		hash[keyterm] = line
 		n_obs += 1
+		# interestingly, key could be there already (eg. duplicate label and date, going with MAX() pessimistic strategy)
+		if (hash.get(keyterm) != None):
+			line['CONFIRMED'] = str(max(int(hash.get(keyterm)['CONFIRMED']), int(line['CONFIRMED'])))
+			line['DEATHS'] = str(max(int(hash.get(keyterm)['DEATHS']), int(line['DEATHS'])))
+			line['ACTIVE'] = str(max(int(hash.get(keyterm)['ACTIVE']), int(line['ACTIVE'])))
+			line['RECOVERED'] = str(max(int(hash.get(keyterm)['RECOVERED']), int(line['RECOVERED'])))
+		# making it happen
+		hash[keyterm] = line
+
+# recovered
+for i, (k, v) in enumerate(recovered.items()):
+	#print(i, k, v)
+	if (hash.get(k) != None):
+		line = hash.get(k)
+		line['RECOVERED'] = v['RECOVERED'] # assume it's more accurate?
+	else:
+		v['ADM2'] = 'N/A'
+		#print(v)
+		hash[k] = v
 
 #if (True): sys.exit('Halted')
 # fileout.close()
 
 print('	# obs before: ' + str(n_obs))
-print('	# obs intermediate: ' + str(len(hash)))
-print('	# dupes removed: ' + str(n_obs-len(hash)))
+print('	# obs after: ' + str(len(hash)))
+print()
+print('	# ignored/skipped: ' + str(n_ignored))
+print('	# dupes removed: ' + str(n_obs-len(hash)-n_ignored))
 print()
 print('	# geohash\'s: ' + str(len(geohash)))
 print('	# geo_consistent: ' + str(geo_consistent))
@@ -321,31 +458,25 @@ print('Step ' + str(step_counter) + ' (Geo Issues File)...\n	Generated geolocati
 step_counter += 1
 
 # assign county FIPs if N/A
-print('Step ' + str(step_counter) + ' (County Labels)...')
-step_counter += 1
-
-# fix remaining county labels
-num_fixed = 0
-for i, (key, v) in enumerate(hash.items()):
-	if (v['LABEL'].find('County') > 0):
-		v['LABEL'] = v['LABEL'].replace(' County', '').strip()
-		num_fixed += 1
-print('	# County Labels Fixed: ' + str(num_fixed))
-
 # data check - missing geos
 # TODO: could remove these and let interpolation handle.
 num_missing = 0
 for i, (key, v) in enumerate(hash.items()):
 	if (float(v['LAT']) == 0 or float(v['LON']) == 0):
 		num_missing += 1
-print('\nStep ' + str(step_counter) + ' (Geo Check)...\n	Missing Geo: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / len(hash)), 1)) + '%)')
+print('Step ' + str(step_counter) + ' (Geo Check)...\n	Missing Geo: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / len(hash)), 1)) + '%)')
 step_counter += 1
+
+def debug(v):
+	s = v['LABEL'] + ':' + v['ADM1'] + '|' + v['ADM2'] + '|' + v['ADM3']
+	return s
 
 # data check - missing FIPs
 num_missing = 0
 num_possible = 0
 num_fixed = 0
-print('	Checking FIPS in Reference Hash...')
+hash_missing_fips = {}
+print('	Checking FIPS in Reference Hash...\n	WARNING: Unresolvable FIPS for ADM3 Entries:')
 for i, (key, v) in enumerate(hash.items()):
 	if (v['ADM1'] == 'US' and (v['ADM3'] != 'Unassigned' and v['ADM3'] != 'N/A')):
 		num_possible += 1
@@ -356,10 +487,18 @@ for i, (key, v) in enumerate(hash.items()):
 				v['FIPS'] = temp['KEY']
 				num_fixed += 1
 			else:
-				print('		' + v['LABEL'] + ':' + v['ADM1'] + '|' + v['ADM2'] + '|' + v['ADM3'])
+				v['FIPS'] = 'N/A' # must be a legit county to get FIPS
+				#print('		' + debug(v))
+				if (hash_missing_fips.get(debug(v)) == None):
+					hash_missing_fips[debug(v)] = 1
+				else:
+					temp = int(hash_missing_fips.get(debug(v)))
+					hash_missing_fips[debug(v)] = temp + 1
 				num_missing += 1
-print('	Fixed FIPS: ' + str(num_fixed))
-print('	Unresolvable FIPS: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / num_possible), 1)) + '%)')
+for k in sorted(hash_missing_fips):
+	print('	 ', k, '->', hash_missing_fips.get(k))
+print('	FIPS Unresolvable Records: ' + str(num_missing) + ' (' + str(round(((num_missing * 100) / num_possible), 1)) + '%)')
+print('	However, Program Fixed FIPS: ' + str(num_fixed))
 
 # temporal sort
 print('\nStep ' + str(step_counter) + ' (Temporal Sort)...')
@@ -439,10 +578,10 @@ for key in sorted(hash.keys()):
 			obs += 1
 fileout.close()
 
-print()
-print('# data_merged # obs (before): ' + str(n_obs))
-print('# data_temporal # obs: ' + str(obs))
-print('# data_cleaned # obs: ' + str(len(hash)))
+print('\nSummary:')
+print('# data_merged # obs (from data_merged.txt): ' + str(n_obs))
+print('# data_cleaned # obs (after normalizing): ' + str(len(hash)))
+print('# data_temporal # obs (after inserting missing dates): ' + str(obs))
 
 fileout = path.abspath(path.join(basepath, '..', 'data', 'data_cleaned.txt'))
 fileout = open(fileout,'w')
