@@ -1,23 +1,16 @@
 LABEL|LAT|LON|COMMENT
-Ashland, NE, US                                |41.040556|-96.3725|
+Ashland, Nebraska, US                          |41.040556|-96.3725|
 Australia                                      |-32|115.9|
 Bavaria, Germany                               |48.7775|11.431111|
-Chicago, US                                    |41.881944|-87.627778|
-Cruise Ship, Others                            |0|0|
-Diamond Princess, Canada                       |0|0|
-From Diamond Princess, Israel                  |0|0|
-Ivory Coast                                    |0|0|
-Lackland, TX, US                               |0|0|
-None, Austria                                  |0|0|
-None, Iraq                                     |0|0|
-None, Lebanon                                  |0|0|
-North Ireland                                  |0|0|
-Out of MI,Michigan,US                          |43.3|-84.5|
-Out of TN,Tennessee,US                         |35.7|-86.7|
-Out of UT,Utah,US                              |40.1|-111.9|
-Recovered, Canada                              |0|0|
-Recovered, US                                  |0|0|
-Travis, CA, US                                 |0|0|
+Brockton, Massachusetts, US                    |42.083333|-71.018889|
+Chicago, Illinois, US                          |41.881944|-87.627778|
+Jervis Bay Territory, Australia                |-35.148611|150.713611|
+Lackland, Texas, US                            |29.3878|98.6205|
+LeSeur, Minnesota, US                          |44.465833|-93.908889|
+Canada                                         |56.1304|106.3468|
+Soldotna, Alaska, US                           |60.486667|-151.075278|
+Sterling, Alaska, US                           |60.529722|-150.797778|
+Travis, California, US                         |38.2721|121.9399|
 Unassigned, Arizona, US                        |33.7|-111.4|
 Unassigned, Arkansas, US                       |35|-92.4|
 Unassigned, Colorado, US                       |39.1|-105.3|
@@ -42,4 +35,4 @@ Unassigned, Rhode Island, US                   |41.7|-71.5|
 Unassigned, Tennessee, US                      |35.7|-86.7|
 Unassigned, Vermont, US                        |44|-72.7|
 Unassigned, Washington, US                     |47.4|-121.5|
-Unassigned, Wuhan Evacuee, US                  |0|0|
+US                                             |37.0902|95.7129|

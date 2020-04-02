@@ -1,15 +1,1 @@
 LABEL|LAT|LON
-Ivory Coast|0|0
-None, Lebanon|0|0
-None, Iraq|0|0
-None, Austria|0|0
-North Ireland|0|0
-Brockton, Massachusetts, US|0.0|0.0
-LeSeur, Minnesota, US|0.0|0.0
-Nashua, New Hampshire, US|0.0|0.0
-Soldotna, Alaska, US|0.0|0.0
-Sterling, Alaska, US|0.0|0.0
-External territories, Australia|0.0|0.0
-Jervis Bay Territory, Australia|0.0|0.0
-Recovered, Canada|0|0
-Recovered, US|0|0
