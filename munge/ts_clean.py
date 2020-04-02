@@ -159,7 +159,13 @@ with open(datafile, 'r') as csvfile:
 				line['ADM1'] = 'US' # should be
 				line['LABEL'] = label_fix(line, 'US')
 				# print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
-			#
+			# NYC
+			if (line['LABEL'] == 'New York City, New York, US' or line['LABEL'] == 'New York City, NY, US'):
+				# print('	' + line['LABEL'] + '|' + line['ADM1'] + '|' + line['ADM2'] + '|' + line['ADM3'])
+				line['ADM3'] = 'New York'
+				line['ADM2'] = 'New York'
+				line['FIPS'] = '36061'
+				line['LABEL'] = label_fix(line)
 			# check state isn't abbreviated as there are some holes in tests above
 			tok2 = line['LABEL'].split(',')
 			if (len(tok2) == 3):

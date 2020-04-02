@@ -213,9 +213,7 @@ for key in sorted(hash.keys()):
 			rollup['US'][v['DATE']]['DEATHS'] = 0
 		if (st_data[state][v['DATE']].get(v['FIPS']) == None):
 			st_data[state][v['DATE']][v['FIPS']] = key
-			print('>' + st_data[state][v['DATE']][v['FIPS']] + ' - ' + str(hash.get(st_data[state][v['DATE']][v['FIPS']])))
 		else:
-			print('!' + st_data[state][v['DATE']][v['FIPS']])
 			st_data[state][v['DATE']].get(v['FIPS'])
 			sys.exit('Invalid Key: ' + key + ' >F> ' + str(v))
 	elif (True and v['FIPS'] == 'N/A'  and v['ADM3'].find('Unassigned') != -1 and v['ADM1'] == 'US'): # assign FIPS code of 'UNAGD' in the hash
