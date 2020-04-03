@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# Purpose: cleans the output from ts_merge.py by fixing historical US county entries; primarily normalizes
+# Purpose: project ndays; creates finished artifacts
 #
 from datetime import datetime
 from datetime import timedelta
@@ -12,9 +12,11 @@ import glob
 import csv
 from csv import reader
 import sys
-import cf_model
 import numpy as np
 import copy
+import cf_model
+from img_model import image
+import analyze_html
 
 start = timer()
 now = datetime.now()
@@ -35,9 +37,9 @@ n_obs = 0
 key_data = []
 date_data = []
 case_data = []
-died_data = []		
-		
-ndays = 3 # days to project
+died_data = []
+
+ndays = 5 # days to project
 case_n_positive = 0
 died_n_positive = 0
 n_cpass = 0
@@ -404,12 +406,6 @@ for st in sorted(st_data):
 				hashp2[keygen]['CONFIRMED'] = str(int(round(ym_data[i], 0)))
 		print(label + ' : ' + str(n_obs) + ':' + str(died_n_positive) + ' --D--> {:0.3f}'.format(rsqd))
 
-dev2 = np.zeros((2,6))
-dev2[0][2] = np.nanmean(stats2c, axis = 0)[1] # average a
-dev2[0][3] = np.nanmean(stats2c, axis = 0)[2] # average b
-dev2[1][2] = np.nanmean(stats2d, axis = 0)[1] # average a
-dev2[1][3] = np.nanmean(stats2d, axis = 0)[2] # average b
-
 # stats
 print('\nState Case Statistics:')
 print('Min   : ' + str(np.nanmin(stats2c, axis = 0)))
@@ -462,10 +458,8 @@ fileout.close()
 print(str((n_obs-1)) + ' records.')
 print()
 
-if (True): sys.exit('Halted')
-
 # stats
-print('\County Case Statistics:')
+print('County Case Statistics:')
 print('Min   : ' + str(np.nanmin(statsc, axis = 0)))
 print('Max   : ' + str(np.nanmax(statsc, axis = 0)))
 print('Mean  : ' + str(np.nanmean(statsc, axis = 0)))
@@ -490,23 +484,30 @@ print('# (NI):  ' + str(n_dnei))
 print('# Inter: ' + str(n_dinter))
 
 # set deviation/average coefficients (US only would need US only filter above)
-dev = np.zeros((2,6))
-dev[0][2] = np.nanmean(statsc, axis = 0)[1] # average a
-dev[0][3] = np.nanmean(statsc, axis = 0)[2] # average b
-dev[1][2] = np.nanmean(statsd, axis = 0)[1] # average a
-dev[1][3] = np.nanmean(statsd, axis = 0)[2] # average b
-dev[0][0] = dev[0][2] + np.nanstd(statsc, axis = 0)[1] # 1st stddev above a
-dev[0][1] = dev[0][3] + np.nanstd(statsc, axis = 0)[2] # 1st stddev above b
-dev[0][4] = dev[0][2] - np.nanstd(statsc, axis = 0)[1] # 1st stddev below a
-dev[0][5] = dev[0][3] - np.nanstd(statsc, axis = 0)[2] # 1st stddev below b
+dev = np.zeros((2,2,6)) # county/state 0,1 # cases/deaths 0/1 # 0=a mean, 1=b mean
+dev[0][0][0] = np.nanmean(statsc, axis = 0)[1] # average a
+dev[0][0][1] = np.nanmean(statsc, axis = 0)[2] # average b
+dev[0][1][0] = np.nanmean(statsd, axis = 0)[1] # average a
+dev[0][1][1] = np.nanmean(statsd, axis = 0)[2] # average b
+dev[1][0][0] = np.nanmean(stats2c, axis = 0)[1] # average a
+dev[1][0][1] = np.nanmean(stats2c, axis = 0)[2] # average b
+dev[1][1][0] = np.nanmean(stats2d, axis = 0)[1] # average a
+dev[1][1][1] = np.nanmean(stats2d, axis = 0)[2] # average b
+# dev[0][0] = dev[0][2] + np.nanstd(statsc, axis = 0)[1] # 1st stddev above a
+# dev[0][1] = dev[0][3] + np.nanstd(statsc, axis = 0)[2] # 1st stddev above b
+# dev[0][4] = dev[0][2] - np.nanstd(statsc, axis = 0)[1] # 1st stddev below a
+# dev[0][5] = dev[0][3] - np.nanstd(statsc, axis = 0)[2] # 1st stddev below b
 #print(dev)
+
+#if (True): sys.exit('Halted')
 
 # for i in range(1010): # SHOULD NOT HAPPEN; LEAVE HERE FOR DEBUGGING
 	# if (statsc[i][2] < 0): 
 		# print(str(i) + ' ' + statscl[i] + ' {0:.3f}'.format(statsc[i][0]) + ' ' + '{0:.3f}'.format(statsc[i][1]) + ' ' + '{0:.3f}'.format(statsc[i][2]))
 
-# # state/national plot loop
+# plot loop
 label_prior = label
+label_prior_v = None
 case_n_positive = 0
 died_n_positive = 0
 n_obs = 0
@@ -514,19 +515,24 @@ key_data = []
 date_data = []
 case_data = []
 died_data = []
+n_test = 0
+gallery = {}
 
-print()
+print('\nPlotting...')
 for key in sorted(hash2.keys()): 
-	v = hash.get(key)
+	v = hash2.get(key)
+	# try:
+		# print(debug(v))
+	# except:
+		# print(key, v)
 	label = v['LABEL']
 	hash[v['LABEL'] + '_' + v['DATE']] = v
 	# interested in US states and US only
 	if (v['ADM1'] != 'US'): continue
-	if (v['FIPS'] == 'N/A'): continue
+	#if (v['FIPS'] == 'N/A'): continue
 	#print('? ', label, '|', label_prior)
 	# get rid of oddities 
-	if (label.find('Unassigned') == -1 and label.find('Out of') == -1 and \
-	label.find('Recovered') == -1 and label.find('US, US') == -1):
+	if (label.find('Unassigned') == -1):
 		# do something with buffer, because the label is new
 		if (label_prior != label or label_prior == None):
 			#print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
@@ -543,9 +549,14 @@ for key in sorted(hash2.keys()):
 					#y_avg_data = np.zeros(len(xm_data))
 					# for i in range(len(xm_data)):
 						# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
-					y_avg_data = cf_model.model_exp(xm_data, dev[0][2], dev[0][3]) 
+					if (v['FIPS'] != 'N/A'):
+						avg_label = 'U.S. County Average'
+						y_avg_data = cf_model.model_exp(xm_data, dev[0][0][0], dev[0][0][1])
+					else:
+						avg_label = 'U.S. State Average'
+						y_avg_data = cf_model.model_exp(xm_data, dev[1][0][0], dev[1][0][1])
 					y_avg_data = y_avg_data / y_avg_data[0]
-
+					
 					si = -1 # starting index where ym_data >= 1
 					for i in range(len(ym_data)):
 						if (ym_data[i] >= 1.0): 
@@ -556,14 +567,23 @@ for key in sorted(hash2.keys()):
 						
 					y_avg_data = y_avg_data * ym_data[si]
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
-					ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
+						ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, avg_label, yscale = 'LOG')
 					
 					plot_img = path.abspath(path.join(basepath, '..', 'plots', \
-					label_prior.replace(' ','_').replace(',','') + '_C.png'))
+						label_prior.replace(' ','_').replace(',','') + '_C.png'))
 					plt.savefig(plot_img)
 					plt.close(fig)
 					plt = None
 					fig = None
+					
+					filename = plot_img[plot_img.find('plots/')+6:]
+					if (v['ADM2'] != 'N/A'):
+						img = image(label_prior_v, filename, label_prior_v['ADM2'], 'Confirmed Cases', rsqd, 0)
+					else:
+						img = image(label_prior_v, filename, 'US', 'Confirmed Cases', rsqd, 0)
+					gallery[filename] = img
+					
+					n_test += 1
 					print(label_prior + ' --C--> {:0.3f}'.format(rsqd))
 				#if (True): sys.exit('ok')
 			# arbitrary looking for 3 days where number of deaths is > 0
@@ -576,7 +596,12 @@ for key in sorted(hash2.keys()):
 					#y_avg_data = np.zeros(len(xm_data))
 					# for i in range(len(xm_data)):
 						# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
-					y_avg_data = cf_model.model_exp(xm_data, dev[1][2], dev[1][3]) 
+					if (v['FIPS'] != 'N/A'):
+						avg_label = 'U.S. County Average'
+						y_avg_data = cf_model.model_exp(xm_data, dev[0][1][0], dev[0][1][1])
+					else:
+						avg_label = 'U.S. State Average'
+						y_avg_data = cf_model.model_exp(xm_data, dev[1][1][0], dev[1][1][1])
 					y_avg_data = y_avg_data / y_avg_data[0]
 					
 					# print(xm_data)
@@ -584,7 +609,7 @@ for key in sorted(hash2.keys()):
 					# print(y_avg_data)
 					# print(y_avg_data / y_avg_data[0])
 					# if (True): sys.exit('Stopping...')
-
+					
 					si = -1 # starting index where ym_data >= 1
 					for i in range(len(ym_data)):
 						if (ym_data[i] >= 1.0): 
@@ -595,14 +620,23 @@ for key in sorted(hash2.keys()):
 						
 					y_avg_data = y_avg_data * ym_data[si]
 					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
-					ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
+						ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, avg_label, yscale = 'LOG')
 					
 					plot_img = path.abspath(path.join(basepath, '..', 'plots', \
-					label_prior.replace(' ','_').replace(',','') + '_D.png'))
+						label_prior.replace(' ','_').replace(',','') + '_D.png'))
 					plt.savefig(plot_img)
 					plt.close(fig)
 					plt = None
 					fig = None
+					
+					filename = plot_img[plot_img.find('plots/')+6:]
+					if (v['ADM2'] != 'N/A'):
+						img = image(label_prior_v, filename, label_prior_v['ADM2'], 'Deaths', rsqd, 0)
+					else:
+						img = image(label_prior_v, filename, 'US', 'Deaths', rsqd, 0)
+					gallery[filename] = img
+					
+					n_test += 1
 					print(label_prior + ' --D--> {:0.3f}'.format(rsqd))
 				#if (True): sys.exit('ok')
 			# reset after doing something above
@@ -615,133 +649,27 @@ for key in sorted(hash2.keys()):
 			case_data = []
 			died_data = []
 		# done every iteration
-		key_data.append(v['LABEL'] + '_' + v['DATE'])
-		date_data.append(datetime.strptime(v['DATE'], '%m/%d/%Y'))
-		case_data.append(int(v['CONFIRMED']))
-		died_data.append(int(v['DEATHS']))
-		if (int(v['CONFIRMED']) > 0): case_n_positive += 1
-		if (int(v['DEATHS']) > 0): died_n_positive += 1
+		label_prior_v = v
+		if (v['FLAG'] != 'YP'): # drop prior projections (it will re-project)
+			key_data.append(v['LABEL'] + '_' + v['DATE'])
+			date_data.append(datetime.strptime(v['DATE'], '%m/%d/%Y'))
+			case_data.append(int(v['CONFIRMED']))
+			died_data.append(int(v['DEATHS']))
+			if (int(v['CONFIRMED']) > 0): case_n_positive += 1
+			if (int(v['DEATHS']) > 0): died_n_positive += 1
 		n_obs += 1
 		#print(v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + ' ' + str(n_obs))
+		#if (n_test > 20): break
 
-# county plot loop
-label_prior = label
-case_n_positive = 0
-died_n_positive = 0
-n_obs = 0
-key_data = []
-date_data = []
-case_data = []
-died_data = []
-
-print()
-for key in sorted(hash2.keys()): 
-	v = hash.get(key)
-	label = v['LABEL']
-	hash[v['LABEL'] + '_' + v['DATE']] = v
-	# interested in US counties only
-	if (v['ADM1'] != 'US'): continue
-	if (v['FIPS'] == 'N/A'): continue
-	#print('? ', label, '|', label_prior)
-	# get rid of oddities 
-	if (label.find('Unassigned') == -1 and label.find('Out of') == -1 and \
-	label.find('Recovered') == -1 and label.find('US, US') == -1):
-		# do something with buffer, because the label is new
-		if (label_prior != label or label_prior == None):
-			#print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-			# arbitrary looking for 3 days where number of cases is > 0
-			if (case_n_positive > 3):
-				#print('=======================================')
-				#print(label_prior + ' --C--> ')
-				#print(date_data)
-				#print(case_data)
-				plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
-					ndays, label_prior, 'Cases', 'EXP', False)
-				if (rsqd >= 0.80):
-					#if (plt != None):
-					#y_avg_data = np.zeros(len(xm_data))
-					# for i in range(len(xm_data)):
-						# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
-					y_avg_data = cf_model.model_exp(xm_data, dev[0][2], dev[0][3]) 
-					y_avg_data = y_avg_data / y_avg_data[0]
-
-					si = -1 # starting index where ym_data >= 1
-					for i in range(len(ym_data)):
-						if (ym_data[i] >= 1.0): 
-							si = i
-							break
-					if (si == -1):
-						sys.exit('zero value ym_data', ym_data)
-						
-					y_avg_data = y_avg_data * ym_data[si]
-					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, case_data, \
-					ndays, label_prior, 'Cases', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
-					
-					plot_img = path.abspath(path.join(basepath, '..', 'plots', \
-					label_prior.replace(' ','_').replace(',','') + '_C.png'))
-					plt.savefig(plot_img)
-					plt.close(fig)
-					plt = None
-					fig = None
-					print(label_prior + ' --C--> {:0.3f}'.format(rsqd))
-				#if (True): sys.exit('ok')
-			# arbitrary looking for 3 days where number of deaths is > 0
-			if (died_n_positive > 3):
-				#print(label_prior + ' --D--> ')
-				plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
-					ndays, label_prior, 'Deaths', 'EXP', False)
-				if (rsqd >= 0.80):
-					#if (plt != None):
-					#y_avg_data = np.zeros(len(xm_data))
-					# for i in range(len(xm_data)):
-						# #y_avg_data[0][i] = cf_model.model_exp(xm_data[i], dev[0][0], dev[0][1])
-					y_avg_data = cf_model.model_exp(xm_data, dev[1][2], dev[1][3]) 
-					y_avg_data = y_avg_data / y_avg_data[0]
-					
-					# print(xm_data)
-					# print(ym_data)
-					# print(y_avg_data)
-					# print(y_avg_data / y_avg_data[0])
-					# if (True): sys.exit('Stopping...')
-
-					si = -1 # starting index where ym_data >= 1
-					for i in range(len(ym_data)):
-						if (ym_data[i] >= 1.0): 
-							si = i
-							break
-					if (si == -1):
-						sys.exit('zero value ym_data', ym_data)
-						
-					y_avg_data = y_avg_data * ym_data[si]
-					plt, popt, rsqd, fig, ax, xm_data, ym_data = cf_model.calculate(date_data, died_data, \
-					ndays, label_prior, 'Deaths', 'EXP', True, y_avg_data, 'U.S. County Average', yscale = 'LOG')
-					
-					plot_img = path.abspath(path.join(basepath, '..', 'plots', \
-					label_prior.replace(' ','_').replace(',','') + '_D.png'))
-					plt.savefig(plot_img)
-					plt.close(fig)
-					plt = None
-					fig = None
-					print(label_prior + ' --D--> {:0.3f}'.format(rsqd))
-				#if (True): sys.exit('ok')
-			# reset after doing something above
-			label_prior = label
-			case_n_positive = 0
-			died_n_positive = 0
-			n_obs = 0
-			key_data = []
-			date_data = []
-			case_data = []
-			died_data = []
-		# done every iteration
-		key_data.append(v['LABEL'] + '_' + v['DATE'])
-		date_data.append(datetime.strptime(v['DATE'], '%m/%d/%Y'))
-		case_data.append(int(v['CONFIRMED']))
-		died_data.append(int(v['DEATHS']))
-		if (int(v['CONFIRMED']) > 0): case_n_positive += 1
-		if (int(v['DEATHS']) > 0): died_n_positive += 1
-		n_obs += 1
-		#print(v['LABEL'] + '_' + v['DATE'] + ' >>> ' + v['CONFIRMED'] + ' ' + str(n_obs))
+# write HTML indexes
+fileout_html = path.abspath(path.join(basepath, '..', 'plots', 'us.html'))
+fileout_html = open(fileout_html,'w')
+fileout_html.write(analyze_html.section_header(str(ndays) + '-Day Projections', 'U.S. Locations'))
+fileout_html.write(analyze_html.section_buttons(gallery))
+fileout_html.write(analyze_html.section_grid(gallery))
+fileout_html.write(analyze_html.section_footer())
+fileout_html.close()
+print('\nSaving HTML...')
 
 print('\nDone.')
 duration = timer()-start

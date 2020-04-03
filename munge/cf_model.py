@@ -67,7 +67,7 @@ def fit(x_data, y_data, model_type = 'EXP'):
 		return weights, model, results
 
 def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot_data = False, \
-	yavg_data = None, yavg_label = 'Average', yscale = 'STANDARD'):
+	yavg_data = None, yavg_label = 'Average', yscale = 'STD'):
 	# d_data: list of dates in datetime format, sorted
 	# y_data: list of numbers (e.g. covid cases) of same length for each date
 	# n_forecast: number of days to forecast
@@ -76,7 +76,7 @@ def calculate(d_data, y_data, n_forecast, title, label, model_type = 'EXP', plot
 	# NOTE: only EXP presently works
 	# yavg_data = mean data
 	# yavg_label = label for legend for mean data
-	# yscale = STANDARD or LOG
+	# yscale = STD or LOG
 	
 	# check model_type
 	if (isinstance(model_type, str) == False):
