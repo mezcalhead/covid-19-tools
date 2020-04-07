@@ -295,11 +295,11 @@ if __name__ == '__main__':
 	dt_string = now.strftime('%d/%m/%Y %H:%M:%S')
 	print('Starting... (' + dt_string + ' Z)')
 	
-	# do something
+	# export (assumes JHU's COVID-19 is installed under the root directory as COVID-19-TOOLS)
 	basepath = path.abspath(path.join(path.dirname(__file__), '../../COVID-19/csse_covid_19_data/csse_covid_19_time_series/'))
 	world = ingestData(basepath)
-	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'cleaned_standard.txt')))
-	world.exportTransposed(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'cleaned_transposed.txt')))
+	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_standard.txt')))
+	world.exportTransposed(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_transposed.txt')))
 	
 	# c = world.getArea('US')
 	# data = c.getData('CONFIRMED')
