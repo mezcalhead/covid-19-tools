@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# Purpose: Structures for JHU CSSE's Time Series Data Files
+# Purpose: Core class structures for JHU CSSE's Time Series Data Files
 #
 import numpy as np
 from datetime import datetime
@@ -141,8 +141,67 @@ class World(Area):
 		self.__dates = [] # date data
 		self.world = self
 	
-	def export(self, filename):
-		print('Exporting World [' + filename + ']...')
+	def exportStandard(self, filename):
+		print('Exporting (Standard) World [' + filename + ']...')
+		fileout = open(filename,'w')
+		n = 0
+		d = {} # data
+		d['DA'] = self.getDates()
+		s = 'N|FIPS|ADM3|ADM2|ADM1|KEY|LAT|LON|T'
+		for i in range(self.lenData()):
+			s += '|' + d['DA'][i].strftime('%m/%d/%Y')
+		fileout.write(s + '\n')
+		d['C'] = self.getData('CONFIRMED')
+		d['D'] = self.getData('DEATHS')
+		d['R'] = self.getData('RECOVERED')
+		for t in ['C','D','R']:
+			n += 1
+			s = str(n) + '|' + self.a['fips'] + '|N/A|N/A|N/A|' + self.a['key'] + '|' + str(self.a['lat']) + '|' + \
+				str(self.a['lon']) + '|' + t
+			for i in range(self.lenData()):
+				n += 1
+				s += '|' + str(d[t][i])
+			fileout.write(s + '\n')
+		for s1 in self.areas():
+			d['C'] = s1.getData('CONFIRMED')
+			d['D'] = s1.getData('DEATHS')
+			d['R'] = s1.getData('RECOVERED')
+			for t in ['C','D','R']:
+				n += 1
+				s = str(n) + '|' + s1.a['fips'] + '|' + s1.a['adm3'] + '|' + s1.a['adm2'] + '|' + s1.a['adm1'] + '|' + \
+					s1.a['key'] + '|' + str(s1.a['lat']) + '|' + str(s1.a['lon']) + '|' + t
+				for i in range(self.lenData()):
+					n += 1
+					s += '|' + str(d[t][i])
+				fileout.write(s + '\n')
+			for s2 in s1.areas():
+				d['C'] = s2.getData('CONFIRMED')
+				d['D'] = s2.getData('DEATHS')
+				d['R'] = s2.getData('RECOVERED')
+				for t in ['C','D','R']:
+					n += 1
+					s = str(n) + '|' + s2.a['fips'] + '|' + s2.a['adm3'] + '|' + s2.a['adm2'] + '|' + s2.a['adm1'] + '|' + \
+						s2.a['key'] + '|' + str(s2.a['lat']) + '|' + str(s2.a['lon']) + '|' + t
+					for i in range(self.lenData()):
+						n += 1
+						s += '|' + str(d[t][i])
+					fileout.write(s + '\n')
+				for s3 in s2.areas():
+					d['C'] = s3.getData('CONFIRMED')
+					d['D'] = s3.getData('DEATHS')
+					d['R'] = s3.getData('RECOVERED')
+					for t in ['C','D','R']:
+						n += 1
+						s = str(n) + '|' + s3.a['fips'] + '|' + s3.a['adm3'] + '|' + s3.a['adm2'] + '|' + s3.a['adm1'] + '|' + \
+							s3.a['key'] + '|' + str(s3.a['lat']) + '|' + str(s3.a['lon']) + '|' + t
+						for i in range(self.lenData()):
+							n += 1
+							s += '|' + str(d[t][i])
+						fileout.write(s + '\n')
+		fileout.close()
+	
+	def exportTransposed(self, filename):
+		print('Exporting (Transposed) World [' + filename + ']...')
 		fileout = open(filename,'w')
 		n = 0
 		d = {} # data
