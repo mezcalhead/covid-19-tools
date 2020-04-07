@@ -1,2 +1,0 @@
-LABEL|LAT|LON
-unassigned, Wyoming, US|0.0|0.0
