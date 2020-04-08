@@ -17,16 +17,6 @@ import covid_structures as cs
 import covid_tools as ct
 import covid_models as cm
 
-def dictionary(): 
-	key_value ={}
-	key_value[2] = 56
-	key_value[1] = 2
-	key_value[5] = 12
-	key_value[4] = 24
-	key_value[6] = 18
-	key_value[3] = 323
-	print(sorted(key_value.items(), key = lambda kv:(kv[1], kv[0])))
-
 if __name__ == '__main__':
 	start = timer()
 	now = datetime.now()

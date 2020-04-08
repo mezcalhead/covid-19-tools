@@ -322,12 +322,12 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day
 		for i in range(len(xm_data)):
 			custom_labels.append((d_data[0] + timedelta(days=i)).strftime('%m/%d')) # + ' (+' + str(i) + ')')
 		plt.xticks(xm_data, custom_labels, rotation='vertical')
-	ax.margins(0.2)
-	plt.subplots_adjust(bottom=0.20, left=0.20)
+	ax.margins(0.08)
+	plt.subplots_adjust(bottom=0.20, left=0.30)
 	# footer
 	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
 		horizontalalignment='right', color='gray', transform=ax.transAxes)
-	plt.text(0, -0.28,'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+	plt.text(-0.2, -0.28, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
 		horizontalalignment='left', color='gray', transform=ax.transAxes)
 	# axis prep
 	ax.set_yscale(yscale)
@@ -357,12 +357,12 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day
 	
 def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day', overlay=['avg','sum']):
 	fig, ax = plt.subplots()
-	ax.margins(0.2)
-	plt.subplots_adjust(bottom=0.20, left=0.20)
+	ax.margins(0.08)
+	plt.subplots_adjust(bottom=0.20, left=0.30)
 	# footer
 	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
 		horizontalalignment='right', color='gray', transform=ax.transAxes)
-	plt.text(0, -0.28,'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+	plt.text(-0.2, -0.28, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
 		horizontalalignment='left', color='gray', transform=ax.transAxes)
 	# axis prep
 	ax.set_yscale(yscale)
