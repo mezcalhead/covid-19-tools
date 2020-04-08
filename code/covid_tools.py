@@ -8,12 +8,13 @@ from datetime import timedelta
 from timeit import default_timer as timer
 from os import listdir, path
 from os.path import isfile, join
-import glob
-import csv
 from csv import reader
 import sys
 import numpy as np
-import copy
+from matplotlib import pyplot as plt
+import matplotlib.dates as mdates
+from matplotlib.ticker import ScalarFormatter
+import random
 
 import covid_structures as cs
 
@@ -162,8 +163,16 @@ def checkGlobalData(world, n_rows):
 		print('  # Rows (Structure Check): ' + str(i) + ' (FAIL)')
 		sys.exit(3)
 
+# return array of indices from the array provided, e.g. [0, 1, 2, 3, 4...]
+def getIndexR(data, shift = 0):
+	# eg shift = 1, means array will start with 1 e.g. [1, 2, 3, 4...] but be of same length
+	temp = np.array([i for i in range(len(data))])
+	if shift == 0: return temp
+	temp += shift
+	return temp
+
 # this will ingest the JHU 'CONFIRMED' time series file into the data structure
-def ingestGlobalData(world, basepath):
+def ingestGlobalData(world, basepath, smooth = True):
 	print('Ingesting Global Data...')
 	print('  Directory: ' + basepath)
 	filehash = {}
@@ -204,12 +213,12 @@ def ingestGlobalData(world, basepath):
 				# print(data)
 				if (v[0] != ''):
 					s = c.areaFactory(v[0], float(v[2]), float(v[3])) # factory (get or create)
-					s.setData(label, data)
+					s.setData(label, data, smooth)
 					s.a['adm1'] = v[1]
 					s.a['adm2'] = v[0]
 				else:
 					if (v[1] != 'US'): # skip US because it will be handled in the national pull
-						c.setData(label, data)
+						c.setData(label, data, smooth)
 			i += 1
 		n_rows = i-1
 		n_row_max = max(n_row_max, n_rows)
@@ -218,7 +227,7 @@ def ingestGlobalData(world, basepath):
 	return n_row_max
 
 # US only
-def ingestNationalData(world, basepath):
+def ingestNationalData(world, basepath, smooth = True):
 	print('Ingesting National Data...')
 	print('  Directory: ' + basepath)
 	filehash = {}
@@ -258,10 +267,10 @@ def ingestNationalData(world, basepath):
 				s.a['adm1'] = v[7] # 'US'
 				s.a['adm2'] = v[6]
 				if (v[5] == ''): # state with no counties, e.g. PR, VI, GU, AS
-					s.setData(label, data)
+					s.setData(label, data, smooth)
 				else: # county or ADM3
 					s = s.areaFactory(v[5], float(v[8]), float(v[9])) # factory (get or create)
-					s.setData(label, data)
+					s.setData(label, data, smooth)
 					s.a['adm1'] = v[7] # 'US'
 					s.a['adm2'] = v[6]
 					s.a['adm3'] = v[5]
@@ -287,6 +296,117 @@ def ingestData(basepath, name = 'World'):
 		sys.exit(1)
 	# return world
 	return world
+
+# add 2 numpy arrays, b into a, preserving a's length
+def addArrays(a, b):
+	for i in range(len(b)):
+		if i > len(a): break
+		a[i] += b[i]
+	return a
+
+# sum 2 numpy arrays with the result having the longest length
+def sumArrays(a, b):
+	if len(a) < len(b):
+		c = b.copy()
+		c[:len(a)] += a
+	else:
+		c = a.copy()
+		c[:len(b)] += b
+	return c
+
+def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day'):
+	fig, ax = plt.subplots()
+	# custom x labels
+	if (False):
+		custom_labels = []
+		for i in range(len(xm_data)):
+			custom_labels.append((d_data[0] + timedelta(days=i)).strftime('%m/%d')) # + ' (+' + str(i) + ')')
+		plt.xticks(xm_data, custom_labels, rotation='vertical')
+	ax.margins(0.2)
+	plt.subplots_adjust(bottom=0.20, left=0.20)
+	# footer
+	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+		horizontalalignment='right', color='gray', transform=ax.transAxes)
+	plt.text(0, -0.28,'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+		horizontalalignment='left', color='gray', transform=ax.transAxes)
+	# axis prep
+	ax.set_yscale(yscale)
+	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
+	ax.set_xticks(np.arange(1, (getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1]+3), step=5))
+	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
+	# lines
+	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1), area.getData('CONFIRMED', v_thresh), '-', color ='blue', label ='Confirmed')
+	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], area.getData('CONFIRMED', v_thresh)[-1], 'o', color = 'blue')
+	ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1), area.getData('DEATHS', v_thresh), '-', color ='red', label ='Deaths')
+	ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], area.getData('DEATHS', v_thresh)[-1], 'o', color = 'red')
+	# annotate # area.world.getDates()[-1].strftime('%m/%d/%Y')
+	ax.annotate(area.getData('CONFIRMED', v_thresh)[-1], xy=(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], \
+		area.getData('CONFIRMED', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+		fontsize=8, horizontalalignment='right', color='blue')
+	ax.annotate(area.getData('DEATHS', v_thresh)[-1], xy=(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], \
+		area.getData('DEATHS', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+		fontsize=8, horizontalalignment='right', color='red')
+	# labels
+	ax.legend()
+	ax.set_title(title, fontsize=14, horizontalalignment='center')
+	ax.set_xlabel(xaxis, fontsize=10)
+	ax.set_ylabel('# ' + 'People', fontsize=10)
+	# save
+	plt.savefig(filename)
+	plt.close(fig)
+	
+def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day', overlay=['avg','sum']):
+	fig, ax = plt.subplots()
+	ax.margins(0.2)
+	plt.subplots_adjust(bottom=0.20, left=0.20)
+	# footer
+	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+		horizontalalignment='right', color='gray', transform=ax.transAxes)
+	plt.text(0, -0.28,'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+		horizontalalignment='left', color='gray', transform=ax.transAxes)
+	# axis prep
+	ax.set_yscale(yscale)
+	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
+	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
+	# compute avg or sum
+	if 'avg' in overlay or 'sum' in overlay:
+		sum = np.zeros(1000)
+		shortest = 1000
+		longest = 0
+		for k, area in areas.items():
+			temp = area.getData(label, v_thresh)
+			sum = addArrays(sum, temp)
+			if len(temp) < shortest: shortest = len(temp)
+			if len(temp) > longest: longest = len(temp)
+		sum = sum[:longest].copy()
+		avg = sum[:shortest].copy()
+		avg /= len(areas)
+		if 'avg' in overlay: ax.plot(getIndexR(avg, 1), avg, '-.', color = 'black', label = 'Average')
+		if 'sum' in overlay: ax.plot(getIndexR(sum, 1), sum, '--', color = 'black', label = 'Sum')
+	# x-ticks
+	ax.set_xticks(np.arange(1, longest+3, step=5))
+	# lines
+	for i, (k, area) in enumerate(areas.items()):
+		#print(k + ' >> ' + str(area))
+		r = random.random()
+		b = random.random()
+		g = random.random()
+		c = (r, g, b)
+		ax.plot(getIndexR(area.getData(label, v_thresh), 1), area.getData(label, v_thresh), '-', color = c, label = area.name())
+		ax.plot(getIndexR(area.getData(label, v_thresh), 1)[-1], area.getData(label, v_thresh)[-1], 'o', color = c)
+		# annotate highest # area.world.getDates()[-1].strftime('%m/%d/%Y')
+		if i == 0: 
+			ax.annotate(area.getData(label, v_thresh)[-1], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
+				area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+				fontsize=8, horizontalalignment='right', color='black')
+	# labels
+	ax.legend(prop={'size': 7})
+	ax.set_title(title, fontsize=14, horizontalalignment='center')
+	ax.set_xlabel(xaxis, fontsize=10)
+	ax.set_ylabel('# ' + 'People', fontsize=10)
+	# save
+	plt.savefig(filename)
+	plt.close(fig)
 
 # tests
 if __name__ == '__main__':

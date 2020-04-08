@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# Purpose: Import JHU CSSE's Time Series Data Files, Merge, Normalize, and Prepare
+# Purpose: Ingest JHU CSSE's Time Series Data Files, Merge, Normalize, and then Export
 #
 from datetime import datetime
 from datetime import timedelta
@@ -23,21 +23,6 @@ if __name__ == '__main__':
 	world = ct.ingestData(basepath)
 	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_standard.txt')))
 	world.exportTransposed(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_transposed.txt')))
-	
-	print('============================================')
-	print('US')
-	c = world.getArea('US')
-	data = c.getData('CONFIRMED')
-	print('\nTOTAL:\n', data)
-	data = c.getData('DEATHS')
-	print('\nTOTAL:\n', data)
-	
-	print('============================================')
-	print('World')
-	data = world.getData('CONFIRMED')
-	print('\nTOTAL:\n', data)
-	data = world.getData('DEATHS')
-	print('\nTOTAL:\n', data)
 	
 	print('\nDone.')
 	duration = timer()-start

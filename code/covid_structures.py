@@ -85,7 +85,7 @@ class Area(Place):
 	def getAreas(self):
 		return self.__s
 	
-	def getData(self, label, recalculate = False):
+	def getData(self, label, thresh = 0, recalculate = False):
 		#print('=================')
 		#print('s.getData()', self.a['name'], label, self.world.lenData())
 		#self.debug()
@@ -99,6 +99,10 @@ class Area(Place):
 				if (type(temp) == np.ndarray): self.__t[label] += temp
 				#a.debug()
 				#print('-------------------------------------')
+		# shift via thresh?
+		if (thresh > 0):
+			i = np.argmax(self.__t[label] >= thresh) # index of first occurrence greater than thresh
+			return self.__t[label][i:] # return slice starting from there
 		return self.__t[label]
 	
 	def getParent(self):
@@ -128,7 +132,20 @@ class Area(Place):
 		s = self.a['name'] + '[' + str(self.a['level']) + ':' + str(len(self.__s)) + ']'
 		return s
 	
-	def setData(self, label, data):
+	def setData(self, label, data, smooth = True):
+		if smooth: # smooth out holes [31, 71, 77, 0, 102] -> [31, 71, 77, 90, 102]
+			# phase 1 (internal holes, until no more fixes)
+			while (True):
+				n_fixes = 0
+				for i in range(len(data)-2):
+					if data[i] > 0 and data[i+1] == 0 and data[i+2] > 0:
+						data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
+						n_fixes += 1
+				if n_fixes == 0: break
+			# phase 2 (once, leading edge) [0, 0, 22] -> [0, 11, 22]
+			for i in range(len(data)-2):
+				if data[i] == 0 and data[i+1] == 0 and data[i+2] > 0:
+					data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
 		self.a[label] = data
 
 # world root area, which has no parent
@@ -247,6 +264,14 @@ class World(Area):
 							str(s3.a['lat']) + '|' + str(s3.a['lon']) + '|' + str(d['C'][i]) + '|' + str(d['D'][i]) + '|' + str(d['R'][i])
 						fileout.write(s + '\n')
 		fileout.close()
+	
+	# return array of indices from the dates, e.g. [0, 1, 2, 3, 4...]
+	def getIndexR(self, shift = 0):
+		# eg shift = 1, means array will start with 1 e.g. [1, 2, 3, 4...] but be of same length
+		temp = np.arange(len(self.__dates))
+		if shift == 0: return temp
+		temp += shift
+		return temp
 	
 	def getDates(self):
 		return self.__dates
