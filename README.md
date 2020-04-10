@@ -47,3 +47,40 @@ There are also some simple plotting functions.
 ```python
 ct.simplePlot(area, 'some title', filename, 20, xaxis = 'Days')
 ```
+
+Here's a simple loop to print several states in the US after creating a SET and sending to multiPlot:
+
+```python
+	# plot individual areas
+	set = {}
+	v_thresh = 10 # threshhold for starting particular plots
+	
+	set = {}
+	area = world.getArea('US')
+	set[area.name()] = area
+	area = world.getArea('Italy')
+	set[area.name()] = area
+	area = world.getArea('US').getArea('New York')
+	set[area.name()] = area
+	area = world.getArea('US').getArea('New Jersey')
+	set[area.name()] = area
+	area = world.getArea('US').getArea('Michigan')
+	set[area.name()] = area
+	area = world.getArea('US').getArea('Louisiana')
+	set[area.name()] = area
+	area = world.getArea('Germany')
+	set[area.name()] = area
+	area = world.getArea('United Kingdom')
+	set[area.name()] = area
+	
+	filename = path.abspath(path.join(basepath, 'multiplot_mix_c.png'))
+	ct.multiPlot(set, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
+		xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+	filename = path.abspath(path.join(basepath, 'multiplot_mix_d.png'))
+	ct.multiPlot(set, 'DEATHS', 'Deaths', filename, v_thresh, \
+		xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+	
+	print('\nDone.')
+	duration = timer()-start
+	print('Execution Time: {:0.2f}s'.format(duration))
+```
