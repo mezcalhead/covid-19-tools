@@ -414,7 +414,7 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day
 	plt.savefig(filename)
 	plt.close(fig)
 	
-def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day', overlay=['avg','sum']):
+def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Days', overlay=['avg','sum']):
 	fig, ax = plt.subplots()
 	ax.margins(0.08)
 	plt.subplots_adjust(bottom=0.20, left=0.30)
