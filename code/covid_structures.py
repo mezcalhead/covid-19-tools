@@ -4,6 +4,7 @@
 # Purpose: Core class structures for JHU CSSE's Time Series Data Files
 #
 import numpy as np
+import shapefile
 from datetime import datetime
 from datetime import timedelta
 
@@ -78,6 +79,11 @@ class Area(Place):
 		for k in self.__s:
 			print('S' + str(self.a['level']) + ': ' + str(k) + ':' + str(self.__s[k]))
 	
+	def getList4ShapefileExport(self, area, data, n = 1, t = '?'):
+		list = [n, area.a['fips'], area.a['adm3'], area.a['adm2'], area.a['adm1'], area.a['key'], area.a['lat'], area.a['lon'], t]
+		list.extend(data)
+		return list
+	
 	def getArea(self, name):
 		if (name in self.__s): return self.__s[name]
 		return None
@@ -128,10 +134,6 @@ class Area(Place):
 	def numAreas(self):
 		return len(self.__s)
 	
-	def __str__(self):
-		s = self.a['name'] + '[' + str(self.a['level']) + ':' + str(len(self.__s)) + ']'
-		return s
-	
 	def setData(self, label, data, smooth = True):
 		if smooth: # smooth out holes [31, 71, 77, 0, 102] -> [31, 71, 77, 90, 102]
 			# phase 1 (internal holes, until no more fixes)
@@ -147,6 +149,10 @@ class Area(Place):
 				if data[i] == 0 and data[i+1] == 0 and data[i+2] > 0:
 					data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
 		self.a[label] = data
+	
+	def __str__(self):
+		s = self.a['name'] + '[' + str(self.a['level']) + ':' + str(len(self.__s)) + ']'
+		return s
 
 # world root area, which has no parent
 class World(Area):
@@ -157,6 +163,71 @@ class World(Area):
 		self.a['fips'] = 'N/A'
 		self.__dates = [] # date data
 		self.world = self
+	
+	def exportShapefile(self, filename):
+		print('Exporting Shapefile [' + filename + ']...')
+		w = shapefile.Writer(filename, shapefile.POINT)
+		w.autoBalance = 1
+		n = 0
+		d = {} # data
+		# create header
+		dates = {} # dates
+		d['DA'] = self.getDates()
+		w.field('N','N')
+		w.field('FIPS','C','5')
+		w.field('ADM3','C','80')
+		w.field('ADM2','C','80')
+		w.field('ADM1','C','80')
+		w.field('KEY','C','255')
+		w.field('LAT','N',decimal=6)
+		w.field('LON','N',decimal=6)
+		w.field('T','C','1')
+		for i in range(self.lenData()):
+			dates[i] = d['DA'][i].strftime('%m/%d/%Y')
+			w.field(dates[i], 'N')
+		# proceed
+		d['C'] = self.getData('CONFIRMED')
+		d['D'] = self.getData('DEATHS')
+		d['R'] = self.getData('RECOVERED')
+		for t in ['C','D','R']: # area itself
+			n += 1
+			w.point(self.a['lon'], self.a['lat'])
+			w.record(*self.getList4ShapefileExport(self, d[t], n, t))
+		for s1 in self.areas():
+			d['C'] = s1.getData('CONFIRMED')
+			d['D'] = s1.getData('DEATHS')
+			d['R'] = s1.getData('RECOVERED')
+			for t in ['C','D','R']:
+				n += 1
+				w.point(s1.a['lon'], s1.a['lat'])
+				w.record(*s1.getList4ShapefileExport(s1, d[t], n, t))
+			for s2 in s1.areas():
+				d['C'] = s2.getData('CONFIRMED')
+				d['D'] = s2.getData('DEATHS')
+				d['R'] = s2.getData('RECOVERED')
+				for t in ['C','D','R']:
+					n += 1
+					w.point(s2.a['lon'], s2.a['lat'])
+					w.record(*s2.getList4ShapefileExport(s2, d[t], n, t))
+				for s3 in s2.areas():
+					d['C'] = s3.getData('CONFIRMED')
+					d['D'] = s3.getData('DEATHS')
+					d['R'] = s3.getData('RECOVERED')
+					for t in ['C','D','R']:
+						n += 1
+						w.point(s3.a['lon'], s3.a['lat'])
+						w.record(*s3.getList4ShapefileExport(s3, d[t], n, t))
+		# write the file
+		w.close()
+		# create the PRJ file
+		prj = open("%s" % filename.replace('.shp','.prj'), "w")
+		epsg = 'GEOGCS["WGS 84",'
+		epsg += 'DATUM["WGS_1984",'
+		epsg += 'SPHEROID["WGS 84",6378137,298.257223563]]'
+		epsg += ',PRIMEM["Greenwich",0],'
+		epsg += 'UNIT["degree",0.0174532925199433]]'
+		prj.write(epsg)
+		prj.close()
 	
 	def exportStandard(self, filename):
 		print('Exporting (Standard) World [' + filename + ']...')
@@ -176,7 +247,6 @@ class World(Area):
 			s = str(n) + '|' + self.a['fips'] + '|N/A|N/A|N/A|' + self.a['key'] + '|' + str(self.a['lat']) + '|' + \
 				str(self.a['lon']) + '|' + t
 			for i in range(self.lenData()):
-				n += 1
 				s += '|' + str(d[t][i])
 			fileout.write(s + '\n')
 		for s1 in self.areas():
@@ -188,7 +258,6 @@ class World(Area):
 				s = str(n) + '|' + s1.a['fips'] + '|' + s1.a['adm3'] + '|' + s1.a['adm2'] + '|' + s1.a['adm1'] + '|' + \
 					s1.a['key'] + '|' + str(s1.a['lat']) + '|' + str(s1.a['lon']) + '|' + t
 				for i in range(self.lenData()):
-					n += 1
 					s += '|' + str(d[t][i])
 				fileout.write(s + '\n')
 			for s2 in s1.areas():
@@ -200,7 +269,6 @@ class World(Area):
 					s = str(n) + '|' + s2.a['fips'] + '|' + s2.a['adm3'] + '|' + s2.a['adm2'] + '|' + s2.a['adm1'] + '|' + \
 						s2.a['key'] + '|' + str(s2.a['lat']) + '|' + str(s2.a['lon']) + '|' + t
 					for i in range(self.lenData()):
-						n += 1
 						s += '|' + str(d[t][i])
 					fileout.write(s + '\n')
 				for s3 in s2.areas():
@@ -212,7 +280,6 @@ class World(Area):
 						s = str(n) + '|' + s3.a['fips'] + '|' + s3.a['adm3'] + '|' + s3.a['adm2'] + '|' + s3.a['adm1'] + '|' + \
 							s3.a['key'] + '|' + str(s3.a['lat']) + '|' + str(s3.a['lon']) + '|' + t
 						for i in range(self.lenData()):
-							n += 1
 							s += '|' + str(d[t][i])
 						fileout.write(s + '\n')
 		fileout.close()

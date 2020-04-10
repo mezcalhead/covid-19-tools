@@ -23,6 +23,7 @@ if __name__ == '__main__':
 	world = ct.ingestData(basepath)
 	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_standard.txt')))
 	world.exportTransposed(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_transposed.txt')))
+	world.exportShapefile(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_covid.shp')))
 	
 	print('\nDone.')
 	duration = timer()-start

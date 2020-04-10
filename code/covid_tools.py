@@ -9,6 +9,7 @@ from timeit import default_timer as timer
 from os import listdir, path
 from os.path import isfile, join
 from csv import reader
+import csv
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
@@ -136,8 +137,9 @@ def checkFIPS(fips, v):
 		# 78020,78,020,St. John,U.S. Virgin Islands,4170,50996518,186671948,18.330435,-64.735261
 		# 78030,78,030,St. Thomas,U.S. Virgin Islands,51634,81102199,717927568,18.326748,-64.971251
 		return '78000' # virgin islands
-	if (len(fips) == 2):
-		print('WARNING: 2-Digit Fips: ' + fips)
+	if len(fips) == 4: fips = '0' + fips
+	if fips == '': fips = '99999'
+	assert len(fips) == 5, 'WARNING: FIPS != 5 Digits: ' + fips + ' | ' + str(v)
 	return fips
 	
 def checkGlobalData(world, n_rows):
@@ -228,6 +230,8 @@ def ingestGlobalData(world, basepath, smooth = True):
 
 # US only
 def ingestNationalData(world, basepath, smooth = True):
+	crDB = loadCountyReference()
+	srDB = loadStateReference()
 	print('Ingesting National Data...')
 	print('  Directory: ' + basepath)
 	filehash = {}
@@ -242,6 +246,7 @@ def ingestNationalData(world, basepath, smooth = True):
 		datafile = path.abspath(path.join(basepath, filename))
 		print('  File: ' + filename)
 		i = 0
+		geoAdjusts = 0
 		for v in reader(open(datafile)):
 			#print(i, v)
 			if (i == 0): # header row (first record)
@@ -274,9 +279,39 @@ def ingestNationalData(world, basepath, smooth = True):
 					s.a['adm1'] = v[7] # 'US'
 					s.a['adm2'] = v[6]
 					s.a['adm3'] = v[5]
+				# check FIPS
 				s.a['fips'] = checkFIPS(v[4].replace('.0',''), v)
+				# check LAT/LON; snap to US county reference which is better or fall back to US state
+				cr = crDB.get(s.a['fips'])
+				if cr == None:
+					if s.a['key'].startswith('Unassigned, ') or s.a['key'].startswith('Out of '):
+						# eg 'Out of RI, Rhode Island, US'
+						# eg 'Unassigned, Wisconsin, US'
+						temp = s.a['key'].split(',')[1].strip()
+						sr = srDB[2].get(temp)
+						assert sr != None, 'State ' + temp + ' unrecognized!'
+						geoAdjusts += 1
+						s.a['lat'] = round(float(sr['LAT']), 6)
+						s.a['lon'] = round(float(sr['LON']), 6)
+					else:
+						# check state reference (guam, virgin islands, etc... where county is not disclosed)
+						temp = s.a['key'].split(',')[0].strip()
+						sr = srDB[2].get(temp)
+						if sr != None:
+							geoAdjusts += 1
+							s.a['lat'] = round(float(sr['LAT']), 6)
+							s.a['lon'] = round(float(sr['LON']), 6)
+						else:
+							print('      CR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
+							s.a['lat'] = 0.0
+							s.a['lon'] = 0.0
+				else:
+					if (s.a['lat'] != cr['Lat'] or s.a['lon'] != cr['Lon']): geoAdjusts += 1
+					s.a['lat'] = round(float(cr['Lat']), 6)
+					s.a['lon'] = round(float(cr['Lon']), 6)
 			i += 1
 		n_rows = i-1
+		print('    # Geo Adjustments (' + label + '): ' + str(geoAdjusts))
 		print('    # Rows (' + label + '): ' + str(n_rows))
 		print('    # Countries (' + label + '): ' + str(world.numAreas()))
 	return n_rows
@@ -296,6 +331,30 @@ def ingestData(basepath, name = 'World'):
 		sys.exit(1)
 	# return world
 	return world
+
+def loadCountyReference():
+	print('Loading County Reference CSV Resource...')
+	db = {}
+	datafile = path.abspath(path.join(path.dirname(__file__), '../data/resources/us_counties.csv'))
+	n = 0
+	with open(datafile, 'r', encoding='utf-8-sig') as csvfile:
+		for line in csv.DictReader(csvfile):
+			db[line['KEY']] = line
+	print('  # Counties: ' + str(len(db)))
+	return db
+
+def loadStateReference():
+	print('Loading State Reference CSV Resource...')
+	db = [{}, {}, {}] # by FIPS, by STATE ABBR, by STATE NAME
+	datafile = path.abspath(path.join(path.dirname(__file__), '../data/resources/states.csv'))
+	n = 0
+	with open(datafile, 'r', encoding='utf-8-sig') as csvfile:
+		for line in csv.DictReader(csvfile):
+			db[0][line['KEY']] = line
+			db[1][line['ABBR']] = line
+			db[2][line['STATE']] = line
+	print('  # States and Territories: ' + str(len(db[0])))
+	return db
 
 # add 2 numpy arrays, b into a, preserving a's length
 def addArrays(a, b):
@@ -395,10 +454,10 @@ def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis
 		ax.plot(getIndexR(area.getData(label, v_thresh), 1), area.getData(label, v_thresh), '-', color = c, label = area.name())
 		ax.plot(getIndexR(area.getData(label, v_thresh), 1)[-1], area.getData(label, v_thresh)[-1], 'o', color = c)
 		# annotate highest # area.world.getDates()[-1].strftime('%m/%d/%Y')
-		if i == 0: 
-			ax.annotate(area.getData(label, v_thresh)[-1], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
-				area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
-				fontsize=8, horizontalalignment='right', color='black')
+		# if i == 0: 
+			# ax.annotate(area.getData(label, v_thresh)[-1], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
+				# area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+				# fontsize=8, horizontalalignment='right', color='black')
 	# labels
 	ax.legend(prop={'size': 7})
 	ax.set_title(title, fontsize=14, horizontalalignment='center')
