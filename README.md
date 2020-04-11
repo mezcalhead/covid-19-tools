@@ -57,18 +57,18 @@ v_thresh = 10 # threshhold for starting particular plots
 
 set = {}
 for key in ['US', 'Italy', 'Germany', 'United Kingdom']:
-	area = world.getArea(key)
-	set[area.name()] = area
+  area = world.getArea(key)
+  set[area.name()] = area
 for key in ['New York', 'New Jersey', 'Michigan', 'Louisiana']:
-	area = world.getArea('US').getArea(key)
-	set[area.name()] = area
+  area = world.getArea('US').getArea(key)
+  set[area.name()] = area
 
 filename = path.abspath(path.join(basepath, 'multiplot_mix_c.png'))
 ct.multiPlot(set, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
-	xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+  xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
 filename = path.abspath(path.join(basepath, 'multiplot_mix_d.png'))
 ct.multiPlot(set, 'DEATHS', 'Deaths', filename, v_thresh, \
-	xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+  axis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
 
 print('\nDone.')
 duration = timer()-start
