@@ -21,9 +21,12 @@ if __name__ == '__main__':
 	# export (assumes JHU's COVID-19 is installed under the root directory as COVID-19-TOOLS)
 	basepath = path.abspath(path.join(path.dirname(__file__), '../../COVID-19/csse_covid_19_data/csse_covid_19_time_series/'))
 	world = ct.ingestData(basepath)
+
+	print('++++++++++++++++++++++++++++++++++++++++++++')
 	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_standard.txt')))
 	world.exportTransposed(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_transposed.txt')))
 	world.exportShapefile(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_covid.shp')))
+	world.dump(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'world.p')))
 	
 	print('\nDone.')
 	duration = timer()-start

@@ -23,11 +23,7 @@ if __name__ == '__main__':
 	dt_string = now.strftime('%d/%m/%Y %H:%M:%S')
 	print('Starting... (' + dt_string + ' Z)')
 	
-	# ingest (assumes JHU's COVID-19 is installed under the root directory as COVID-19-TOOLS)
-	basepath = path.abspath(path.join(path.dirname(__file__), '../../COVID-19/csse_covid_19_data/csse_covid_19_time_series/'))
-	world = ct.ingestData(basepath)
-	
-	print('++++++++++++++++++++++++++++++++++++++++++++')
+	world = ct.fetchWorld()
 	
 	basepath = path.abspath(path.join(path.dirname(__file__), '..', 'tmp',))
 	if not os.path.exists(basepath):

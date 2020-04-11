@@ -6,6 +6,7 @@
 from datetime import datetime
 from datetime import timedelta
 from timeit import default_timer as timer
+import os
 from os import listdir, path
 from os.path import isfile, join
 from csv import reader
@@ -141,7 +142,7 @@ def checkFIPS(fips, v):
 	if fips == '': fips = '99999'
 	assert len(fips) == 5, 'WARNING: FIPS != 5 Digits: ' + fips + ' | ' + str(v)
 	return fips
-	
+
 def checkGlobalData(world, n_rows):
 	print('Checking Global Data...')
 	i = 0
@@ -164,6 +165,23 @@ def checkGlobalData(world, n_rows):
 	else:
 		print('  # Rows (Structure Check): ' + str(i) + ' (FAIL)')
 		sys.exit(3)
+
+def convertBytes(num):
+	"""
+	this function will convert bytes to MB.... GB... etc
+	"""
+	for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+		if num < 1024.0:
+			return "%3.1f %s" % (num, x)
+		num /= 1024.0
+
+def fileSize(file_path):
+	"""
+	this function will return the file size
+	"""
+	if os.path.isfile(file_path):
+		file_info = os.stat(file_path)
+		return convertBytes(file_info.st_size)
 
 # return array of indices from the array provided, e.g. [0, 1, 2, 3, 4...]
 def getIndexR(data, shift = 0):
@@ -355,6 +373,26 @@ def loadStateReference():
 			db[2][line['STATE']] = line
 	print('  # States and Territories: ' + str(len(db[0])))
 	return db
+
+def fetchWorld(filename = None):
+	if filename == None:
+		filename = path.abspath(path.join(path.dirname(__file__), '../data/world.p'))
+	if not os.path.isfile(filename):
+		print('Cache Not Found.  Ingesting...')
+		# ingest (assumes JHU's COVID-19 is installed under the root directory as COVID-19-TOOLS)
+		basepath = path.abspath(path.join(path.dirname(__file__), '../../COVID-19/csse_covid_19_data/csse_covid_19_time_series/'))
+		world = ingestData(basepath)
+		
+		# try to dump
+		print('Caching World...')
+		world.dump(filename)
+		print(fileSize(filename))
+		return world
+	# try to load
+	print('Loading World from Cache...', end=' ')
+	world = cs.World.load(filename)
+	print(fileSize(filename))
+	return world
 
 # add 2 numpy arrays, b into a, preserving a's length
 def addArrays(a, b):

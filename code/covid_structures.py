@@ -7,6 +7,7 @@ import numpy as np
 import shapefile
 from datetime import datetime
 from datetime import timedelta
+import pickle
 
 class Error(Exception):
 	"""Base class for exceptions in this module."""
@@ -184,6 +185,10 @@ class World(Area):
 		self.a['fips'] = 'N/A'
 		self.__dates = [] # date data
 		self.world = self
+	
+	def dump(self, filename):
+		print('Saving World Cache [' + filename + ']...')
+		pickle.dump(self, open(filename, 'wb'))
 	
 	def exportShapefile(self, filename):
 		print('Exporting Shapefile [' + filename + ']...')
@@ -366,6 +371,10 @@ class World(Area):
 	
 	def lenData(self):
 		return len(self.__dates)
+	
+	@staticmethod
+	def load(filename):
+		return pickle.load(open(filename, 'rb'))
 	
 	def setDates(self, startDate, length):
 		self.__dates = [datetime.now() for i in range(length)]
