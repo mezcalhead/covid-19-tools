@@ -50,6 +50,10 @@ ct.simplePlot(area, 'some title', filename, 20, xaxis = 'Days')
 
 Here's a loop to plot several US states and countries in a single multiPlot trend.  We use the set {} hash to store the mix of areas we identified and sent to the multiPlot function calls - one for confirmed cases and one for deaths - after those areas relatively crossed a threshhold of 10 cases and 10 deaths.
 
+![image](https://user-images.githubusercontent.com/3859765/79036481-a0b8d500-7b96-11ea-90b9-3f2747973fb7.png)
+
+Here's the code snipplet for the above image:
+
 ```python
 # plot individual areas
 set = {}
