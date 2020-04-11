@@ -75,6 +75,8 @@ duration = timer()-start
 print('Execution Time: {:0.2f}s'.format(duration))
 ```
 
+![image](https://user-images.githubusercontent.com/3859765/79036463-79620800-7b96-11ea-8d02-ddc6de2aa4d7.png)
+
 Here is the code snipplet for the above image:
 
 ```python
