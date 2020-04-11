@@ -48,7 +48,7 @@ There are also some basic plotting functions such as this.  Just give it an area
 ct.simplePlot(area, 'some title', filename, 20, xaxis = 'Days')
 ```
 
-Here's a loop to plot several US states and countries in a single multiPlot trend.  We use the set {} hash to store the mix of areas we identified and sent to the multiPlot function call.
+Here's a loop to plot several US states and countries in a single multiPlot trend.  We use the set {} hash to store the mix of areas we identified and sent to the multiPlot function calls - one for confirmed cases and one for deaths - after those areas relatively crossed a threshhold of 10 cases and 10 deaths.
 
 ```python
 	# plot individual areas
