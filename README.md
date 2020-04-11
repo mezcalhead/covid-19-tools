@@ -2,15 +2,19 @@
 
 This site and code's purpose is to assist with data analysis tools and scripts on the JHU SSE Covid feed.  The code is NumPy/SciPy friendly so that the data is ready to go for performant analysis.  We credit Johns Hopkins for their data to make our project possible.  Other data sets may be added at a later time.<br>
 
+The <b>code</b> directory has the core python code, classes, and utilities.<br>
+The <b>data</b> directory is where output files are placed, as well as reference files.<br>
+
 One line of code ingests the JHU data while performing some basic cleanups:
 
 ```python
 world = ct.ingestData('some-path-to-JHU-CSSE-dir')
 ```
+Or take advantage of our nighly cached world object, so your code runs blazing fast...
 
-The <b>code</b> directory has the core python code, classes, and utilities.<br>
-
-The <b>data</b> directory is where output files are placed, as well as reference files.<br>
+```python
+world = ct.fetchWorld()
+```
 
 Here is a simple code example that reports on the US confirmed cases and deaths, iterates all the countries, then iterates all the counties in VA.  All geographic hierarchies descend from the base class 'Area' in covid-structures.py:
 
