@@ -10,7 +10,7 @@ One line of code ingests the JHU data while performing some basic cleanups:
 ```python
 world = ct.ingestData('some-path-to-JHU-CSSE-dir')
 ```
-Or take advantage of our nighly cached world object, so your data initializes blazingly fast. You don't need to sync directly with JHU's GitHub leveraging our cache!
+Or take advantage of our nightly cached world object, so your data initializes blazingly fast. You don't need to sync directly with JHU's GitHub leveraging our cache!
 
 ```python
 world = ct.fetchWorld()
