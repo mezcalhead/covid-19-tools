@@ -16,7 +16,9 @@ Or take advantage of our nighly cached world object, so your code runs blazing f
 world = ct.fetchWorld()
 ```
 
-Here is a simple code example that reports on the US confirmed cases and deaths, iterates all the countries, then iterates all the counties in VA.  All geographic hierarchies descend from the base class 'Area' in covid-structures.py:
+![image](https://user-images.githubusercontent.com/3859765/79037459-3ce6da00-7b9f-11ea-9a20-e96a9dc5de82.png)
+
+Below is a simple code example that reports on the US confirmed cases and deaths, iterates all the countries, then iterates all the counties in VA.  All geographic hierarchies descend from the base class 'Area' in covid-structures.py:
 
 ```python
 import covid_tools as ct
