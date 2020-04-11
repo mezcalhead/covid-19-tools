@@ -121,3 +121,7 @@ filename = path.abspath(path.join(basepath, 'multiplot_g_d.png'))
 ct.multiPlot(bag, 'DEATHS', 'Deaths', filename, v_thresh, \
   xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), in_h = 10, in_w = 6.5)
 ```
+
+This project has been generously sponsored, in part, by Culmen International (www.culmen.com).
+
+![image](https://user-images.githubusercontent.com/3859765/79036532-03aa6c00-7b97-11ea-947a-72fa3008a4c5.png)
