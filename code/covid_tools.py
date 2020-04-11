@@ -302,7 +302,7 @@ def ingestNationalData(world, basepath, smooth = True):
 							s.a['lat'] = round(float(sr['LAT']), 6)
 							s.a['lon'] = round(float(sr['LON']), 6)
 						else:
-							print('      CR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
+							print('      SR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
 							s.a['lat'] = 0.0
 							s.a['lon'] = 0.0
 				else:
@@ -373,8 +373,10 @@ def sumArrays(a, b):
 		c[:len(b)] += b
 	return c
 
-def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day'):
+def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day', step = 5, in_h = 6, in_w = 8):
 	fig, ax = plt.subplots()
+	fig.set_figheight(in_h)
+	fig.set_figwidth(in_w)
 	# custom x labels
 	if (False):
 		custom_labels = []
@@ -382,29 +384,31 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day
 			custom_labels.append((d_data[0] + timedelta(days=i)).strftime('%m/%d')) # + ' (+' + str(i) + ')')
 		plt.xticks(xm_data, custom_labels, rotation='vertical')
 	ax.margins(0.08)
-	plt.subplots_adjust(bottom=0.20, left=0.30)
+	plt.subplots_adjust(bottom=0.15, left=0.15)
 	# footer
-	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
 		horizontalalignment='right', color='gray', transform=ax.transAxes)
-	plt.text(-0.2, -0.28, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+	plt.text(-0.1, -0.20, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
 		horizontalalignment='left', color='gray', transform=ax.transAxes)
 	# axis prep
 	ax.set_yscale(yscale)
 	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
-	ax.set_xticks(np.arange(1, (getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1]+3), step=5))
+	ax.set_xticks(np.arange(1, (getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1]+3), step=step))
 	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
 	# lines
 	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1), area.getData('CONFIRMED', v_thresh), '-', color ='blue', label ='Confirmed')
 	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], area.getData('CONFIRMED', v_thresh)[-1], 'o', color = 'blue')
-	ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1), area.getData('DEATHS', v_thresh), '-', color ='red', label ='Deaths')
-	ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], area.getData('DEATHS', v_thresh)[-1], 'o', color = 'red')
+	if not (area.getDataThreshI('DEATHS', v_thresh) == 0 and area.getData('DEATHS', v_thresh)[0] < v_thresh):
+		ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1), area.getData('DEATHS', v_thresh), '-', color ='red', label ='Deaths')
+		ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], area.getData('DEATHS', v_thresh)[-1], 'o', color = 'red')
 	# annotate # area.world.getDates()[-1].strftime('%m/%d/%Y')
-	ax.annotate(area.getData('CONFIRMED', v_thresh)[-1], xy=(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], \
+	ax.annotate('{:,}'.format(area.getData('CONFIRMED', v_thresh)[-1]), xy=(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], \
 		area.getData('CONFIRMED', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
 		fontsize=8, horizontalalignment='right', color='blue')
-	ax.annotate(area.getData('DEATHS', v_thresh)[-1], xy=(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], \
-		area.getData('DEATHS', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
-		fontsize=8, horizontalalignment='right', color='red')
+	if not (area.getDataThreshI('DEATHS', v_thresh) == 0 and area.getData('DEATHS', v_thresh)[0] < v_thresh):
+		ax.annotate('{:,}'.format(area.getData('DEATHS', v_thresh)[-1]), xy=(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], \
+			area.getData('DEATHS', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+			fontsize=8, horizontalalignment='right', color='red')
 	# labels
 	ax.legend()
 	ax.set_title(title, fontsize=14, horizontalalignment='center')
@@ -414,36 +418,39 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day
 	plt.savefig(filename)
 	plt.close(fig)
 	
-def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Days', overlay=['avg','sum']):
+def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Days', overlay = None, step = 5, in_h = 6, in_w = 8):
 	fig, ax = plt.subplots()
+	fig.set_figheight(in_h)
+	fig.set_figwidth(in_w)
 	ax.margins(0.08)
-	plt.subplots_adjust(bottom=0.20, left=0.30)
+	plt.subplots_adjust(bottom=0.15, left=0.15)
 	# footer
-	plt.text(1, -0.28,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
 		horizontalalignment='right', color='gray', transform=ax.transAxes)
-	plt.text(-0.2, -0.28, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+	plt.text(-0.1, -0.20, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
 		horizontalalignment='left', color='gray', transform=ax.transAxes)
 	# axis prep
 	ax.set_yscale(yscale)
 	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
 	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
 	# compute avg or sum
-	if 'avg' in overlay or 'sum' in overlay:
-		sum = np.zeros(1000)
-		shortest = 1000
-		longest = 0
-		for k, area in areas.items():
-			temp = area.getData(label, v_thresh)
-			sum = addArrays(sum, temp)
-			if len(temp) < shortest: shortest = len(temp)
-			if len(temp) > longest: longest = len(temp)
-		sum = sum[:longest].copy()
-		avg = sum[:shortest].copy()
-		avg /= len(areas)
-		if 'avg' in overlay: ax.plot(getIndexR(avg, 1), avg, '-.', color = 'black', label = 'Average')
-		if 'sum' in overlay: ax.plot(getIndexR(sum, 1), sum, '--', color = 'black', label = 'Sum')
+	sum = np.zeros(1000)
+	shortest = 1000
+	longest = 0
+	for k, area in areas.items():
+		temp = area.getData(label, v_thresh)
+		sum = addArrays(sum, temp)
+		if len(temp) < shortest: shortest = len(temp)
+		if len(temp) > longest: longest = len(temp)
+	if overlay != None:
+		if 'avg' in overlay or 'sum' in overlay:
+			sum = sum[:longest].copy()
+			avg = sum[:shortest].copy()
+			avg /= len(areas)
+			if 'avg' in overlay: ax.plot(getIndexR(avg, 1), avg, '-.', color = 'black', label = 'Average')
+			if 'sum' in overlay: ax.plot(getIndexR(sum, 1), sum, '--', color = 'black', label = 'Sum')
 	# x-ticks
-	ax.set_xticks(np.arange(1, longest+3, step=5))
+	ax.set_xticks(np.arange(1, longest+1, step=step))
 	# lines
 	for i, (k, area) in enumerate(areas.items()):
 		#print(k + ' >> ' + str(area))
@@ -454,10 +461,10 @@ def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis
 		ax.plot(getIndexR(area.getData(label, v_thresh), 1), area.getData(label, v_thresh), '-', color = c, label = area.name())
 		ax.plot(getIndexR(area.getData(label, v_thresh), 1)[-1], area.getData(label, v_thresh)[-1], 'o', color = c)
 		# annotate highest # area.world.getDates()[-1].strftime('%m/%d/%Y')
-		# if i == 0: 
-			# ax.annotate(area.getData(label, v_thresh)[-1], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
-				# area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
-				# fontsize=8, horizontalalignment='right', color='black')
+		# if i == 0:      area.getData(label, v_thresh)[-1] <-- this would be the most recent measurement
+		ax.annotate(area.name()[:3], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
+			area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+			fontsize=8, horizontalalignment='right', color='black')
 	# labels
 	ax.legend(prop={'size': 7})
 	ax.set_title(title, fontsize=14, horizontalalignment='center')

@@ -36,7 +36,7 @@ if __name__ == '__main__':
 	# plot individual areas
 	set = {}
 	sort_set = {}
-	v_thresh = 10 # threshhold for starting particular plots
+	v_thresh = 5 # threshhold for starting particular plots
 	
 	state = world.getArea('US').getArea('Virginia')
 	for area in state.areas():
@@ -49,25 +49,27 @@ if __name__ == '__main__':
 			set[area.name()] = area
 			sort_set[area.name()] = int(area.getData('CONFIRMED')[-1]) # last value
 			xaxis_label = 'Days (since ' + str(v_thresh) + '+ occurences) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y')
-			ct.simplePlot(area, area.a['name'], filename, v_thresh, xaxis = xaxis_label)
+			print('Plotting ' + area.name() + '...')
+			ct.simplePlot(area, area.a['name'], filename, v_thresh, xaxis = xaxis_label, step = 3)
 	
-	# work with the top 10 subset
+	# work with the top 20 subset
+	print('++++++++++++++++++++++++++++++++++++++++++++')
 	bag = {}
 	i = 0
 	for k, v in sorted(sort_set.items(), key = lambda kv:(kv[1], kv[0]), reverse = True):
 		print(k, v)
 		bag[k] = set[k]
 		i += 1
-		if (i > 10): break
+		if (i > 20): break
 	
-	# plot top 10 subset
+	# plot top 20 subset
 	print('++++++++++++++++++++++++++++++++++++++++++++')
 	filename = path.abspath(path.join(basepath, 'multiplot_va_c.png'))
 	ct.multiPlot(bag, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+		xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), step = 3)
 	filename = path.abspath(path.join(basepath, 'multiplot_va_d.png'))
 	ct.multiPlot(bag, 'DEATHS', 'Deaths', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+		xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'], step = 3)
 	
 	print('\nDone.')
 	duration = timer()-start

@@ -108,8 +108,29 @@ class Area(Place):
 		# shift via thresh?
 		if (thresh > 0):
 			i = np.argmax(self.__t[label] >= thresh) # index of first occurrence greater than thresh
+			#print(self.__t[label], thresh, i)
 			return self.__t[label][i:] # return slice starting from there
 		return self.__t[label]
+	
+	def getDataThreshI(self, label, thresh = 0, recalculate = False):
+		#print('=================')
+		#print('s.getData()', self.a['name'], label, self.world.lenData())
+		#self.debug()
+		#print('=================')
+		if (label not in self.__t or recalculate):
+			self.__t[label] = np.zeros(self.world.lenData(), dtype = int)
+			if (label in self.a): self.__t[label] += self.a[label]
+			for a in self.areas(): # next level, e.g. 2 or 3, if it exists
+				temp = a.getData(label, recalculate)
+				#print('>>>', temp)
+				if (type(temp) == np.ndarray): self.__t[label] += temp
+				#a.debug()
+				#print('-------------------------------------')
+		# shift via thresh?
+		if (thresh > 0):
+			i = np.argmax(self.__t[label] >= thresh) # index of first occurrence greater than thresh
+			return i # return slice starting from there
+		return 0
 	
 	def getParent(self):
 		return self.__parent

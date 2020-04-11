@@ -35,25 +35,15 @@ if __name__ == '__main__':
 	
 	# plot individual areas
 	set = {}
-	v_thresh = 10 # threshhold for starting particular plots
+	v_thresh = 10 # threshhold for starting particular plots (# cases, # deaths)
 	
 	set = {}
-	area = world.getArea('US')
-	set[area.name()] = area
-	area = world.getArea('Italy')
-	set[area.name()] = area
-	area = world.getArea('US').getArea('New York')
-	set[area.name()] = area
-	area = world.getArea('US').getArea('New Jersey')
-	set[area.name()] = area
-	area = world.getArea('US').getArea('Michigan')
-	set[area.name()] = area
-	area = world.getArea('US').getArea('Louisiana')
-	set[area.name()] = area
-	area = world.getArea('Germany')
-	set[area.name()] = area
-	area = world.getArea('United Kingdom')
-	set[area.name()] = area
+	for key in ['US', 'Italy', 'Germany', 'United Kingdom']:
+		area = world.getArea(key)
+		set[area.name()] = area
+	for key in ['New York', 'New Jersey', 'Michigan', 'Louisiana']:
+		area = world.getArea('US').getArea(key)
+		set[area.name()] = area
 	
 	filename = path.abspath(path.join(basepath, 'multiplot_mix_c.png'))
 	ct.multiPlot(set, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
