@@ -1,6 +1,6 @@
-<h2>COVID-19 Tracker Tools Project</h2>
+<h2>COVID-19 Tools Project</h2>
 
-This site is public to assist with data analysis tools and scripts on the JHU SSE Covid feed.  The code is NumPy/SciPy friendly so that the data is ready to go for analysis.  We credit Johns Hopkins for their data to make our project possible.  Other data sets may be added at a later time.<br>
+This site and code's purpose is to assist with data analysis tools and scripts on the JHU SSE Covid feed.  The code is NumPy/SciPy friendly so that the data is ready to go for performant analysis.  We credit Johns Hopkins for their data to make our project possible.  Other data sets may be added at a later time.<br>
 
 One line of code ingests the JHU data while performing some basic cleanups:
 
@@ -12,7 +12,7 @@ The <b>code</b> directory has the core python code, classes, and utilities.<br>
 
 The <b>data</b> directory is where output files are placed, as well as reference files.<br>
 
-Here is a simple code example:
+Here is a simple code example that reports on the US confirmed cases and deaths, iterates all the countries, then iterates all the counties in VA.  All geographic hierarchies descend from the base class 'Area' in covid-structures.py:
 
 ```python
 import covid_tools as ct
@@ -42,13 +42,13 @@ for area in c.getArea('Virginia').areas():
   print(area.name() + ' has ' + data[-1] + ' deaths as of ' + area.world.getDates()[-1].strftime('%m/%d/%Y') + '...')
 ```
 
-There are also some simple plotting functions.
+There are also some basic plotting functions such as this.  Just give it an area (a county, nation, state, etc...):
 
 ```python
 ct.simplePlot(area, 'some title', filename, 20, xaxis = 'Days')
 ```
 
-Here's a simple loop to print several states in the US after creating a SET and sending to multiPlot:
+Here's a loop to plot several US states and countries in a single multiPlot trend.  We use the set {} hash to store the mix of areas we identified and sent to the multiPlot function call.
 
 ```python
 	# plot individual areas
