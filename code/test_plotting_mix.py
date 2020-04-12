@@ -36,17 +36,17 @@ if __name__ == '__main__':
 	set = {}
 	for key in ['US', 'Italy', 'Germany', 'United Kingdom']:
 		area = world.getArea(key)
-		set[area.name()] = area
+		set[area.key()] = area
 	for key in ['New York', 'New Jersey', 'Michigan', 'Louisiana']:
 		area = world.getArea('US').getArea(key)
-		set[area.name()] = area
+		set[area.key()] = area
 	
-	filename = path.abspath(path.join(basepath, 'multiplot_mix_c.png'))
-	ct.multiPlot(set, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
-	filename = path.abspath(path.join(basepath, 'multiplot_mix_d.png'))
-	ct.multiPlot(set, 'DEATHS', 'Deaths', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'])
+	print('Plotting...')
+	print('++++++++++++++++++++++++++++++++++++++++++++')
+	filename = path.abspath(path.join(basepath, 'multiplot_m_c.png'))
+	ct.multiPlot(set, 'Confirmed', filename, 'CONFIRMED', v_thresh)
+	filename = path.abspath(path.join(basepath, 'multiplot_m_d.png'))
+	ct.multiPlot(set, 'Deaths', filename, 'DEATHS', v_thresh, overlay=['avg'])
 	
 	print('\nDone.')
 	duration = timer()-start

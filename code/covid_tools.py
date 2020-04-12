@@ -17,6 +17,7 @@ from matplotlib import pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import ScalarFormatter
 import random
+import math
 
 import covid_structures as cs
 
@@ -401,67 +402,189 @@ def addArrays(a, b):
 		a[i] += b[i]
 	return a
 
-# sum 2 numpy arrays with the result having the longest length
-def sumArrays(a, b):
+# sum 2 numpy arrays with the result having the longest length, left-justified/aligned
+def sumArraysLJ(a, b):
+	#print('LJ###############################################')
+	#print('a',a)
+	#print('b',b)
 	if len(a) < len(b):
 		c = b.copy()
+		if len(a) == 0: return c
 		c[:len(a)] += a
 	else:
 		c = a.copy()
+		if len(b) == 0: return c
 		c[:len(b)] += b
+	#print('c',c)
 	return c
 
-def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Day', step = 5, in_h = 6, in_w = 8):
-	fig, ax = plt.subplots()
-	fig.set_figheight(in_h)
-	fig.set_figwidth(in_w)
-	# custom x labels
-	if (False):
-		custom_labels = []
-		for i in range(len(xm_data)):
-			custom_labels.append((d_data[0] + timedelta(days=i)).strftime('%m/%d')) # + ' (+' + str(i) + ')')
-		plt.xticks(xm_data, custom_labels, rotation='vertical')
-	ax.margins(0.08)
-	plt.subplots_adjust(bottom=0.15, left=0.15)
-	# footer
-	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
-		horizontalalignment='right', color='gray', transform=ax.transAxes)
-	plt.text(-0.1, -0.20, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
-		horizontalalignment='left', color='gray', transform=ax.transAxes)
-	# axis prep
-	ax.set_yscale(yscale)
-	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
-	ax.set_xticks(np.arange(1, (getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1]+3), step=step))
-	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
-	# lines
-	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1), area.getData('CONFIRMED', v_thresh), '-', color ='blue', label ='Confirmed')
-	ax.plot(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], area.getData('CONFIRMED', v_thresh)[-1], 'o', color = 'blue')
-	if not (area.getDataThreshI('DEATHS', v_thresh) == 0 and area.getData('DEATHS', v_thresh)[0] < v_thresh):
-		ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1), area.getData('DEATHS', v_thresh), '-', color ='red', label ='Deaths')
-		ax.plot(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], area.getData('DEATHS', v_thresh)[-1], 'o', color = 'red')
-	# annotate # area.world.getDates()[-1].strftime('%m/%d/%Y')
-	ax.annotate('{:,}'.format(area.getData('CONFIRMED', v_thresh)[-1]), xy=(getIndexR(area.getData('CONFIRMED', v_thresh), 1)[-1], \
-		area.getData('CONFIRMED', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
-		fontsize=8, horizontalalignment='right', color='blue')
-	if not (area.getDataThreshI('DEATHS', v_thresh) == 0 and area.getData('DEATHS', v_thresh)[0] < v_thresh):
-		ax.annotate('{:,}'.format(area.getData('DEATHS', v_thresh)[-1]), xy=(getIndexR(area.getData('DEATHS', v_thresh), 1)[-1], \
-			area.getData('DEATHS', v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
-			fontsize=8, horizontalalignment='right', color='red')
-	# labels
-	ax.legend()
-	ax.set_title(title, fontsize=14, horizontalalignment='center')
-	ax.set_xlabel(xaxis, fontsize=10)
-	ax.set_ylabel('# ' + 'People', fontsize=10)
-	# save
-	plt.savefig(filename)
-	plt.close(fig)
+# sum 2 numpy arrays with the result having the longest length, right-justified/aligned
+def sumArraysRJ(a, b):
+	#print('RJ###############################################')
+	#print('a',a)
+	#print('b',b)
+	if len(a) < len(b):
+		c = b.copy()
+		if len(a) == 0: return c
+		c[-len(a):] += a
+	else:
+		c = a.copy()
+		if len(b) == 0: return c
+		c[-len(b):] += b
+	#print('c',c)
+	return c
+
+class timeSeriesGroup():
 	
-def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis = 'Days', overlay = None, step = 5, in_h = 6, in_w = 8):
+	def __init__(self):
+		self.db = {} # the database hash 
+		self.avgy = [] # average line
+		self.llen = 0 # max length of overall series (some timeSeries may be shorter)
+		self.lxdata = [] # longest series of dates
+		self.lndata = [] # longest series of sequence
+		self.nvalid = 0 # valid
+		self.slen = sys.maxsize # min length of overall series (some timeSeries may be longer)
+		self.sxdata = [] # shortest series of dates
+		self.sndata = [] # shortest series of sequence
+		self.sumy = [] # sum line
+		self.tightened = False # flag if tightened or not
+	
+	def add(self, timeSeries):
+		self.db[timeSeries.key] = timeSeries
+	
+	def get(self, key):
+		ts = self.db.get(key)
+		assert type(ts) == timeSeries
+		return ts
+	
+	# compute avg/sum
+	def overlay(self, usedates = False, start = 0):
+		self.avgy = []
+		self.sumy = []
+		self.nvalid = 0
+		if not usedates:
+			for ts in self.timeSeries():
+				#print(ts.key, ts.ydata)
+				if ts.invalid: continue
+				self.nvalid += 1
+				if len(self.sumy) == 0: self.sumy = np.zeros(len(ts.ydata), dtype = np.int64)
+				self.sumy = sumArraysLJ(self.sumy, ts.ydata)
+			self.avgy = 1.0 * self.sumy[:self.slen].copy()
+			#print('avg*', self.avgy)
+			self.avgy /= self.nvalid
+			#print('sum', self.sumy)
+			#print('avg', self.avgy)
+		else:
+			for ts in self.timeSeries():
+				#print(ts.key, ts.ydata)
+				if ts.invalid: continue
+				self.nvalid += 1
+				if len(self.sumy) == 0: self.sumy = np.zeros(len(ts.ydata), dtype = np.int64)
+				self.sumy = sumArraysRJ(self.sumy, ts.ydata)
+			self.avgy = 1.0 * self.sumy[-self.slen:].copy()
+			#print('avg*', self.avgy)
+			self.avgy /= self.nvalid
+			#print('sum', self.sumy)
+			#print('avg', self.avgy)
+		self.lndata = np.arange(start, self.llen + start)
+		self.sndata = np.arange(start, self.slen + start)
+	
+	# regenerates the number sequence data, which is useful as an axis in lieu of dates (usedates = True or False)
+	# start is 0 or 1, but could be anything else
+	def sequence(self, start = 0):
+		self.llen = 0
+		self.slen = sys.maxsize
+		for ts in self.timeSeries():
+			if ts.invalid: continue
+			ts.ndata = np.arange(start, len(ts.ydata) + start)
+			if len(ts.ndata) > self.llen:
+				self.llen = len(ts.ndata) # longest llen
+				self.lxdata = np.copy(ts.xdata)
+			if len(ts.ndata) < self.slen:
+				self.slen = len(ts.ndata) # shortest slen
+				self.sxdata = np.copy(ts.xdata)
+	
+	# determine earliest (index i) y-value position at or above threshhold for each member of the group
+	# applies threshhold v_thresh to EACH
+	def thresh(self, v_thresh, start = 0):
+		if not self.tightened: self.tighten(0)
+		for ts in self.timeSeries():
+			i = np.argmax(ts.ydata >= v_thresh)
+			#print(ts.key, i)
+			if i == 0 and ts.ydata[i] < v_thresh:
+				ts.xdata = []
+				ts.ydata = []
+				ts.invalid = True
+			else:
+				# clip this timeSeries
+				ts.xdata = ts.xdata[i:]
+				ts.ydata = ts.ydata[i:]
+		self.v_thresh = v_thresh
+		self.sequence(start)
+	
+	# determine earliest (index i) y-value position at or above threshhold for the group
+	# with v_thresh = 0, removes leading zeros (much of the data 1/22 - mid Feb is filled with zeros for the world)
+	def tighten(self, v_thresh = 0, start = 0):
+		min_i = sys.maxsize
+		for ts in self.timeSeries():
+			i = np.argmax(ts.ydata >= v_thresh)
+			#print(ts.key, i)
+			if i < min_i: min_i = i
+		# clip all timeSeries at least common position
+		for ts in self.timeSeries():
+			ts.xdata = ts.xdata[min_i:]
+			ts.ydata = ts.ydata[min_i:]
+		self.tightened = True
+		self.sequence(start)
+	
+	def timeSeries(self):
+		for k in sorted(self.db.keys()):
+			yield self.db.get(k)
+
+class timeSeries():
+	
+	def __init__(self, key, area, label, xdata, ydata):
+		self.key = key # key override
+		self.area = area
+		self.label = label
+		self.ydata = np.copy(ydata) # for data integrity reasons, timeSeries can be manipulated freely
+		self.xdata = np.copy(xdata) # for data integrity reasons, timeSeries can be manipulated freely
+		self.ndata = None # numbers
+		self.invalid = False # invalid when there is no data after a threshhold is applied
+
+def basePlot(tsg, title, filename, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
 	fig, ax = plt.subplots()
 	fig.set_figheight(in_h)
 	fig.set_figwidth(in_w)
+	#overlay = ['sum','avg']
+	if overlay != None:
+		tsg.overlay(usedates, start = 1)
+		if 'avg' in overlay or 'sum' in overlay:
+			if 'avg' in overlay: ax.plot(tsg.sxdata if usedates else tsg.sndata, tsg.avgy, '-.', color = 'black', label = 'Avg')
+			if 'sum' in overlay: 
+				xtemp = tsg.lxdata if usedates else tsg.lndata
+				ax.plot(xtemp, tsg.sumy, '--', color = 'black', label = 'Sum')
+				ax.plot(xtemp[-1], tsg.sumy[-1], 'o', color = 'black')
+				ax.annotate('{:,}'.format(tsg.sumy[-1]), xy=(xtemp[-1], tsg.sumy[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+					fontsize=8, horizontalalignment='right', color='black')
+	# x labels
+	xend = tsg.llen if tsg.llen % 2 == 0 else tsg.llen + 1 # increment up if odd number
+	if step == None:
+		step = 1 if xend < 20 else int(math.ceil(xend / 20.0)) # 20 is a good number of x ticks for the default in_w
+		#print(xend, step, tsg.llen)
+	if (usedates):
+		#print(filename, tsg.lxdata, step)
+		days = mdates.drange(tsg.lxdata[0], tsg.lxdata[len(tsg.lxdata)-1], timedelta(days=1))
+		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
+		plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=step))
+		plt.subplots_adjust(bottom=0.20, left=0.15)
+		xaxis = 'Dates'
+	else:
+		temp = np.arange(1, tsg.llen + 2, step)
+		ax.set_xticks(temp)
+		plt.subplots_adjust(bottom=0.15, left=0.15)
+		xaxis = 'Days since ' + str(tsg.v_thresh) + (' Cases' if tsg.v_thresh > 1 else ' Case')
 	ax.margins(0.08)
-	plt.subplots_adjust(bottom=0.15, left=0.15)
 	# footer
 	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
 		horizontalalignment='right', color='gray', transform=ax.transAxes)
@@ -471,46 +594,50 @@ def multiPlot(areas, label, title, filename, v_thresh = 0, yscale = 'log', xaxis
 	ax.set_yscale(yscale)
 	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
 	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
-	# compute avg or sum
-	sum = np.zeros(1000)
-	shortest = 1000
-	longest = 0
-	for k, area in areas.items():
-		temp = area.getData(label, v_thresh)
-		sum = addArrays(sum, temp)
-		if len(temp) < shortest: shortest = len(temp)
-		if len(temp) > longest: longest = len(temp)
-	if overlay != None:
-		if 'avg' in overlay or 'sum' in overlay:
-			sum = sum[:longest].copy()
-			avg = sum[:shortest].copy()
-			avg /= len(areas)
-			if 'avg' in overlay: ax.plot(getIndexR(avg, 1), avg, '-.', color = 'black', label = 'Average')
-			if 'sum' in overlay: ax.plot(getIndexR(sum, 1), sum, '--', color = 'black', label = 'Sum')
-	# x-ticks
-	ax.set_xticks(np.arange(1, longest+1, step=step))
 	# lines
-	for i, (k, area) in enumerate(areas.items()):
-		#print(k + ' >> ' + str(area))
+	for i, (k, ts) in enumerate(tsg.db.items()):
+		#print(k, ts.ydata, ts.ndata)
+		if ts.invalid: continue
 		r = random.random()
 		b = random.random()
 		g = random.random()
 		c = (r, g, b)
-		ax.plot(getIndexR(area.getData(label, v_thresh), 1), area.getData(label, v_thresh), '-', color = c, label = area.name())
-		ax.plot(getIndexR(area.getData(label, v_thresh), 1)[-1], area.getData(label, v_thresh)[-1], 'o', color = c)
-		# annotate highest # area.world.getDates()[-1].strftime('%m/%d/%Y')
-		# if i == 0:      area.getData(label, v_thresh)[-1] <-- this would be the most recent measurement
-		ax.annotate(area.name()[:3], xy=(getIndexR(area.getData(label, v_thresh), 1)[-1], \
-			area.getData(label, v_thresh)[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
+		xtemp = ts.xdata if usedates else ts.ndata
+		ax.plot(xtemp, ts.ydata, '-', color = c, label = ts.label)
+		ax.plot(xtemp[-1], ts.ydata[-1], 'o', color = c)
+		temp = '{:,}'.format(ts.ydata[-1]) if tsg.nvalid < 4 else ts.label[:3]
+		ax.annotate(temp, xy=(xtemp[-1], ts.ydata[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
 			fontsize=8, horizontalalignment='right', color='black')
 	# labels
-	ax.legend(prop={'size': 7})
+	if (usedates): plt.gcf().autofmt_xdate()
+	ax.legend(prop={'size': 7}, loc='upper left')
 	ax.set_title(title, fontsize=14, horizontalalignment='center')
 	ax.set_xlabel(xaxis, fontsize=10)
 	ax.set_ylabel('# ' + 'People', fontsize=10)
 	# save
 	plt.savefig(filename)
 	plt.close(fig)
+
+def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
+	tsg = timeSeriesGroup()
+	tsg.add(timeSeries(area.key()+'_C', area, 'Confirmed', area.world.getDates(), area.getData('CONFIRMED')))
+	tsg.add(timeSeries(area.key()+'_D', area, 'Deaths', area.world.getDates(), area.getData('DEATHS')))
+	tsg.thresh(v_thresh, 1)
+	# for ts in tsg.timeSeries():
+		# print('+++++++++++++++++++++++++++++++++++')
+		# print(ts.key, ts.xdata, ts.ydata, ts.n)
+	basePlot(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
+
+def multiPlot(areas, title, filename, label, v_thresh = 0, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
+	tsg = timeSeriesGroup()
+	for k, area in areas.items():
+		#print(k, area)
+		tsg.add(timeSeries(k, area, area.name(), area.world.getDates(), area.getData(label)))
+	tsg.thresh(v_thresh, 1)
+	# for ts in tsg.timeSeries():
+		# print('+++++++++++++++++++++++++++++++++++')
+		# print(ts.key, ts.xdata, ts.ydata, ts.n)
+	basePlot(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
 
 # tests
 if __name__ == '__main__':

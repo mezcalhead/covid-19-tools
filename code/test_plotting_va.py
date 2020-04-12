@@ -42,11 +42,10 @@ if __name__ == '__main__':
 			os.remove(filename)
 		# filter out more affected areas
 		if max(area.getData('CONFIRMED')) > 100:
-			set[area.name()] = area
-			sort_set[area.name()] = int(area.getData('CONFIRMED')[-1]) # last value
-			xaxis_label = 'Days (since ' + str(v_thresh) + '+ occurences) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y')
+			set[area.key()] = area
+			sort_set[area.key()] = int(area.getData('CONFIRMED')[-1]) # last value
 			print('Plotting ' + area.name() + '...')
-			ct.simplePlot(area, area.a['name'], filename, v_thresh, xaxis = xaxis_label, step = 3)
+			ct.simplePlot(area, area.a['name'], filename, v_thresh)
 	
 	# work with the top 20 subset
 	print('++++++++++++++++++++++++++++++++++++++++++++')
@@ -61,11 +60,9 @@ if __name__ == '__main__':
 	# plot top 20 subset
 	print('++++++++++++++++++++++++++++++++++++++++++++')
 	filename = path.abspath(path.join(basepath, 'multiplot_va_c.png'))
-	ct.multiPlot(bag, 'CONFIRMED', 'Confirmed', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ cases) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), step = 3)
+	ct.multiPlot(bag, 'Confirmed', filename, 'CONFIRMED', v_thresh)
 	filename = path.abspath(path.join(basepath, 'multiplot_va_d.png'))
-	ct.multiPlot(bag, 'DEATHS', 'Deaths', filename, v_thresh, \
-		xaxis='Days (since ' + str(v_thresh) + '+ deaths) thru ' + area.world.getDates()[-1].strftime('%m/%d/%Y'), overlay=['avg'], step = 3)
+	ct.multiPlot(bag, 'Deaths', filename, 'DEATHS', v_thresh, overlay=['avg'])
 	
 	print('\nDone.')
 	duration = timer()-start
