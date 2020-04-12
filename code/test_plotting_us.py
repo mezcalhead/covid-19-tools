@@ -26,8 +26,7 @@ if __name__ == '__main__':
 	world = ct.fetchWorld()
 	
 	basepath = path.abspath(path.join(path.dirname(__file__), '..', 'tmp',))
-	if not os.path.exists(basepath):
-		os.makedirs(basepath)
+	if not os.path.exists(basepath): os.makedirs(basepath)
 	
 	# plot individual areas
 	set = {}
