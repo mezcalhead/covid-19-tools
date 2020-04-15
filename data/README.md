@@ -2,9 +2,13 @@
 
 ![image](https://user-images.githubusercontent.com/3859765/79300208-0f0dd800-7eb4-11ea-9ea1-79261aee3317.png)
 
+...
+
 <h1>data_transposed.txt</h1>
 
 ![image](https://user-images.githubusercontent.com/3859765/79300322-5bf1ae80-7eb4-11ea-84fa-2dac336606fd.png)
+
+...
 
 <h1>data_covid.shp</h1>
 
