@@ -4,11 +4,23 @@
 
 ...
 
+Column 'T' is a Type Column:  C = Confirmed Case Count; D = Deaths; R = Recovered<br>
+Areas are in hierarchical format:  ADM1 -> ADM2 -> ADM3<br>
+Column 'Key' is a good unique hash Column<br>
+FIPS is the US County FIPS code if applicable<br>
+Date Columns extend to the Right<br>
+
 <h1>data_transposed.txt</h1>
 
 ![image](https://user-images.githubusercontent.com/3859765/79300322-5bf1ae80-7eb4-11ea-84fa-2dac336606fd.png)
 
 ...
+
+Columns Confirmed, Deaths, and Recovered exist for each date.<br>
+Areas are in hierarchical format:  ADM1 -> ADM2 -> ADM3<br>
+Column 'Key'+'Date' combined is a good unique hash Column<br>
+FIPS is the US County FIPS code if applicable<br>
+Date Columns extend to the Bottom<br>
 
 <h1>data_covid.shp</h1>
 
