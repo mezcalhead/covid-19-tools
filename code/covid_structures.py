@@ -50,11 +50,12 @@ class Area(Place):
 		self.__parent = parent # parent obj
 		self.a['name'] = name
 		self.a['level'] = -1 # -1 is undefined and unset
-		self.a['key'] = name
+		self.a['key'] = name # key is rebuilt as hierarchy develops
 		self.a['adm1'] = 'N/A'
 		self.a['adm2'] = 'N/A'
 		self.a['adm3'] = 'N/A'
 		self.a['fips'] = 'N/A'
+		self.world = None
 		self.__s = {} # subordinate areas; no dupes possible
 		self.__t = {} # total data for data type, includes self and subordinates
 	

@@ -184,6 +184,58 @@ def fileSize(file_path):
 		file_info = os.stat(file_path)
 		return convertBytes(file_info.st_size)
 
+# generate Areas that mimic doubling or halving every days1, days2, to aid in rendering
+# EXPERIMENTAL - not working properly
+def generateGuides(world, label, yinit, days1 = 5, days2 = 10):
+	# yinit = initial y-value
+	# ndays = duration, e.g. 60 days worth
+	ndays = len(world.getDates())
+	areas = {}
+	
+	fa2x = lambda d, yi : yi / (d*d) # solve a in exponential function given y-intercept (x = 0); doubling
+	fax2 = lambda d, yi : yi / (-2*(d*d)) # solve a in exponential function given y-intercept (x = 0); halving
+	fexp = lambda x, a, yi: max(0, a * (x * x) + yi) # solve for y in exponential function given any x and y-intercept (x = 0)
+	
+	a1_2x = fa2x(days1, yinit)
+	a2_2x = fa2x(days2, yinit)
+	a1_x2 = fax2(days1, yinit)
+	a2_x2 = fax2(days2, yinit)
+	
+	ydata1 = np.zeros(ndays, dtype = np.int64)
+	ydata1[0] = yinit
+	ydata2 = np.zeros(ndays, dtype = np.int64)
+	ydata2[0] = yinit
+	ydata3 = np.zeros(ndays, dtype = np.int64)
+	ydata3[0] = yinit
+	ydata4 = np.zeros(ndays, dtype = np.int64)
+	ydata4[0] = yinit
+	ndata = np.arange(0, ndays)
+	
+	for x in range(1, ndays):
+		ydata1[x] = fexp(x, a1_2x, yinit)
+		ydata2[x] = fexp(x, a2_2x, yinit)
+		ydata3[x] = fexp(x, a1_x2, yinit)
+		ydata4[x] = fexp(x, a2_x2, yinit)
+	
+	area1 = cs.Area(None, 'Double Every ' + str(days1) + ' Days')
+	area1.setData(label, ydata1) 
+	area1.world = world
+	areas[area1.name()] = area1
+	area2 = cs.Area(None, 'Double Every ' + str(days2) + ' Days')
+	area2.setData(label, ydata2) 
+	area2.world = world
+	areas[area2.name()] = area2
+	area3 = cs.Area(None, 'Halve Every ' + str(days1) + ' Days')
+	area3.setData(label, ydata3) 
+	area3.world = world
+	areas[area3.name()] = area3
+	area4 = cs.Area(None, 'Halve Every ' + str(days2) + ' Days')
+	area4.setData(label, ydata4) 
+	area4.world = world
+	areas[area4.name()] = area4
+	
+	return areas
+
 # return array of indices from the array provided, e.g. [0, 1, 2, 3, 4...]
 def getIndexR(data, shift = 0):
 	# eg shift = 1, means array will start with 1 e.g. [1, 2, 3, 4...] but be of same length
@@ -508,6 +560,7 @@ class timeSeriesGroup():
 	# applies threshhold v_thresh to EACH
 	def thresh(self, v_thresh, start = 0):
 		if not self.tightened: self.tighten(0)
+		self.nvalid = 0
 		for ts in self.timeSeries():
 			i = np.argmax(ts.ydata >= v_thresh)
 			#print(ts.key, i)
@@ -519,6 +572,7 @@ class timeSeriesGroup():
 				# clip this timeSeries
 				ts.xdata = ts.xdata[i:]
 				ts.ydata = ts.ydata[i:]
+				self.nvalid += 1
 		self.v_thresh = v_thresh
 		self.sequence(start)
 	
@@ -578,12 +632,16 @@ def basePlot(tsg, title, filename, yscale = 'log', xaxis = None, step = None, in
 		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
 		plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=step))
 		plt.subplots_adjust(bottom=0.20, left=0.15)
-		xaxis = 'Dates'
+		if xaxis == None: xaxis = 'Dates'
 	else:
 		temp = np.arange(1, tsg.llen + 2, step)
 		ax.set_xticks(temp)
 		plt.subplots_adjust(bottom=0.15, left=0.15)
-		xaxis = 'Days since ' + str(tsg.v_thresh) + (' Cases' if tsg.v_thresh > 1 else ' Case')
+		if xaxis == None: 
+			if tsg.v_thresh > 0:
+				xaxis = 'Days since ' + str(tsg.v_thresh) + (' Cases' if tsg.v_thresh > 1 else ' Case')
+			else:
+				xaxis = 'Day'
 	ax.margins(0.08)
 	# footer
 	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
@@ -605,6 +663,7 @@ def basePlot(tsg, title, filename, yscale = 'log', xaxis = None, step = None, in
 		xtemp = ts.xdata if usedates else ts.ndata
 		ax.plot(xtemp, ts.ydata, '-', color = c, label = ts.label)
 		ax.plot(xtemp[-1], ts.ydata[-1], 'o', color = c)
+		#print('tsg.nvalid', tsg.nvalid)
 		temp = '{:,}'.format(ts.ydata[-1]) if tsg.nvalid < 4 else ts.label[:3]
 		ax.annotate(temp, xy=(xtemp[-1], ts.ydata[-1]), xycoords='data', xytext=(-3,4), textcoords='offset points', \
 			fontsize=8, horizontalalignment='right', color='black')
@@ -634,9 +693,9 @@ def multiPlot(areas, title, filename, label, v_thresh = 0, yscale = 'log', xaxis
 		#print(k, area)
 		tsg.add(timeSeries(k, area, area.name(), area.world.getDates(), area.getData(label)))
 	tsg.thresh(v_thresh, 1)
-	# for ts in tsg.timeSeries():
-		# print('+++++++++++++++++++++++++++++++++++')
-		# print(ts.key, ts.xdata, ts.ydata, ts.n)
+	#for ts in tsg.timeSeries():
+		#print('+++++++++++++++++++++++++++++++++++')
+		#print(ts.key, ts.xdata, ts.ydata, ts.ndata, ts.invalid)
 	basePlot(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
 
 # tests
