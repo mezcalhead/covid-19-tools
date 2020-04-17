@@ -27,6 +27,10 @@ if __name__ == '__main__':
 	world.exportShapefile(path.abspath(path.join(props['EXPORT-DIR'], 'data_covid.shp')))
 	world.dump(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'world.p')))
 	
+	print('\nReplicating...')
+	world.exportStandard(path.abspath(path.join(props['EXPORT-DIR'], 'data_standard.txt')))
+	world.dump(path.abspath(path.join(props['EXPORT-DIR'], 'world.p')))
+	
 	print('\nDone.')
 	duration = timer()-start
 	print('Execution Time: {:0.2f}s'.format(duration))
