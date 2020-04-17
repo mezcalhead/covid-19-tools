@@ -12,6 +12,8 @@ Date Columns extend to the Right<br>
 
 <h1>data_transposed.txt</h1>
 
+Now here: https://www.dropbox.com/sh/7z001yfzyjqtrsw/AADa9eTqTSZjozcLgjtQVV-Da?dl=0
+
 ![image](https://user-images.githubusercontent.com/3859765/79300322-5bf1ae80-7eb4-11ea-84fa-2dac336606fd.png)
 
 ...
@@ -24,7 +26,9 @@ Date Columns extend to the Bottom<br>
 
 <h1>data_covid.shp</h1>
 
-ESRI Shapefile Format version of Data_Standard.txt
+ESRI Shapefile Format version of Data_Standard.txt which is now here:
+
+https://www.dropbox.com/sh/7z001yfzyjqtrsw/AADa9eTqTSZjozcLgjtQVV-Da?dl=0
 
 <h1>Supplemental Data</h1>
 

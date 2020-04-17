@@ -11,7 +11,7 @@ The <b>data</b> directory is where output files are placed, as well as reference
 import covid_tools as ct
 world = ct.ingestData('some-path-to-JHU-CSSE-dir')
 ```
-Or take advantage of our nightly cached world object, so your data initializes blazingly fast. You don't need to sync directly with JHU's GitHub leveraging our cache!
+Or take advantage of our nightly serialized world object, so your data initializes blazingly fast. You don't need to sync directly with JHU's GitHub leveraging our serialized cache!
 
 ```python
 import covid_tools as ct
