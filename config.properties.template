@@ -1,0 +1,10 @@
+# local properties for covid-19-tools
+# RENAME this file to config.properties!!!!!!!!
+
+# dir to JHU GIT's time series data, which is useful if you want to assist with ingest bug fixes and improvements, or process it on your own directly
+COVID-19-DIR=/mnt/c/Dropbox/Workspace/covid-19/csse_covid_19_data/csse_covid_19_time_series
+
+# dir for data exports (export.py script uses this)
+# all other scripts should ideally use world = ct.fetchWorld()
+# in fact access to the JHU Git is unnecessary unless you want to assist with ingest bug fixes and improvements
+EXPORT-DIR=/mnt/c/Dropbox/Workspace/covid-19-data

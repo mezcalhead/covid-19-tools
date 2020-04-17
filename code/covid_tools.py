@@ -455,6 +455,26 @@ def addArrays(a, b):
 		a[i] += b[i]
 	return a
 
+def readConfig(configfile = None):
+	if configfile == None: configfile = path.abspath(path.join(path.dirname(__file__), '..', 'config.properties'))
+	print(configfile)
+	separator = "="
+	keys = {}
+	with open(configfile) as f:
+		for line in f:
+			if line.startswith('#'): continue # ignore comments
+			if separator in line:
+				# Find the name and value by splitting the string
+				name, value = line.split(separator, 1)
+				# Assign key value pair to dict
+				# strip() removes white space from the ends of strings
+				keys[name.strip()] = value.strip()
+	#print(keys)
+	if 'COVID-19-DIR' not in keys:
+		# export (assumes JHU's COVID-19 is installed under the root directory as COVID-19-TOOLS)
+		keys['COVID-19-DIR'] = path.abspath(path.join(path.dirname(__file__), '../../COVID-19/csse_covid_19_data/csse_covid_19_time_series/'))
+	return keys
+
 # sum 2 numpy arrays with the result having the longest length, left-justified/aligned
 def sumArraysLJ(a, b):
 	#print('LJ###############################################')
