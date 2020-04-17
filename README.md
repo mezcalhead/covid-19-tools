@@ -4,6 +4,8 @@ This site and code's purpose is to assist with data analysis tools and scripts o
 
 The <b>code</b> directory has the core python code, classes, and utilities.<br>
 The <b>data</b> directory is where output files are placed, as well as reference files.<br>
+Large data files are here: https://www.dropbox.com/sh/7z001yfzyjqtrsw/AADa9eTqTSZjozcLgjtQVV-Da?dl=0<br>
+<b>See README.md in the data directory for more information about the data files.</b>
 
 2 lines of code ingests the JHU data while performing some basic cleanups:
 
