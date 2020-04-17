@@ -319,7 +319,7 @@ def ingestNationalData(world, basepath, smooth = True):
 		i = 0
 		geoAdjusts = 0
 		for v in reader(open(datafile)):
-			#print(i, v)
+			# print(i, v)
 			if (i == 0): # header row (first record)
 				temp = len(v)-date_col[label] # number of dates determined
 				if (n_dates == 0): n_dates = temp
@@ -334,8 +334,8 @@ def ingestNationalData(world, basepath, smooth = True):
 				c = world.areaFactory(v[7], float(v[8]), float(v[9])) # factory (get or create)
 				c.a['adm1'] = v[7] # 'US'
 				data = np.zeros(n_dates, dtype = int) # gather data
-				for j in range(n_dates): 
-					data[j] = v[j+date_col[label]]
+				for j in range(n_dates):
+					data[j] = float(v[j+date_col[label]]) # float handles '0.0' case conversion
 				# print(data)
 				if (v[6] == ''):
 					raise FormatError('Expected US ADM2! (Line ' + str(i+1) + ')')
@@ -352,6 +352,7 @@ def ingestNationalData(world, basepath, smooth = True):
 					s.a['adm3'] = v[5]
 				# check FIPS
 				s.a['fips'] = checkFIPS(v[4].replace('.0',''), v)
+				if s.a['fips'] == '88888': s.a['fips'] = '99999' # diamond princess correction
 				# check LAT/LON; snap to US county reference which is better or fall back to US state
 				cr = crDB.get(s.a['fips'])
 				if cr == None:
