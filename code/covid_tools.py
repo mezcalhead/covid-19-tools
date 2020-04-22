@@ -331,21 +331,26 @@ def ingestNationalData(world, basepath, smooth = True):
 					if (n_dates != world.lenData()):
 						raise FormatError('Unequal Date Ranges (T4)! (' + str(n_dates) + '!=' + str(world.lenData()) + ')')
 			else:
-				c = world.areaFactory(v[7], float(v[8]), float(v[9])) # factory (get or create)
+				lat = 0.0 if len(v[8]) == 0 else float(v[8])
+				lon = 0.0 if len(v[9]) == 0 else float(v[9])
+				c = world.areaFactory(v[7], lat, lon) # factory (get or create)
 				c.a['adm1'] = v[7] # 'US'
 				data = np.zeros(n_dates, dtype = int) # gather data
 				for j in range(n_dates):
 					data[j] = float(v[j+date_col[label]]) # float handles '0.0' case conversion
 				# print(data)
-				if (v[6] == ''):
-					raise FormatError('Expected US ADM2! (Line ' + str(i+1) + ')')
-				s = c.areaFactory(v[6], float(v[8]), float(v[9])) # factory (get or create)
+				if (v[6] == ''): raise FormatError('Expected US ADM2! (Line ' + str(i+1) + ')')
+				lat = 0.0 if len(v[8]) == 0 else float(v[8])
+				lon = 0.0 if len(v[9]) == 0 else float(v[9])
+				s = c.areaFactory(v[6], lat, lon) # factory (get or create)
 				s.a['adm1'] = v[7] # 'US'
 				s.a['adm2'] = v[6]
-				if (v[5] == ''): # state with no counties, e.g. PR, VI, GU, AS
+				if (v[5] == ''): # state with no counties, e.g. PR, VI, GU, AS, Grand Princess
 					s.setData(label, data, smooth)
 				else: # county or ADM3
-					s = s.areaFactory(v[5], float(v[8]), float(v[9])) # factory (get or create)
+					lat = 0.0 if len(v[8]) == 0 else float(v[8])
+					lon = 0.0 if len(v[9]) == 0 else float(v[9])
+					s = s.areaFactory(v[5], lat, lon) # factory (get or create)
 					s.setData(label, data, smooth)
 					s.a['adm1'] = v[7] # 'US'
 					s.a['adm2'] = v[6]
@@ -361,10 +366,14 @@ def ingestNationalData(world, basepath, smooth = True):
 						# eg 'Unassigned, Wisconsin, US'
 						temp = s.a['key'].split(',')[1].strip()
 						sr = srDB[2].get(temp)
-						assert sr != None, 'State ' + temp + ' unrecognized!'
-						geoAdjusts += 1
-						s.a['lat'] = round(float(sr['LAT']), 6)
-						s.a['lon'] = round(float(sr['LON']), 6)
+						#assert sr != None, 'State ' + temp + ' unrecognized!'
+						if sr is not None:
+							geoAdjusts += 1
+							s.a['lat'] = round(float(sr['LAT']), 6)
+							s.a['lon'] = round(float(sr['LON']), 6)
+						else:
+							s.a['lat'] = 0.0
+							s.a['lon'] = 0.0
 					else:
 						# check state reference (guam, virgin islands, etc... where county is not disclosed)
 						temp = s.a['key'].split(',')[0].strip()
