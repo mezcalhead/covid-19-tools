@@ -358,38 +358,42 @@ def ingestNationalData(world, basepath, smooth = True):
 				# check FIPS
 				s.a['fips'] = checkFIPS(v[4].replace('.0',''), v)
 				if s.a['fips'] == '88888': s.a['fips'] = '99999' # diamond princess correction
-				# check LAT/LON; snap to US county reference which is better or fall back to US state
-				cr = crDB.get(s.a['fips'])
-				if cr == None:
-					if s.a['key'].startswith('Unassigned, ') or s.a['key'].startswith('Out of '):
-						# eg 'Out of RI, Rhode Island, US'
-						# eg 'Unassigned, Wisconsin, US'
-						temp = s.a['key'].split(',')[1].strip()
-						sr = srDB[2].get(temp)
-						#assert sr != None, 'State ' + temp + ' unrecognized!'
-						if sr is not None:
-							geoAdjusts += 1
-							s.a['lat'] = round(float(sr['LAT']), 6)
-							s.a['lon'] = round(float(sr['LON']), 6)
-						else:
-							s.a['lat'] = 0.0
-							s.a['lon'] = 0.0
-					else:
-						# check state reference (guam, virgin islands, etc... where county is not disclosed)
-						temp = s.a['key'].split(',')[0].strip()
-						sr = srDB[2].get(temp)
-						if sr != None:
-							geoAdjusts += 1
-							s.a['lat'] = round(float(sr['LAT']), 6)
-							s.a['lon'] = round(float(sr['LON']), 6)
-						else:
-							print('      SR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
-							s.a['lat'] = 0.0
-							s.a['lon'] = 0.0
+				if s.a['fips'] == '99999':
+					s.a['lat'] = 0.0
+					s.a['lon'] = 0.0
 				else:
-					if (s.a['lat'] != cr['Lat'] or s.a['lon'] != cr['Lon']): geoAdjusts += 1
-					s.a['lat'] = round(float(cr['Lat']), 6)
-					s.a['lon'] = round(float(cr['Lon']), 6)
+					# check LAT/LON; snap to US county reference which is better or fall back to US state
+					cr = crDB.get(s.a['fips'])
+					if cr == None:
+						if s.a['key'].startswith('Unassigned, ') or s.a['key'].startswith('Out of '):
+							# eg 'Out of RI, Rhode Island, US'
+							# eg 'Unassigned, Wisconsin, US'
+							temp = s.a['key'].split(',')[1].strip()
+							sr = srDB[2].get(temp)
+							#assert sr != None, 'State ' + temp + ' unrecognized!'
+							if sr is not None:
+								geoAdjusts += 1
+								s.a['lat'] = round(float(sr['LAT']), 6)
+								s.a['lon'] = round(float(sr['LON']), 6)
+							else:
+								s.a['lat'] = 0.0
+								s.a['lon'] = 0.0
+						else:
+							# check state reference (guam, virgin islands, etc... where county is not disclosed)
+							temp = s.a['key'].split(',')[0].strip()
+							sr = srDB[2].get(temp)
+							if sr != None:
+								geoAdjusts += 1
+								s.a['lat'] = round(float(sr['LAT']), 6)
+								s.a['lon'] = round(float(sr['LON']), 6)
+							else:
+								print('      SR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
+								s.a['lat'] = 0.0
+								s.a['lon'] = 0.0
+					else:
+						if (s.a['lat'] != cr['Lat'] or s.a['lon'] != cr['Lon']): geoAdjusts += 1
+						s.a['lat'] = round(float(cr['Lat']), 6)
+						s.a['lon'] = round(float(cr['Lon']), 6)
 			i += 1
 		n_rows = i-1
 		print('    # Geo Adjustments (' + label + '): ' + str(geoAdjusts))
