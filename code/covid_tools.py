@@ -313,6 +313,7 @@ def ingestNationalData(world, basepath, smooth = True):
 	date_col['CONFIRMED'] = 11
 	date_col['DEATHS'] = 12
 	n_dates = 0
+	len_v = -1
 	for k, (label, filename) in enumerate(filehash.items()):
 		datafile = path.abspath(path.join(basepath, filename))
 		print('  File: ' + filename)
@@ -322,6 +323,7 @@ def ingestNationalData(world, basepath, smooth = True):
 			# print(i, v)
 			if (i == 0): # header row (first record)
 				temp = len(v)-date_col[label] # number of dates determined
+				len_v = len(v) # length set
 				if (n_dates == 0): n_dates = temp
 				if (n_dates != temp): 
 					raise FormatError('Unequal Date Ranges (T3)! (' + str(n_dates) + '!=' + str(temp) + ')')
@@ -337,7 +339,11 @@ def ingestNationalData(world, basepath, smooth = True):
 				c.a['adm1'] = v[7] # 'US'
 				data = np.zeros(n_dates, dtype = int) # gather data
 				for j in range(n_dates):
-					data[j] = float(v[j+date_col[label]]) # float handles '0.0' case conversion
+					if j+date_col[label] >= len(v): # not enough data problem
+						print('      WARNING: Copy left value ' + v[len(v)-1] + ' at column ' + str(j+date_col[label]) + ' for \'' + v[10] + '\'')
+						data[j] = float(v[len(v)-1]) # copy left most recent
+					else:
+						data[j] = float(v[j+date_col[label]]) # float handles '0.0' case conversion
 				# print(data)
 				if (v[6] == ''): raise FormatError('Expected US ADM2! (Line ' + str(i+1) + ')')
 				lat = 0.0 if len(v[8]) == 0 else float(v[8])
@@ -387,9 +393,17 @@ def ingestNationalData(world, basepath, smooth = True):
 								s.a['lat'] = round(float(sr['LAT']), 6)
 								s.a['lon'] = round(float(sr['LON']), 6)
 							else:
-								print('      SR WARNING: ' + s.a['fips'] + ':' + s.a['key'])
-								s.a['lat'] = 0.0
-								s.a['lon'] = 0.0
+								if len(s.a['key'].split(',')) > 1:
+									temp = s.a['key'].split(',')[1].strip()
+									sr = srDB[2].get(temp)
+								if sr != None:
+									geoAdjusts += 1
+									s.a['lat'] = round(float(sr['LAT']), 6)
+									s.a['lon'] = round(float(sr['LON']), 6)
+								else:
+									print('      SR WARNING: ' + s.a['fips'] + ': ' + s.a['key'])
+									s.a['lat'] = 0.0
+									s.a['lon'] = 0.0
 					else:
 						if (s.a['lat'] != cr['Lat'] or s.a['lon'] != cr['Lon']): geoAdjusts += 1
 						s.a['lat'] = round(float(cr['Lat']), 6)
@@ -537,6 +551,16 @@ class timeSeriesGroup():
 	
 	def add(self, timeSeries):
 		self.db[timeSeries.key] = timeSeries
+		return self.db[timeSeries.key]
+	
+	def delta(self, start = 0):
+		for ts in self.timeSeries():
+			temp = np.copy(ts.ydata)
+			for x in range(1, len(ts.xdata)):
+				ts.ydata[x] = temp[x] - temp[x-1]
+			ts.xdata = ts.xdata[1:]
+			ts.ydata = ts.ydata[1:]
+		self.sequence(start)
 	
 	def get(self, key):
 		ts = self.db.get(key)
@@ -640,7 +664,7 @@ class timeSeries():
 		self.ndata = None # numbers
 		self.invalid = False # invalid when there is no data after a threshhold is applied
 
-def basePlot(tsg, title, filename, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
+def basePlot_Line(tsg, title, filename, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
 	fig, ax = plt.subplots()
 	fig.set_figheight(in_h)
 	fig.set_figwidth(in_w)
@@ -706,10 +730,128 @@ def basePlot(tsg, title, filename, yscale = 'log', xaxis = None, step = None, in
 	ax.legend(prop={'size': 7}, loc='upper left')
 	ax.set_title(title, fontsize=14, horizontalalignment='center')
 	ax.set_xlabel(xaxis, fontsize=10)
-	ax.set_ylabel('# ' + 'People', fontsize=10)
+	if yaxis == None: yaxis = '# ' + 'People'
+	ax.set_ylabel(yaxis, fontsize=10)
 	# save
 	plt.savefig(filename)
 	plt.close(fig)
+
+def autoLabel_Bar(rects, ax, fontsize=8):
+	"""Attach a text label above each bar in *rects*, displaying its height."""
+	for rect in rects:
+		height = rect.get_height()
+		ax.annotate('{}'.format(height),
+					xy=(rect.get_x() + rect.get_width() / 2, height),
+					xytext=(0, 3),  # 3 points vertical offset
+					textcoords="offset points",
+					ha='center', va='bottom', fontsize=fontsize)
+
+def basePlot_Bar(tsg, title, filename, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, usedates = False, fontsize=6):
+	assert len(tsg.db) == 1, 'Unsupported function with more than 1 time series.'
+	fig, ax = plt.subplots()
+	fig.set_figheight(in_h)
+	fig.set_figwidth(in_w)
+	# width = (3.0 * in_w) / (tsg.llen * 1.5) # the width of the bars if there was 1 data series
+	width = in_w / 10.0
+	# print(in_w, tsg.llen, width)
+	# x labels
+	xend = tsg.llen if tsg.llen % 2 == 0 else tsg.llen + 1 # increment up if odd number
+	if step == None:
+		step = 1 if xend < 20 else int(math.ceil(xend / 20.0)) # 20 is a good number of x ticks for the default in_w
+		#print(xend, step, tsg.llen)
+	if (usedates):
+		#print(filename, tsg.lxdata, step)
+		days = mdates.drange(tsg.lxdata[0], tsg.lxdata[len(tsg.lxdata)-1], timedelta(days=1))
+		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
+		plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=step))
+		plt.subplots_adjust(bottom=0.20, left=0.15)
+		if xaxis == None: xaxis = 'Dates'
+	else:
+		temp = np.arange(1, tsg.llen + 2, step)
+		ax.set_xticks(temp)
+		plt.subplots_adjust(bottom=0.15, left=0.15)
+		if xaxis == None: 
+			if tsg.v_thresh > 0:
+				xaxis = 'Days since ' + str(tsg.v_thresh) + (' Cases' if tsg.v_thresh > 1 else ' Case')
+			else:
+				xaxis = 'Day'
+	ax.margins(0.08)
+	# footer
+	plt.text(1, -0.20,'Data: JHU CSSE - https://bit.ly/2wP8tQY\nCode: COVID-19-TOOLS - https://bit.ly/3bJDxQT', fontsize=8, \
+		horizontalalignment='right', color='gray', transform=ax.transAxes)
+	plt.text(-0.1, -0.20, 'Generated: ' + datetime.now().strftime('%m/%d/%Y %H:%M EST') + '\nLicense: CC Zero v1.0 Universal', fontsize=8, \
+		horizontalalignment='left', color='gray', transform=ax.transAxes)
+	# axis prep
+	ax.set_yscale(yscale)
+	ax.yaxis.set_major_formatter(ScalarFormatter()) # override log formatter
+	ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
+	# bars
+	cnt = len(tsg.db)
+	rects = {}
+	for i, (k, ts) in enumerate(tsg.db.items()):
+		# print(i, k, ts.ydata, ts.ndata)
+		if i > 3 or ts.invalid: continue
+		r = random.random()
+		b = random.random()
+		g = random.random()
+		c = (r, g, b)
+		xtemp = ts.xdata if usedates else ts.ndata
+		rects[i] = ax.bar(xtemp, ts.ydata, width, color = c, label = ts.label)
+		# 1 (only 1 series)
+		# if i == 0 and cnt == 1:
+			# ax.bar(xtemp - width/2, ts.ydata, width, color = c, label = ts.label)
+		# # 2
+		# elif i == 0 and cnt == 2:
+			# ax.bar(xtemp - width/2 + 0 * (width/2), ts.ydata, width/2, color = c, label = ts.label)
+		# elif i == 1 and cnt == 2:
+			# ax.bar(xtemp - width/2 + 1 * (width/2), ts.ydata, width/2, color = c, label = ts.label)
+		# # 3
+		# elif i == 0 and cnt == 3:
+			# ax.bar(xtemp - width/2 + 0 * (width/3), ts.ydata, width/3, color = c, label = ts.label)
+		# elif i == 1 and cnt == 3:
+			# ax.bar(xtemp - width/2 + 1 * (width/3), ts.ydata, width/3, color = c, label = ts.label)
+		# elif i == 2 and cnt == 3:
+			# ax.bar(xtemp - width/2 + 2 * (width/3), ts.ydata, width/3, color = c, label = ts.label)
+		# # 4
+		# elif i == 0 and cnt == 4:
+			# ax.bar(xtemp - width/2 + 0 * (width/4), ts.ydata, width/4, color = c, label = ts.label)
+		# elif i == 1 and cnt == 4:
+			# ax.bar(xtemp - width/2 + 1 * (width/4), ts.ydata, width/4, color = c, label = ts.label)
+		# elif i == 2 and cnt == 4:
+			# ax.bar(xtemp - width/2 + 2 * (width/4), ts.ydata, width/4, color = c, label = ts.label)
+		# elif i == 3 and cnt == 4:
+			# ax.bar(xtemp - width/2 + 3 * (width/4), ts.ydata, width/4, color = c, label = ts.label)
+		# else:
+			# assert True, 'Unspecified Case'
+	# annotate
+	autoLabel_Bar(rects[0], ax, fontsize)
+	# labels
+	if (usedates): plt.gcf().autofmt_xdate()
+	ax.legend(prop={'size': 7}, loc='upper left')
+	ax.set_title(title, fontsize=14, horizontalalignment='center')
+	ax.set_xlabel(xaxis, fontsize=10)
+	if yaxis == None: yaxis = '# ' + 'People'
+	ax.set_ylabel(yaxis, fontsize=10)
+	# save
+	plt.tight_layout()
+	plt.savefig(filename)
+	plt.close(fig)
+
+def deltaPlot(area, title, filename, label, v_thresh = 0, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
+	tsg = timeSeriesGroup()
+	tsg.add(timeSeries(area.key(), area, label.title(), area.world.getDates(), area.getData(label)))
+	# for ts in tsg.timeSeries():
+		# print(len(ts.xdata), len(ts.ydata))
+		# print('+++++++++++++++++++++++++++++++++++')
+		# print(ts.key, ts.xdata, ts.ydata)
+	tsg.thresh(v_thresh, 1)
+	tsg.delta(1)
+	# for ts in tsg.timeSeries():
+		# # print(len(ts.xdata), len(ts.ydata))
+		# print('+++++++++++++++++++++++++++++++++++')
+		# print(ts.key, ts.xdata, ts.ydata)
+	if yaxis == None: yaxis = '# Deaths per Day'
+	basePlot_Bar(tsg, title, filename, yscale=yscale, xaxis=xaxis, yaxis=yaxis, step=step, in_h=in_h, in_w=in_w, usedates=usedates)
 
 def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
 	tsg = timeSeriesGroup()
@@ -719,7 +861,7 @@ def simplePlot(area, title, filename, v_thresh = 0, yscale = 'log', xaxis = None
 	# for ts in tsg.timeSeries():
 		# print('+++++++++++++++++++++++++++++++++++')
 		# print(ts.key, ts.xdata, ts.ydata, ts.n)
-	basePlot(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
+	basePlot_Line(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
 
 def multiPlot(areas, title, filename, label, v_thresh = 0, yscale = 'log', xaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
 	tsg = timeSeriesGroup()
@@ -730,7 +872,7 @@ def multiPlot(areas, title, filename, label, v_thresh = 0, yscale = 'log', xaxis
 	#for ts in tsg.timeSeries():
 		#print('+++++++++++++++++++++++++++++++++++')
 		#print(ts.key, ts.xdata, ts.ydata, ts.ndata, ts.invalid)
-	basePlot(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
+	basePlot_Line(tsg, title, filename, yscale=yscale, xaxis=xaxis, step=step, in_h=in_h, in_w=in_w, overlay=overlay, usedates=usedates)
 
 # tests
 if __name__ == '__main__':
