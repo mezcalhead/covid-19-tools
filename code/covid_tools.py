@@ -259,6 +259,7 @@ def ingestGlobalData(world, basepath, smooth = True):
 	date_col['RECOVERED'] = 4
 	n_row_max = 0
 	n_dates = 0
+	c_fixes = 0
 	for k, (label, filename) in enumerate(filehash.items()):
 		datafile = path.abspath(path.join(basepath, filename))
 		print('  File: ' + filename)
@@ -286,17 +287,18 @@ def ingestGlobalData(world, basepath, smooth = True):
 				# print(data)
 				if (v[0] != ''):
 					s = c.areaFactory(v[0], float(v[2]), float(v[3])) # factory (get or create)
-					s.setData(label, data, smooth)
+					c_fixes += s.setData(label, data, smooth)
 					s.a['adm1'] = v[1]
 					s.a['adm2'] = v[0]
 				else:
 					if (v[1] != 'US'): # skip US because it will be handled in the national pull
-						c.setData(label, data, smooth)
+						c_fixes += c.setData(label, data, smooth)
 			i += 1
 		n_rows = i-1
 		n_row_max = max(n_row_max, n_rows)
 		print('    # Rows (' + label + '): ' + str(n_rows))
 		print('    # Countries (' + label + '): ' + str(world.numAreas()))
+		print('    # Smoothing Ops (' + label + '): ' + str(c_fixes))
 	return n_row_max
 
 # US only
@@ -314,6 +316,7 @@ def ingestNationalData(world, basepath, smooth = True):
 	date_col['DEATHS'] = 12
 	n_dates = 0
 	len_v = -1
+	c_fixes = 0
 	for k, (label, filename) in enumerate(filehash.items()):
 		datafile = path.abspath(path.join(basepath, filename))
 		print('  File: ' + filename)
@@ -352,12 +355,12 @@ def ingestNationalData(world, basepath, smooth = True):
 				s.a['adm1'] = v[7] # 'US'
 				s.a['adm2'] = v[6]
 				if (v[5] == ''): # state with no counties, e.g. PR, VI, GU, AS, Grand Princess
-					s.setData(label, data, smooth)
+					c_fixes += s.setData(label, data, smooth)
 				else: # county or ADM3
 					lat = 0.0 if len(v[8]) == 0 else float(v[8])
 					lon = 0.0 if len(v[9]) == 0 else float(v[9])
 					s = s.areaFactory(v[5], lat, lon) # factory (get or create)
-					s.setData(label, data, smooth)
+					c_fixes += s.setData(label, data, smooth)
 					s.a['adm1'] = v[7] # 'US'
 					s.a['adm2'] = v[6]
 					s.a['adm3'] = v[5]
@@ -413,6 +416,7 @@ def ingestNationalData(world, basepath, smooth = True):
 		print('    # Geo Adjustments (' + label + '): ' + str(geoAdjusts))
 		print('    # Rows (' + label + '): ' + str(n_rows))
 		print('    # Countries (' + label + '): ' + str(world.numAreas()))
+		print('    # Smoothing Ops (' + label + '): ' + str(c_fixes))
 	return n_rows
 
 def ingestData(basepath, name = 'World'):
@@ -424,7 +428,7 @@ def ingestData(basepath, name = 'World'):
 		ingestNationalData(world, basepath) # ingest the latest US time series data
 		# will refresh and cascade subtotals
 		for label in ['CONFIRMED', 'DEATHS', 'RECOVERED']:
-			world.getData(label, True)
+			world.getData(label, recalculate = True)
 	except FormatError:
 		print('Ingestion Problems...  Halting.')
 		sys.exit(1)
@@ -744,7 +748,7 @@ def autoLabel_Bar(rects, ax, fontsize=8):
 					xy=(rect.get_x() + rect.get_width() / 2, height),
 					xytext=(0, 3),  # 3 points vertical offset
 					textcoords="offset points",
-					ha='center', va='bottom', fontsize=fontsize)
+					ha='center', va='bottom', rotation='90', fontsize=fontsize)
 
 def basePlot_Bar(tsg, title, filename, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, usedates = False, fontsize=6):
 	assert len(tsg.db) == 1, 'Unsupported function with more than 1 time series.'
@@ -837,9 +841,14 @@ def basePlot_Bar(tsg, title, filename, yscale = 'log', xaxis = None, yaxis = Non
 	plt.savefig(filename)
 	plt.close(fig)
 
-def deltaPlot(area, title, filename, label, v_thresh = 0, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False):
+def smoothed(data):
+	cs.Area.smooth(data)
+	return data
+
+def deltaPlot(area, title, filename, label, v_thresh = 0, yscale = 'log', xaxis = None, yaxis = None, step = None, in_h = 6, in_w = 8, overlay = None, usedates = False, smooth = False):
 	tsg = timeSeriesGroup()
-	tsg.add(timeSeries(area.key(), area, label.title(), area.world.getDates(), area.getData(label)))
+	data = smoothed(area.getData(label)) if smooth else area.getData(label)
+	tsg.add(timeSeries(area.key(), area, label.title(), area.world.getDates(), data))
 	# for ts in tsg.timeSeries():
 		# print(len(ts.xdata), len(ts.ydata))
 		# print('+++++++++++++++++++++++++++++++++++')

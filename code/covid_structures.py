@@ -93,43 +93,48 @@ class Area(Place):
 	def getAreas(self):
 		return self.__s
 	
-	def getData(self, label, thresh = 0, recalculate = False):
-		#print('=================')
-		#print('s.getData()', self.a['name'], label, self.world.lenData())
-		#self.debug()
-		#print('=================')
-		if (label not in self.__t or recalculate):
+	def getData(self, label, thresh = 0, recalculate = False, ignore = False):
+		# ignore parameter => ignore "unassigned", "out of", in a recalc
+		# print('=================')
+		# print('s.getData()', self.a['name'], label, self.world.lenData())
+		# self.debug()
+		# print('=================')
+		if label not in self.__t or recalculate:
 			self.__t[label] = np.zeros(self.world.lenData(), dtype = int)
 			if (label in self.a): self.__t[label] += self.a[label]
 			for a in self.areas(): # next level, e.g. 2 or 3, if it exists
-				temp = a.getData(label, recalculate)
+				temp = a.getData(label, thresh, recalculate, ignore)
 				#print('>>>', temp)
-				if (type(temp) == np.ndarray): self.__t[label] += temp
+				if type(temp) == np.ndarray:
+					if ignore == False or (a.name().startswith('Unassigned') == False and a.name().startswith('Out of') == False): 
+						self.__t[label] += temp
 				#a.debug()
 				#print('-------------------------------------')
 		# shift via thresh?
-		if (thresh > 0):
+		if thresh > 0:
 			i = np.argmax(self.__t[label] >= thresh) # index of first occurrence greater than thresh
 			#print(self.__t[label], thresh, i)
 			return self.__t[label][i:] # return slice starting from there
 		return self.__t[label]
 	
-	def getDataThreshI(self, label, thresh = 0, recalculate = False):
+	def getDataThreshI(self, label, thresh = 0, recalculate = False, ignore = False):
 		#print('=================')
 		#print('s.getData()', self.a['name'], label, self.world.lenData())
 		#self.debug()
 		#print('=================')
-		if (label not in self.__t or recalculate):
+		if label not in self.__t or recalculate:
 			self.__t[label] = np.zeros(self.world.lenData(), dtype = int)
 			if (label in self.a): self.__t[label] += self.a[label]
 			for a in self.areas(): # next level, e.g. 2 or 3, if it exists
-				temp = a.getData(label, recalculate)
+				temp = a.getData(label, thresh, recalculate, ignore)
 				#print('>>>', temp)
-				if (type(temp) == np.ndarray): self.__t[label] += temp
+				if type(temp) == np.ndarray:
+					if ignore == False or (a.name().startswith('Unassigned') == False and a.name().startswith('Out of') == False): 
+						self.__t[label] += temp
 				#a.debug()
 				#print('-------------------------------------')
 		# shift via thresh?
-		if (thresh > 0):
+		if thresh > 0:
 			i = np.argmax(self.__t[label] >= thresh) # index of first occurrence greater than thresh
 			return i # return slice starting from there
 		return 0
@@ -158,20 +163,42 @@ class Area(Place):
 		return len(self.__s)
 	
 	def setData(self, label, data, smooth = True):
-		if smooth: # smooth out holes [31, 71, 77, 0, 102] -> [31, 71, 77, 90, 102]
-			# phase 1 (internal holes, until no more fixes)
-			while (True):
-				n_fixes = 0
-				for i in range(len(data)-2):
-					if data[i] > 0 and data[i+1] == 0 and data[i+2] > 0:
-						data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
-						n_fixes += 1
-				if n_fixes == 0: break
-			# phase 2 (once, leading edge) [0, 0, 22] -> [0, 11, 22]
-			for i in range(len(data)-2):
-				if data[i] == 0 and data[i+1] == 0 and data[i+2] > 0:
-					data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
+		c_fixes = 0
+		if smooth: c_fixes = Area.smooth(data)
 		self.a[label] = data
+		return c_fixes
+	
+	@staticmethod
+	def smooth(data):
+		c_fixes = 0
+		# phase 1 (internal holes, until no more fixes)
+		# smooth out holes [31, 71, 77, 0, 102] -> [31, 71, 77, 90, 102]
+		while (True):
+			n_fixes = 0
+			for i in range(len(data)-2):
+				if data[i] > 0 and data[i+1] == 0 and data[i+2] > 0:
+					data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
+					c_fixes += 1
+					n_fixes += 1
+			if n_fixes == 0: break
+		# phase 2 (once, leading edge) [0, 0, 22] -> [0, 11, 22]
+		for i in range(len(data)-2):
+			if data[i] == 0 and data[i+1] == 0 and data[i+2] > 0:
+				data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
+				c_fixes += 1
+		# phase 3 (internal negative adjustments; probably corrections to reported data, but we can smooth out)
+		# [358 349 373] -> [358 365 373] # this is number of deaths in VA in the raw data and it's a cummulative total, so
+		# this correction makes sense
+		while (True):
+			n_fixes = 0
+			for i in range(len(data)-2):
+				if data[i] > data[i+1] and data[i+2] > data[i] and data[i+2] > data[i+1]:
+					data [i+1] = int(round((data[i] + data[i+2]) / 2.0, 0))
+					c_fixes += 1
+					n_fixes += 1
+			if n_fixes == 0: break
+		# return
+		return c_fixes
 	
 	def __str__(self):
 		s = self.a['name'] + '[' + str(self.a['level']) + ':' + str(len(self.__s)) + ']'
