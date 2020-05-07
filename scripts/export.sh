@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "Running Script..."
-cd /mnt/c/Dropbox/Workspace/covid-19
+cd ~/covid-19
 git pull
 
-cd /mnt/c/Dropbox/Workspace/covid-19-tools/code
+cd ~/covid-19-tools/code
 git pull
 
 python3 export.py
@@ -16,5 +16,5 @@ git commit -m "Daily Update - ${d}"
 
 git push
 
-cd /mnt/c/Dropbox/Workspace/covid-19-tools/scripts
+cd ~/covid-19-tools/scripts
 echo "Done."
