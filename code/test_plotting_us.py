@@ -55,6 +55,9 @@ if __name__ == '__main__':
 		bag[k] = set[k]
 		i += 1
 		if (i > 10): break
+	# add VA
+	va = c.getArea('Virginia')
+	if va not in bag: bag[va.key()] = va
 	
 	# plot top 10 subset
 	print('++++++++++++++++++++++++++++++++++++++++++++')
@@ -62,6 +65,8 @@ if __name__ == '__main__':
 	ct.multiPlot(bag, 'Confirmed', filename, 'CONFIRMED', v_thresh)
 	filename = path.abspath(path.join(basepath, 'multiplot_us_d.png'))
 	ct.multiPlot(bag, 'Deaths', filename, 'DEATHS', v_thresh, overlay=['avg'])
+	filename = path.abspath(path.join(basepath, 'multiplot_us_d_ln.png'))
+	ct.multiPlot(bag, 'Deaths', filename, 'DEATHS', v_thresh = 5, overlay=['avg'], yscale = 'linear')
 	
 	print('\nDone.')
 	duration = timer()-start
