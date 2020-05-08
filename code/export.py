@@ -25,9 +25,10 @@ if __name__ == '__main__':
 	world.exportStandard(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'data_standard.txt')))
 	world.exportTransposed(path.abspath(path.join(props['EXPORT-DIR'], 'data_transposed.txt')))
 	world.exportShapefile(path.abspath(path.join(props['EXPORT-DIR'], 'data_covid.shp')))
+	world.exportTransposedPGIS(path.abspath(path.join(props['EXPORT-DIR'], 'data_transposed.sql')))
 	world.dump(path.abspath(path.join(path.dirname(__file__), '..', 'data', 'world.p')))
 	
-	print('\nReplicating...')
+	print('\nReplicating...') # these could be copy commands
 	world.exportStandard(path.abspath(path.join(props['EXPORT-DIR'], 'data_standard.txt')))
 	world.dump(path.abspath(path.join(props['EXPORT-DIR'], 'world.p')))
 	

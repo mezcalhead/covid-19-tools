@@ -386,6 +386,59 @@ class World(Area):
 						fileout.write(s + '\n')
 		fileout.close()
 	
+	def exportTransposedPGIS(self, filename):
+	# PostGIS COPY Format
+		print('Exporting (Transposed PostGIS COPY Format) World [' + filename + ']...')
+		fileout = open(filename,'w')
+		n = 0
+		d = {} # data
+		d['DA'] = self.getDates()
+		#fileout.write('id|key|date|fips|adm3|adm2|adm1|lat|lon|geom|confirmed|deaths|recovered\n')
+		d['C'] = self.getData('CONFIRMED')
+		d['D'] = self.getData('DEATHS')
+		d['R'] = self.getData('RECOVERED')
+		for i in range(self.lenData()):
+			n += 1
+			s = str(n) + '|' + self.a['key'] + '|' + d['DA'][i].strftime('%Y-%m-%d') + '|' + self.a['fips'] + \
+				'|N/A|N/A|N/A' + \
+				'|' + str(self.a['lat']) + '|' + str(self.a['lon']) + \
+				'|' + str(d['C'][i]) + '|' + str(d['D'][i]) + '|' + str(d['R'][i])
+			fileout.write(s + '\n')
+		for s1 in self.areas():
+			d['C'] = s1.getData('CONFIRMED')
+			d['D'] = s1.getData('DEATHS')
+			d['R'] = s1.getData('RECOVERED')
+			for i in range(self.lenData()):
+				n += 1
+				s = str(n) + '|' + s1.a['key'] + '|' + d['DA'][i].strftime('%Y-%m-%d') + '|' + s1.a['fips'] + \
+					'|' + s1.a['adm3'] + '|' + s1.a['adm2'] + '|' + s1.a['adm1'] + \
+					'|' + str(s1.a['lat']) + '|' + str(s1.a['lon']) + \
+					'|' + str(d['C'][i]) + '|' + str(d['D'][i]) + '|' + str(d['R'][i])
+				fileout.write(s + '\n')
+			for s2 in s1.areas():
+				d['C'] = s2.getData('CONFIRMED')
+				d['D'] = s2.getData('DEATHS')
+				d['R'] = s2.getData('RECOVERED')
+				for i in range(self.lenData()):
+					n += 1
+					s = str(n) + '|' + s2.a['key'] + '|' + d['DA'][i].strftime('%Y-%m-%d') + '|' + s2.a['fips'] + \
+						'|' + s2.a['adm3'] + '|' + s2.a['adm2'] + '|' + s2.a['adm1'] + \
+						'|' + str(s2.a['lat']) + '|' + str(s2.a['lon']) + \
+						'|' + str(d['C'][i]) + '|' + str(d['D'][i]) + '|' + str(d['R'][i])
+					fileout.write(s + '\n')
+				for s3 in s2.areas():
+					d['C'] = s3.getData('CONFIRMED')
+					d['D'] = s3.getData('DEATHS')
+					d['R'] = s3.getData('RECOVERED')
+					for i in range(self.lenData()):
+						n += 1
+						s = str(n) + '|' + s3.a['key'] + '|' + d['DA'][i].strftime('%Y-%m-%d') + '|' + s3.a['fips'] + \
+							'|' + s3.a['adm3'] + '|' + s3.a['adm2'] + '|' + s3.a['adm1'] + \
+							'|' + str(s3.a['lat']) + '|' + str(s3.a['lon']) + \
+							'|' + str(d['C'][i]) + '|' + str(d['D'][i]) + '|' + str(d['R'][i])
+						fileout.write(s + '\n')
+		fileout.close()
+	
 	# return array of indices from the dates, e.g. [0, 1, 2, 3, 4...]
 	def getIndexR(self, shift = 0):
 		# eg shift = 1, means array will start with 1 e.g. [1, 2, 3, 4...] but be of same length
